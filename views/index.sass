@@ -1,0 +1,138 @@
+/* reset */ /*-------------------------------------------------------------------------------------------*/
+
+html, body, div, span, 
+h1, h2, h3, h4, h5, h6,
+p, blockquote, img,
+a, abbr, cite, q, strong, sub, sup, 
+dl, dt, dd, ol, ul, li 
+  margin: 0
+  padding: 0
+  border: 0
+  outline: 0
+  font-weight: inherit
+  font-style: inherit
+  font-size: 100%
+  font-family: inherit
+  vertical-align: baseline
+
+\:focus
+  outline: 0
+
+body
+  line-height: 1
+  color: black
+  background: white
+
+ol, ul
+  list-style: none
+
+blockquote:before, blockquote:after,
+q:before, q:after
+  content: ""
+
+blockquote, q
+  quotes: "" ""
+
+
+/* layout */ /*-------------------------------------------------------------------------------------------*/
+
+
+#page_bar, #page_header, #headers_wrap, #tables_wrap
+  width: 1000px
+  margin: auto
+#line_wrap
+  width: 1100px
+  margin: auto
+
+
+/* style */ /*-------------------------------------------------------------------------------------------*/
+
+body
+  font-family: Open Sans, Helvetica, sans-serif
+  background-color: #f1f1f1
+  text-shadow: 0px 1px 1px #959595
+
+#page_bar_wrap
+  height: 40px
+  background-color: #464646
+  color: #f1f1f1
+  font-size: 20px
+  text-shadow: 0px 1px 2px black
+
+#page_bar
+  padding-top: 10px
+
+#page_header
+  height: 100px
+  padding-top: 50px
+  font-size: 32px
+  text-shadow: 0px 1px 2px #858585
+
+#headers_wrap
+  height: 40px
+  font-size: 22px
+  color: #292929
+  text-shadow: 0px 1px 2px #909090
+
+.clear
+  clear: both
+
+#line_wrap
+  height: 4px
+  padding-bottom: 20px
+
+#toolchains_header, #targets_header, #toolchains_table, #targets_table
+  width: 490px
+
+#toolchains_header, #toolchains_table
+  float: left
+
+#targets_header, #targets_table
+  float: right
+
+#tables_wrap
+  padding-top: 7px
+
+#tables_wrap td
+  padding-bottom: 7px
+
+.button
+  border-radius: 10px
+  -moz-border-radius: 10px
+  -webkit-border-radius: 10px
+  border: 1px solid #a3a3a3
+  background-color: #d1d1d1
+  margin-right: 7px
+
+.element_name, .parameter_name
+  text-align: left
+  padding-right: 15px
+  width: 180px
+
+.fixed_width
+  width: 110px
+
+#add_target_wrap
+  width: 490px
+  float: right
+  padding-top: 40px
+
+#add_new_target
+  text-shadow: 0px 1px 2px #909090
+  padding-bottom: 19px
+  font-size: 18px
+  color: #292929
+
+.parameter_name, .parameter_text_field
+  float: left
+  padding-bottom: 5px
+
+.parameter_name
+  width: 110px
+
+.parameter_name
+  padding-top: 4px
+
+.parameter_text_field input
+  background-color: #fcfcfc
+
