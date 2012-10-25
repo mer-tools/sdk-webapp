@@ -1,3 +1,5 @@
+require "sinatra/base"
+require "sass"
 
 class SdkHelper < Sinatra::Base
   use Rack::MethodOverride
