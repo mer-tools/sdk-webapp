@@ -23,7 +23,8 @@
               %tr
                 %td.element_name
                   #{toolchain}
-                %td.delete_button
+                -# removing patterns wont' work so let's hide the button
+                  %td.delete_button 
                   - if installed
                     %form{:action => "/toolchain/#{toolchain}", :method => "post"}
                       %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
@@ -51,13 +52,22 @@
                       %input{:type => "submit", :value => "set as default", :class => "button fixed_width"}
                   - else
                     %input{:type => "button", :value => "default", :disabled => "true", :class => "button disabled fixed_width"}
-                %td.upgrade_button
-                  %form{:action => "/target/#{target}/upgrade", :method => "post"}
-                    %input{:type => "submit", :value => "upgrade", :class => "button"}
+                -#No target upgrade for now.
+                  %td.upgrade_button
+                    %form{:action => "/target/#{target}/upgrade", :method => "post"}
+                      %input{:type => "submit", :value => "upgrade", :class => "button"}
         #add_target_wrap
           #add_new_target
             Add new target:
           %form{:action => '/target/add', :method => 'post'}
+            .parameter
+              .parameter_name
+                %label toolchain
+              %select{:name => "target_toolchain"}
+                - @toolchain_list.each do |toolchain, installed|
+                  - if installed
+                    %option{:value => @target_toolchain}=toolchain
+            .clear
             .parameter
               .parameter_name
                 %label target name

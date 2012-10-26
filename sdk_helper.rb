@@ -2,105 +2,102 @@ require "sinatra/base"
 require "sass"
 
 class SdkHelper < Sinatra::Base
-  use Rack::MethodOverride
-
+  
+  use Rack::MethodOverride #this is needed for delete methods
 
   get "/index.css" do
     sass :index
   end
- 
+
   ######## default routes ########
   get '/' do
-
-    @links = %w{target_add}.map 
     @toolchain_list = toolchain_list()
     @default_target = target_show_default()
-    # @targets = target_list().split
     @targets = target_list()
     haml :index
   end
-  
+
+  #install toolchain
   post '/toolchain/:toolchain' do
     toolchain = params[:toolchain]
-    "installing toolchain #{toolchain}"
+    toolchain_install(toolchain)
+    redirect to('/')
   end
 
+  #remove toolchain - not supported at the moment by sdk
   delete '/toolchain/:toolchain' do
     toolchain = params[:toolchain]
-    "removing toolchain: #{toolchain}"
+    toolchain_remove(toolchain)
+    redirect to('/')
   end
-  
+
+  #add target
   post '/target/add' do
     @target_name = params[:target_name]
     @target_url = params[:target_url]
-    target_add(@target_name, @target_url)
+    @target_toolchain = params[:target_toolchain]
+    target_add(@target_name, @target_url, @target_toolchain)
     redirect to('/')
   end
   
+  #remove target
   delete '/target/:target' do
     target = params[:target] if params[:target]
     ret = target_remove(target)
     redirect to('/')
   end
 
+  #set default target
   post '/target/:target' do
     default = params[:target] if params[:target]
     ret = target_set_default(default)
     redirect to('/')
   end
 
+  #upgrade target
   post '/target/:target/upgrade' do
     target = params[:target] if params[:target]
     target_upgrade(target)
     redirect to('/')
   end
-  
+
   ####### helper functions #######
   helpers do
     def toolchain_list()
-      # `sb2_manage --toolchain --list`
-      #fake list
-      return [["Mer-SB2-armv6l", true], ["Mer-SB2-armv7hl", true], ["Mer-SB2-armv7l", false],  ["Mer-SB2-armv7tnhl", true]]
+      list = `sb2_manage --toolchain --list`.split.map {|line| line.split(',')  }.map { |tc, i| [tc, i == 'i'] }
+      return list
     end
 
     def toolchain_install(name)
-      #`sb2_manage --toolchain --install #{name}`
+      ret = `sb2_manage --toolchain --install #{name}`
     end
 
     def toolchain_remove(name)
-      #`sb2_manage --toolchain --remove #{name}`
+      `sb2_manage --toolchain --remove #{name}`
     end
 
     def target_list()
-      #`sb2-config -l`
-      return ["n950-rootfs", "another", "yet_another"]
+      return `sb2_manage --target --list`.split
     end
 
     def target_show_default()
-      #`sb2-config showtarget`.strip()
-      return "n950-rootfs"
+      return `sb2-config showtarget`.strip()
     end
 
-    def target_add(name, url)
-      #`cd /srv/mer/targets/#{name}; sb2-init  -L "--sysroot=/" -C "--sysroot=/" -c /usr/bin/qemu-arm-dynamic -m sdk-build -n -N -t / #{name} /opt/cross/bin/armv7hl-meego-linux-gnueabi-gcc`
-      # this hack is going to be replaced with
-      # `sb2_manage --target #{name} --install #{url}`
-      puts "DEBUG: sb2_manage --target #{name} --install #{url}"
+    def target_add(name, url, toolchain)
+      ret = `sb2_manage --target --install #{name} #{toolchain} #{url}`
     end
 
     def target_remove(name)
-      #`cd ~/.scratchbox2; rm -rf #{name}`
-      # `sb2_manage --target #{name} --remove`
-      puts "DEBUG: sb2_manage --target #{name} --remove"
+      ret = `sb2_manage --target  --remove #{name}`
     end
 
     def target_set_default(name)
-      #`sb2-config -d #{name}`
+      `sb2-config -d #{name}`
     end
 
     def target_upgrade(target)
-      puts "upgrading target #{target}"
-      # `sb2_mange --target --name #{target} --upgrade`
+      # `sb2_manage --target --name #{target} --upgrade`
     end
   end
 end
