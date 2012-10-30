@@ -1,3 +1,5 @@
+* Tue Oct 30 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2-2
+- add systemd service file
 * Thu Oct 26 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2-1
 - use sb2_manage script for target management
 * Thu Oct 25 2012 David Greaves <david@dgreaves.com> - 0.1-1

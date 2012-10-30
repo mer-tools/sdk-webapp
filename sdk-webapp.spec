@@ -9,11 +9,12 @@ Name:       sdk-webapp
 # << macros
 
 Summary:    Mer SDK manager
-Version:    0.1
+Version:    0.2
 Release:    2
 Group:      Development/Languages/Ruby
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
+Source1:    %{name}.service
 Source100:  sdk-webapp.yaml
 Requires:   sdk-webapp-bundle
 
@@ -42,13 +43,16 @@ rm -rf %{buildroot}
 # >> install pre
 # << install pre
 %make_install
-
+mkdir -p %{buildroot}/usr/lib/systemd/user/
+cp %{_sourcedir}/%{name}.service %{buildroot}/usr/lib/systemd/user/
 # >> install post
 # << install post
-
+%post
+/bin/ln -s /usr/lib/systemd/user/%{name}.service %{_sysconfdir}/systemd/system/multi-user.target.wants/
 
 %files
 %defattr(-,root,root,-)
 %{_libdir}/%{name}-bundle/
+/usr/lib/systemd/user/%{name}.service
 # >> files
 # << files
