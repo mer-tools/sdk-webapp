@@ -1,3 +1,6 @@
+* Wed Oct 31 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.1-1
+- change sb2_manage -> sdk-manage
+- add upgrade sdk button
 * Tue Oct 30 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2-2
 - add systemd service file
 * Thu Oct 26 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2-1

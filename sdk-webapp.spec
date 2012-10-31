@@ -9,8 +9,8 @@ Name:       sdk-webapp
 # << macros
 
 Summary:    Mer SDK manager
-Version:    0.2
-Release:    2
+Version:    0.2.1
+Release:    1
 Group:      Development/Languages/Ruby
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
