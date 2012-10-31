@@ -14,7 +14,7 @@ Release:    2
 Group:      Development/Languages/Ruby
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
-Source1:    %{name}.service
+Source1:    sdk-webapp.service
 Source100:  sdk-webapp.yaml
 Requires:   sdk-webapp-bundle
 
@@ -43,16 +43,21 @@ rm -rf %{buildroot}
 # >> install pre
 # << install pre
 %make_install
+
+# >> install post
 mkdir -p %{buildroot}/usr/lib/systemd/user/
 cp %{_sourcedir}/%{name}.service %{buildroot}/usr/lib/systemd/user/
-# >> install post
 # << install post
+
+
 %post
+# >> post
 /bin/ln -s /usr/lib/systemd/user/%{name}.service %{_sysconfdir}/systemd/system/multi-user.target.wants/
+# << post
 
 %files
 %defattr(-,root,root,-)
 %{_libdir}/%{name}-bundle/
-/usr/lib/systemd/user/%{name}.service
+%{_libdir}/systemd/user/%{name}.service
 # >> files
 # << files

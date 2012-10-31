@@ -10,8 +10,10 @@ Group: Development/Languages/Ruby
 License: GPLv2+
 Sources:
     - sdk-webapp.tar.bz2
+    - sdk-webapp.service
 Requires:
     - sdk-webapp-bundle
 Configure: none
 Files:
   - "%{_libdir}/%{name}-bundle/"
+  - "%{_libdir}/systemd/user/%{name}.service"
