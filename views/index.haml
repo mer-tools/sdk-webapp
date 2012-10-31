@@ -36,6 +36,12 @@
                       %input{:type => "submit", :value => "install", :class => "button"}
                   - else
                     %input{:type => "button", :value => "install", :disabled => "true", :class => "button disabled", :name=> "_method"}
+        - @sdk_version.each do |ver_line|
+          %br
+          #{ver_line}
+        %form{:action => "/sdk/", :method => "post"}
+          %input{:type => "submit", :value => "upgrade", :class => "button"}
+        
       #targets_table
         %table
           %tbody

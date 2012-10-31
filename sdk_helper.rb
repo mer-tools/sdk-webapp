@@ -14,6 +14,7 @@ class SdkHelper < Sinatra::Base
     @toolchain_list = toolchain_list()
     @default_target = target_show_default()
     @targets = target_list()
+    @sdk_version = sdk_version()
     haml :index
   end
 
@@ -61,23 +62,28 @@ class SdkHelper < Sinatra::Base
     redirect to('/')
   end
 
+  #upgrade sdk
+  post '/sdk/' do
+    sdk_upgrade()
+    redirect to('/')
+  end
   ####### helper functions #######
   helpers do
     def toolchain_list()
-      list = `sb2_manage --toolchain --list`.split.map {|line| line.split(',')  }.map { |tc, i| [tc, i == 'i'] }
+      list = `sdk-manage --toolchain --list`.split.map {|line| line.split(',')  }.map { |tc, i| [tc, i == 'i'] }
       return list
     end
 
     def toolchain_install(name)
-      ret = `sb2_manage --toolchain --install #{name}`
+      ret = `sdk-manage --toolchain --install #{name}`
     end
 
     def toolchain_remove(name)
-      `sb2_manage --toolchain --remove #{name}`
+      `sdk-manage --toolchain --remove #{name}`
     end
 
     def target_list()
-      return `sb2_manage --target --list`.split
+      return `sdk-manage --target --list`.split
     end
 
     def target_show_default()
@@ -85,11 +91,11 @@ class SdkHelper < Sinatra::Base
     end
 
     def target_add(name, url, toolchain)
-      ret = `sb2_manage --target --install #{name} #{toolchain} #{url}`
+      ret = `sdk-manage --target --install #{name} #{toolchain} #{url}`
     end
 
     def target_remove(name)
-      ret = `sb2_manage --target  --remove #{name}`
+      ret = `sdk-manage --target  --remove #{name}`
     end
 
     def target_set_default(name)
@@ -97,7 +103,15 @@ class SdkHelper < Sinatra::Base
     end
 
     def target_upgrade(target)
-      # `sb2_manage --target --name #{target} --upgrade`
+      # `sdk-manage --target --name #{target} --upgrade`
+    end
+
+    def sdk_version()
+      `sdk-manage --sdk --version`.split("\n")
+    end
+    
+    def sdk_upgrade()
+      `sdk-manage --sdk --upgrade`
     end
   end
 end
