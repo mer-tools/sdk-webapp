@@ -4,7 +4,7 @@ Description:
  Allows web-based management of the Mer SDK.
  Adds toolchains, targets etc
 
-Version: 0.2.1
+Version: 0.2.2
 Release: 1
 Group: Development/Languages/Ruby
 License: GPLv2+
