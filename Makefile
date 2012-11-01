@@ -3,7 +3,7 @@ PREFIX = /usr
 BINDIR = $(PREFIX)/bin
 TARGET = $(PREFIX)/lib/$(NAME)-bundle
 
-SRC = config.ru sdk_helper.rb sdk-webapp.sh public views
+SRC = config.ru sdk_helper.rb public views
 
 all:
 	@echo "No build needed"
