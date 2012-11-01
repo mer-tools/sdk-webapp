@@ -2,4 +2,8 @@
 Description=sdk webapp
 
 [Service]
-ExecStart=/usr/lib/sdk-webapp-bundle/sdk-webapp.sh 
+ExecStart=/usr/bin/rackup 
+Type=simple
+WorkingDirectory=/usr/lib/sdk-webapp-bundle/
+User=mersdk
+
