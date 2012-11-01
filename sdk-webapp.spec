@@ -55,6 +55,11 @@ cp %{_sourcedir}/%{name}.service %{buildroot}/usr/lib/systemd/user/
 /bin/ln -s /usr/lib/systemd/user/%{name}.service %{_sysconfdir}/systemd/system/multi-user.target.wants/
 # << post
 
+%postun
+# >> postun
+rm %{_sysconfdir}/systemd/system/multi-user.target.wants/%{name}.service
+# << postun
+
 %files
 %defattr(-,root,root,-)
 %{_libdir}/%{name}-bundle/
