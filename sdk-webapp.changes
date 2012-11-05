@@ -1,3 +1,5 @@
+* Mon Nov 05 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.3-1
+- Make it more blue
 * Thu Nov 01 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.2-1
 - add %postun for removing .service symlink
 - modify .service to use WorkinDirectory and User
