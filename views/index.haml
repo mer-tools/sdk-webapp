@@ -3,88 +3,104 @@
   %head  
     %title SDK helper WebApp
     %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
+    - if @auto_refresh
+      %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
   %body
     #page_bar_wrap
       #page_bar
         SDK Control Center
-    #page_header
-      Manage targets and toolchains
-    #headers_wrap
-      #toolchains_header Available toolchains:
-      #targets_header Targets:
-    .clear
-    #line_wrap
-      %img(src="/images/line.png")
-    #tables_wrap
-      #toolchains_table
-        %table
-          %tbody
-            - @toolchain_list.each do |toolchain, installed|
-              %tr
-                %td.element_name
-                  #{toolchain}
-                -# removing patterns wont' work so let's hide the button
-                  %td.delete_button 
-                  - if installed
-                    %form{:action => "/toolchain/#{toolchain}", :method => "post"}
-                      %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
-                  - else
-                    %input{:type => "button", :value => "delete", :disabled => "true", :class => "button disabled", :name=> "_method"}
-                %td.install_button
-                  - if not installed
-                    %form{:action => "/toolchain/#{toolchain}", :method => "post"}
-                      %input{:type => "submit", :value => "install", :class => "button"}
-                  - else
-                    %input{:type => "button", :value => "install", :disabled => "true", :class => "button disabled", :name=> "_method"}
-        - @sdk_version.each do |ver_line|
-          %br
-          #{ver_line}
-        %form{:action => "/sdk/", :method => "post"}
-          %input{:type => "submit", :value => "upgrade", :class => "button"}
-        
-      #targets_table
-        %table
-          %tbody
-            - @targets.each do |target|
-              %tr
-                %td.element_name
-                  #{target}
-                %td.delete_button
-                  %form{:action => "/target/#{target}", :method => "post"}
-                    %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
-                %td.set_as_default_button
-                  - if not "#{target}" == "#{@default_target}"
-                    %form{:action => "/target/#{target}", :method => "post"}
-                      %input{:type => "submit", :value => "set as default", :class => "button fixed_width"}
-                  - else
-                    %input{:type => "button", :value => "default", :disabled => "true", :class => "button disabled fixed_width"}
-                -#No target upgrade for now.
-                  %td.upgrade_button
-                    %form{:action => "/target/#{target}/upgrade", :method => "post"}
-                      %input{:type => "submit", :value => "upgrade", :class => "button"}
-        #add_target_wrap
-          #add_new_target
-            Add new target:
-          %form{:action => '/target/add', :method => 'post'}
-            .parameter
-              .parameter_name
-                %label toolchain
-              %select{:name => "target_toolchain"}
-                - @toolchain_list.each do |toolchain, installed|
-                  - if installed
-                    %option{:value => @target_toolchain}=toolchain
-            .clear
-            .parameter
-              .parameter_name
-                %label target name
-              .parameter_text_field
-                %input{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
-            .clear
-            .parameter
-              .parameter_name
-                %label rootfs url
-              .parameter_text_field
-                %input{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
-              .parameter_add_button
-                %input{:type => 'submit', :value => 'add', :class => 'button'}
 
+    #content_wrap
+      #content
+        .page_header
+          Manage SDK
+        #sdk_management
+          #sdk_version
+            %ul
+              - @sdk_version.each do |ver_line|
+                %li
+                  #{ver_line}
+          #sdk_upgrade
+            %form{:action => "/sdk/", :method => "post"}
+              %input{:type => "submit", :value => "upgrade", :class => "button"}
+          .clear
+        .page_header
+          Manage targets and toolchains
+        #headers_wrap
+          #toolchains_header Available toolchains:
+          #targets_header Targets:
+        .clear
+        #line_wrap
+          %img(src="/images/line2.png")
+        #tables_wrap
+          #toolchains_table
+            %table
+              %tbody
+                - @toolchain_list.each do |toolchain, installed|
+                  %tr
+                    %td.element_name
+                      #{toolchain}
+                    -# removing patterns wont' work so let's hide the button
+                      %td.delete_button 
+                      - if installed
+                        %form{:action => "/toolchain/#{toolchain}", :method => "post"}
+                          %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
+                      - else
+                        %input{:type => "button", :value => "delete", :disabled => "true", :class => "button disabled", :name=> "_method"}
+                    %td.install_button
+                      - if not installed
+                        %form{:action => "/toolchain/#{toolchain}", :method => "post"}
+                          %input{:type => "submit", :value => "install", :class => "button"}
+                      - else
+                        %input{:type => "button", :value => "install", :disabled => "true", :class => "button disabled", :name=> "_method"}
+          #targets_table
+            %table
+              %tbody
+                - @targets.each do |target|
+                  %tr
+                    %td.element_name
+                      #{target}
+                    %td.delete_button
+                      %form{:action => "/target/#{target}", :method => "post"}
+                        %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
+                    %td.set_as_default_button
+                      - if not "#{target}" == "#{@default_target}"
+                        %form{:action => "/target/#{target}", :method => "post"}
+                          %input{:type => "submit", :value => "set as default", :class => "button fixed_width"}
+                      - else
+                        %input{:type => "button", :value => "default", :disabled => "true", :class => "button disabled fixed_width"}
+                    -#No target upgrade for now.
+                      %td.upgrade_button
+                        %form{:action => "/target/#{target}/upgrade", :method => "post"}
+                          %input{:type => "submit", :value => "upgrade", :class => "button"}
+            #add_target_wrap
+              #add_new_target
+                Add new target:
+              %form{:action => '/target/add', :method => 'post'}
+                .parameter
+                  .parameter_name
+                    %label toolchain
+                  %select.button{:name => "target_toolchain"}
+                    - @toolchain_list.each do |toolchain, installed|
+                      - if installed
+                        %option{:value => @target_toolchain}=toolchain
+                .clear
+                .parameter
+                  .parameter_name
+                    %label target name
+                  .parameter_text_field
+                    %input{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
+                .clear
+                .parameter
+                  .parameter_name
+                    %label rootfs url
+                  .parameter_text_field
+                    %input{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
+                  .parameter_add_button
+                    %input{:type => 'submit', :value => 'add', :class => 'button'}
+        .clear
+        #progress_view
+          .page_header
+            Instalation progress
+          #{@status_out}
+        .clear

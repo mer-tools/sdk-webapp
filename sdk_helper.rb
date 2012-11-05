@@ -1,8 +1,5 @@
-require "sinatra/base"
-require "sass"
-
 class SdkHelper < Sinatra::Base
-  
+
   use Rack::MethodOverride #this is needed for delete methods
 
   get "/index.css" do
@@ -11,10 +8,22 @@ class SdkHelper < Sinatra::Base
 
   ######## default routes ########
   get '/' do
-    @toolchain_list = toolchain_list()
+    list = toolchain_list()
+    if list.count == 1 #zypper is locked
+      @toolchain_list = $toolchainlist_cached
+    else
+      @toolchain_list = list
+      $toolchainlist_cached = list
+    end
     @default_target = target_show_default()
     @targets = target_list()
     @sdk_version = sdk_version()
+    out = process_output()
+    if out
+      @auto_refresh = true
+      splited = out.split("\n")
+      @status_out = (splited[(-[10,splited.size].min)..-1] or []).join("<br/>")
+    end
     haml :index
   end
 
@@ -40,7 +49,7 @@ class SdkHelper < Sinatra::Base
     target_add(@target_name, @target_url, @target_toolchain)
     redirect to('/')
   end
-  
+ 
   #remove target
   delete '/target/:target' do
     target = params[:target] if params[:target]
@@ -53,7 +62,7 @@ class SdkHelper < Sinatra::Base
     default = params[:target] if params[:target]
     ret = target_set_default(default)
     redirect to('/')
-  end
+    end
 
   #upgrade target
   post '/target/:target/upgrade' do
@@ -75,7 +84,24 @@ class SdkHelper < Sinatra::Base
     end
 
     def toolchain_install(name)
-      ret = `sdk-manage --toolchain --install #{name}`
+      $process_output = ""
+      $process = open("| sdk-manage --toolchain --install #{name}")
+    end
+
+    def process_output()
+      begin
+        @refresh_time = "3"
+        if not $process
+          nil
+        else
+          $process_output += $process.read_nonblock(2000000)
+        end
+      rescue EOFError
+        @auto_refresh = false
+        nil
+      rescue Errno::EAGAIN
+        return $process_output
+      end
     end
 
     def toolchain_remove(name)
@@ -91,7 +117,8 @@ class SdkHelper < Sinatra::Base
     end
 
     def target_add(name, url, toolchain)
-      ret = `sdk-manage --target --install #{name} #{toolchain} #{url}`
+      $process_output = ""
+      $process = open("|sdk-manage --target --install #{name} #{toolchain} #{url}")
     end
 
     def target_remove(name)
@@ -109,9 +136,10 @@ class SdkHelper < Sinatra::Base
     def sdk_version()
       `sdk-manage --sdk --version`.split("\n")
     end
-    
+
     def sdk_upgrade()
-      `sdk-manage --sdk --upgrade`
+      $process_output = ""
+      $process = open("|sdk-manage --sdk --upgrade")
     end
   end
 end
