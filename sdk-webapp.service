@@ -6,4 +6,4 @@ ExecStart=/usr/bin/rackup
 Type=simple
 WorkingDirectory=/usr/lib/sdk-webapp-bundle/
 User=mersdk
-
+KillSignal=SIGKILL
