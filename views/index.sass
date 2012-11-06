@@ -1,3 +1,7 @@
+/* author: agata.blomberg@gmail.com */
+
+
+
 /* reset */ /*-------------------------------------------------------------------------------------------*/
 
 html, body, div, span, 
@@ -44,7 +48,7 @@ blockquote, q
   width: 900px
   margin: auto
 #line_wrap
-  width: 1000px
+  width: 920px
   margin: auto
 
 
@@ -53,7 +57,8 @@ blockquote, q
 body
   font-family: Open Sans, Helvetica, sans-serif
   background-image: url("/images/background.png")
-  background-color: #e8eaef
+  background-repeat: no-repeat
+  background-color: #011130
   text-shadow: 0px 1px 1px black
   color: #abbbd7
 
@@ -77,8 +82,14 @@ body
 #content
   padding-left: 20px
 
+#manage_sdk
+  height: 40px
+
+#manage_t_and_t
+  margin-top: -16px
+
 .page_header
-  height: 55px
+  height: 35px
   padding-top: 60px
   font-size: 32px
   text-shadow: 0px 1px 2px black
@@ -88,7 +99,7 @@ body
   font-size: 20px
   color: #abbbd7
   text-shadow: 0px 1px 2px black
-  padding-top: 15px
+  padding-top: 10px
 
 #sdk_version
   width: 450px
@@ -113,8 +124,8 @@ body
   clear: both
 
 #line_wrap
-  height: 4px
-  padding-bottom: 20px
+  height: 7px
+  padding-top: 47px
 
 #toolchains_header, #targets_header, #toolchains_table, #targets_table
   width: 450px
@@ -138,7 +149,14 @@ body
   border: 1px solid #0f1d3a
   background-color: #3b4d6d
   margin-right: 7px
-  color: #abbbd7
+  color: #cbd6ea
+
+input[disabled], #select
+  color: #1b2a44
+
+#text_field1, #text_field2, #select
+  background-color: #dde1e8
+  width: 190px
 
 .element_name, .parameter_name
   text-align: left
@@ -158,10 +176,8 @@ body
   font-size: 18px
   color: #abbbd7
 
-#add_new_target input
-  background-color: #bcc3d0
-#add_new_target
-  width: 100px
+#select
+  margin-bottom: 5px
 
 .parameter_name, .parameter_text_field
   float: left
@@ -179,6 +195,10 @@ body
 #progress_view
   margin-bottom: 50px
   height: 340px
+
+#progress
+  margin-top: -13px
+  padding-bottom: 20px
 
 #progress_view iframe
   width: 900px
