@@ -1,3 +1,6 @@
+* Fri Nov 09 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.6-1
+- toolchain and target management to their own page
+- fix .spec file to start app when installed
 * Tue Nov 06 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.5-1
 - better graphics layout
 * Tue Nov 06 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.4-1
