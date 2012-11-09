@@ -52,12 +52,15 @@ cp %{_sourcedir}/%{name}.service %{buildroot}/usr/lib/systemd/user/
 
 %post
 # >> post
-/bin/ln -s /usr/lib/systemd/user/%{name}.service %{_sysconfdir}/systemd/system/multi-user.target.wants/
+/bin/ln -sf /usr/lib/systemd/user/%{name}.service %{_sysconfdir}/systemd/system/multi-user.target.wants/
+systemctl --system daemon-reload
+systemctl start %{name}.service
 # << post
 
 %postun
 # >> postun
 rm %{_sysconfdir}/systemd/system/multi-user.target.wants/%{name}.service
+systemctl --system daemon-reload
 # << postun
 
 %files
