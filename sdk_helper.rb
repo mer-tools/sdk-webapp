@@ -26,12 +26,49 @@ class SdkHelper < Sinatra::Base
     end
     haml :index
   end
+  
+  get '/toolchain/' do
+    list = toolchain_list()
+    if list.count == 1 #zypper is locked
+      @toolchain_list = $toolchainlist_cached
+    else
+      @toolchain_list = list
+      $toolchainlist_cached = list
+    end
+    out = process_output()
+    if out
+      @auto_refresh = true
+      splited = out.split("\n")
+      @status_out = (splited[(-[10,splited.size].min)..-1] or []).join("<br/>")
+    end
+    haml :toolchain
+  end
+
+  get '/target/' do
+    list = toolchain_list()
+    if list.count == 1 #zypper is locked
+      @toolchain_list = $toolchainlist_cached
+    else
+      @toolchain_list = list
+      $toolchainlist_cached = list
+    end
+
+    @default_target = target_show_default()
+    @targets = target_list()
+    out = process_output()
+    if out
+      @auto_refresh = true
+      splited = out.split("\n")
+      @status_out = (splited[(-[10,splited.size].min)..-1] or []).join("<br/>")
+    end
+    haml :targets
+  end
 
   #install toolchain
   post '/toolchain/:toolchain' do
     toolchain = params[:toolchain]
     toolchain_install(toolchain)
-    redirect to('/')
+    redirect to('/toolchain/')
   end
 
   #remove toolchain - not supported at the moment by sdk
@@ -47,28 +84,28 @@ class SdkHelper < Sinatra::Base
     @target_url = params[:target_url]
     @target_toolchain = params[:target_toolchain]
     target_add(@target_name, @target_url, @target_toolchain)
-    redirect to('/')
+    redirect to('/target/')
   end
  
   #remove target
   delete '/target/:target' do
     target = params[:target] if params[:target]
     ret = target_remove(target)
-    redirect to('/')
+    redirect to('/target/')
   end
 
   #set default target
   post '/target/:target' do
     default = params[:target] if params[:target]
     ret = target_set_default(default)
-    redirect to('/')
+    redirect to('/target/')
     end
 
   #upgrade target
   post '/target/:target/upgrade' do
     target = params[:target] if params[:target]
     target_upgrade(target)
-    redirect to('/')
+    redirect to('/target/')
   end
 
   #upgrade sdk
