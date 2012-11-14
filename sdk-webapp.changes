@@ -1,3 +1,6 @@
+* Wed Nov 14 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.7-1
+- more compact look with better navigation links
+- prevent launching multiple processes by clicking install links many times
 * Fri Nov 09 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.6-1
 - toolchain and target management to their own page
 - fix .spec file to start app when installed
