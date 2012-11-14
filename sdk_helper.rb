@@ -121,8 +121,10 @@ class SdkHelper < Sinatra::Base
     end
 
     def toolchain_install(name)
-      $process_output = ""
-      $process = open("| sdk-manage --toolchain --install #{name}")
+      if not $process
+        $process_output = ""
+        $process = open("| sdk-manage --toolchain --install #{name}")
+      end
     end
 
     def process_output()
@@ -135,6 +137,7 @@ class SdkHelper < Sinatra::Base
         end
       rescue EOFError
         @auto_refresh = false
+        $process = nil
         nil
       rescue Errno::EAGAIN
         return $process_output
@@ -142,7 +145,10 @@ class SdkHelper < Sinatra::Base
     end
 
     def toolchain_remove(name)
-      `sdk-manage --toolchain --remove #{name}`
+      if not $process
+        $process_output = ""
+        $process = open("|sdk-manage --toolchain --remove #{name}")
+      end
     end
 
     def target_list()
@@ -154,8 +160,10 @@ class SdkHelper < Sinatra::Base
     end
 
     def target_add(name, url, toolchain)
-      $process_output = ""
-      $process = open("|sdk-manage --target --install #{name} #{toolchain} #{url}")
+      if not $process
+        $process_output = ""
+        $process = open("|sdk-manage --target --install #{name} #{toolchain} #{url}")
+      end
     end
 
     def target_remove(name)
@@ -175,8 +183,11 @@ class SdkHelper < Sinatra::Base
     end
 
     def sdk_upgrade()
-      $process_output = ""
-      $process = open("|sdk-manage --sdk --upgrade")
+      if not $process
+        $process_output = ""
+        $process = open("|sdk-manage --sdk --upgrade")
+      end
     end
+    
   end
 end
