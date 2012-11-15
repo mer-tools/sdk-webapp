@@ -1,3 +1,5 @@
+* Thu Nov 15 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.8-1
+- Hover effects for navication links and buttons
 * Wed Nov 14 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.7-1
 - more compact look with better navigation links
 - prevent launching multiple processes by clicking install links many times
