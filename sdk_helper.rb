@@ -1,3 +1,6 @@
+require_relative 'target_servers'
+require 'json'
+
 class SdkHelper < Sinatra::Base
 
   use Rack::MethodOverride #this is needed for delete methods
@@ -24,6 +27,7 @@ class SdkHelper < Sinatra::Base
       splited = out.split("\n")
       @status_out = (splited[(-[10,splited.size].min)..-1] or []).join("<br/>")
     end
+    
     haml :index
   end
   
@@ -61,6 +65,7 @@ class SdkHelper < Sinatra::Base
       splited = out.split("\n")
       @status_out = (splited[(-[10,splited.size].min)..-1] or []).join("<br/>")
     end
+    @targets_available = targets_available
     haml :targets
   end
 
@@ -82,7 +87,11 @@ class SdkHelper < Sinatra::Base
   post '/target/add' do
     @target_name = params[:target_name]
     @target_url = params[:target_url]
+    @target_url_list = params[:target_url_list]
     @target_toolchain = params[:target_toolchain]
+    if @target_url_list.length > 0
+      @target_url = @target_url_list
+    end
     target_add(@target_name, @target_url, @target_toolchain)
     redirect to('/target/')
   end
@@ -151,6 +160,20 @@ class SdkHelper < Sinatra::Base
       end
     end
 
+    def targets_available()
+      target_array = []
+      @target_list_exists  = nil
+      $server_list.each do |server|
+        begin
+          response = RestClient.get server
+          target_array += JSON.parse(response)
+          @target_list_exists = true
+        rescue => e
+        end
+      end
+      return target_array
+    end
+    
     def target_list()
       return `sdk-manage --target --list`.split
     end
