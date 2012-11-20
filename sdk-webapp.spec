@@ -10,7 +10,7 @@ Name:       sdk-webapp
 
 Summary:    Mer SDK manager
 Version:    0.2.8
-Release:    1
+Release:    2
 Group:      Development/Languages/Ruby
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
@@ -59,7 +59,10 @@ systemctl start %{name}.service
 
 %postun
 # >> postun
+if [ "$1" = "0" ]; then
+# Perform tasks to prepare for the uninstallation
 rm %{_sysconfdir}/systemd/system/multi-user.target.wants/%{name}.service
+fi
 systemctl --system daemon-reload
 # << postun
 
