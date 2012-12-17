@@ -9,9 +9,9 @@
     #page_bar_wrap
       #page_bar
         %a(href="/") SDK Control Center
-        %a(href="/target/") Targets
+        %a(href="/targets/") Targets
         %b
-          %a(href="/toolchain/") Toolchains
+          %a(href="/toolchains/") Toolchains
 
 
     #content_wrap
@@ -34,13 +34,13 @@
                     -# removing patterns wont' work so let's hide the button
                       %td.delete_button 
                       - if installed
-                        %form{:action => "/toolchain/#{toolchain}", :method => "post"}
+                        %form{:action => "/toolchains/#{toolchain}", :method => "post"}
                           %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
                       - else
                         %input{:type => "button", :value => "delete", :disabled => "true", :class => "button disabled", :name=> "_method"}
                     %td.install_button
                       - if not installed
-                        %form{:action => "/toolchain/#{toolchain}", :method => "post"}
+                        %form{:action => "/toolchains/#{toolchain}", :method => "post"}
                           %input{:type => "submit", :value => "install", :class => "button"}
                       - else
                         %input{:type => "button", :value => "install", :disabled => "true", :class => "button disabled", :name=> "_method"}
@@ -51,7 +51,8 @@
         #progress_view
           .page_header#progress
             Installation progress
-          #{@status_out}
+          .monospace
+            #{@status_out}
         .clear
 
 

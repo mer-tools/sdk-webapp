@@ -10,8 +10,8 @@
       #page_bar
         %a(href="/") SDK Control Center
         %b
-          %a(href="/target/") Targets
-        %a(href="/toolchain/") Toolchains
+          %a(href="/targets/") Targets
+        %a(href="/toolchains/") Toolchains
         
     #content_wrap
       #content
@@ -28,28 +28,28 @@
           #toolchain_table
             %table
               %tbody
-                - @targets.each do |target|
+                - @targets_list.each do |target|
                   %tr
                     %td.element_name
                       #{target}
                     %td.delete_button
-                      %form{:action => "/target/#{target}", :method => "post"}
+                      %form{:action => "/targets/#{target}", :method => "post"}
                         %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
                     %td.set_as_default_button
-                      - if not "#{target}" == "#{@default_target}"
-                        %form{:action => "/target/#{target}", :method => "post"}
+                      - if not "#{target}" == "#{@target_default}"
+                        %form{:action => "/targets/#{target}", :method => "post"}
                           %input{:type => "submit", :value => "set as default", :class => "button fixed_width"}
                       - else
                         %input{:type => "button", :value => "default", :disabled => "true", :class => "button disabled fixed_width"}
                     -#No target upgrade for now.
                       %td.upgrade_button
-                        %form{:action => "/target/#{target}/upgrade", :method => "post"}
+                        %form{:action => "/targets/#{target}/upgrade", :method => "post"}
                           %input{:type => "submit", :value => "upgrade", :class => "button"}
                           
               #add_target_wrap
                 #add_new_target
                   Add new target:
-                %form{:action => '/target/add', :method => 'post'}
+                %form{:action => '/targets/add', :method => 'post'}
                   .parameter
                     .parameter_name
                       %label toolchain
@@ -78,7 +78,8 @@
         #progress_view
           .page_header#progress
             Installation progress
-          #{@status_out}
+          .monospace
+            #{@status_out}
         .clear
 
 

@@ -10,8 +10,8 @@
       #page_bar
         %b
           %a(href="/") SDK Control Center
-        %a(href="/target/") Targets
-        %a(href="/toolchain/") Toolchains
+        %a(href="/targets/") Targets
+        %a(href="/toolchains/") Toolchains
 
     #content_wrap
       #content
@@ -42,7 +42,8 @@
         #progress_view
           .page_header#progress
             Installation progress
-          #{@status_out}
+          .monospace
+            #{@status_out}
         .clear
 
 
