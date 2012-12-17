@@ -11,7 +11,6 @@ class SdkHelper < Sinatra::Base
 		sass :index
 	end
 
-	######## default routes ########
 	get '/' do
 		process_tail_update
 		sdk_version_update
@@ -54,7 +53,7 @@ class SdkHelper < Sinatra::Base
 		target_url = params[:target_url]
 		target_url_list = params[:target_url_list]
 		target_toolchain = params[:target_toolchain]
-		if target_url_list.length > 0
+		if target_url_list and target_url_list.length > 0
 			target_url = target_url_list
 			target_toolchain = @targets_available.select { |target| target["url"] == target_url }[0]["toolchain"]
 		end
@@ -84,7 +83,6 @@ class SdkHelper < Sinatra::Base
 		redirect to('/')
 	end
 
-	####### helper functions #######
 	helpers do
 
 		# -------------------------------- Toolchain
@@ -144,7 +142,6 @@ class SdkHelper < Sinatra::Base
 			end
 		end
 
-
 		# -------------------------------- Sdk
 
 		def sdk_version_update
@@ -160,26 +157,27 @@ class SdkHelper < Sinatra::Base
 		# -------------------------------- Process
 
 		def process_tail_update
-			@status_out = $status_out
-			return unless $process
-
-			$process_tail += $process.stdout_read(timeout: 0) + $process.stderr_read(timeout: 0)
-			split = $process_tail.split("\n",-1).collect { |nline| nline.split("\r",-1)[-1] }
-			$process_tail = (split[(-[10,split.size].min)..-1] or []).join("\n")
-			$status_out = $process_tail.split("\n").join("<br/>\n").gsub(" ","&nbsp;")
-			if $process.status[0] == "Z"
-				$process_exit = "FINISHED " + $process_description + " - exited with status " + $process.reap.exitstatus.to_s
-				$process = nil
-			elsif $process.runtime > $process_timeout
-				$process.reap
-				$process_exit = "TIMEOUT " + $process_description + " - process killed"
-				$process = nil
-			end
 			if $process
-				$status_out = "<b>" + "-"*40 + " " + $process_description + "</b><br/>\n<br/>\n" + $status_out
-			else
-				$status_out = "<b>" + "-"*40 + " " + $process_exit + "</b><br/>\n<br/>\n" + $status_out
+				@refresh_time = 10
+				$process_tail += $process.stdout_read(timeout: 0) + $process.stderr_read(timeout: 0)
+				split = $process_tail.split("\n",-1).collect { |nline| nline.split("\r",-1)[-1] }
+				$process_tail = (split[(-[10,split.size].min)..-1] or []).join("\n")
+				$status_out = $process_tail.split("\n").join("<br/>\n").gsub(" ","&nbsp;")
+				if $process.status[0] == "Z"
+					$process_exit = "FINISHED " + $process_description + " - exited with status " + $process.reap.exitstatus.to_s
+					@refresh_time = $process = nil
+				elsif $process.runtime > $process_timeout
+					$process.reap
+					$process_exit = "TIMEOUT " + $process_description + " - process killed"
+					@refresh_time = $process = nil
+				end
+				if $process
+					$status_out = "<b>" + "-"*40 + " " + $process_description + "</b><br/>\n<br/>\n" + $status_out
+				else
+					$status_out = "<b>" + "-"*40 + " " + $process_exit + "</b><br/>\n<br/>\n" + $status_out
+				end
 			end
+			@status_out = $status_out
 		end
 
 		def process_start(command, description, timeout)

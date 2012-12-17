@@ -3,7 +3,7 @@
   %head  
     %title SDK helper WebApp
     %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
-    - if @auto_refresh
+    - if @refresh_time
       %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
   %body
     #page_bar_wrap
