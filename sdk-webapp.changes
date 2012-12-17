@@ -1,3 +1,5 @@
+* Mon Dec 17 2012 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.3.1-2
+- package splitting, for easy customization
 * Mon Dec 17 2012 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.3.0-1
 - major re-factoring
 * Tue Nov 20 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.8-2
