@@ -9,14 +9,14 @@ Name:       sdk-webapp
 # << macros
 
 Summary:    Mer SDK manager
-Version:    0.2.8
-Release:    2
+Version:    0.3.0
+Release:    1
 Group:      Development/Languages/Ruby
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
 Source1:    sdk-webapp.service
 Source100:  sdk-webapp.yaml
-Requires:   sdk-webapp-bundle
+Requires:   sdk-webapp-bundle >= 0.3.0
 
 %description
 Allows web-based management of the Mer SDK. Adds toolchains, targets etc

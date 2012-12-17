@@ -1,3 +1,5 @@
+* Mon Dec 17 2012 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.3.0-1
+- major re-factoring
 * Tue Nov 20 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.8-2
 - check in %postun if action is upgrade. If so do not delete symlink
 * Thu Nov 15 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.8-1
