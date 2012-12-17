@@ -5,7 +5,7 @@ Description:
  Adds toolchains, targets etc
 
 Version: 0.3.1
-Release: 2
+Release: 3
 Group: Development Platform/Platform SDK
 License: GPLv2+
 Sources:
@@ -15,6 +15,7 @@ Requires:
     - sdk-webapp-bundle >= 0.3.0
     - sdk-webapp-customization
 Configure: none
+SetupOptions: -q -n src
 Files:
   - "%{_libdir}/%{name}-bundle/config.ru"
   - "%{_libdir}/%{name}-bundle/sdk_helper.rb"

@@ -10,7 +10,7 @@ Name:       sdk-webapp
 
 Summary:    Mer SDK manager
 Version:    0.3.1
-Release:    2
+Release:    3
 Group:      Development Platform/Platform SDK
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
@@ -33,7 +33,7 @@ Gives SDK manager it's default mer-ish look
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n src
 
 # >> setup
 # << setup
