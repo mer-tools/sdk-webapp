@@ -1,4 +1,5 @@
 require './shell_process'
+require_relative 'target_servers'
 
 class ProcessFailed < Exception; end
 
@@ -28,6 +29,7 @@ class SdkHelper < Sinatra::Base
 		toolchain_list_update
 		target_default_update
 		targets_list_update
+		targets_available_update
 		haml :targets
 	end
 
@@ -47,9 +49,15 @@ class SdkHelper < Sinatra::Base
 
 	#add target
 	post '/targets/add' do
+		targets_available_update
 		target_name = params[:target_name]
 		target_url = params[:target_url]
+		target_url_list = params[:target_url_list]
 		target_toolchain = params[:target_toolchain]
+		if target_url_list.length > 0
+			target_url = target_url_list
+			target_toolchain = @targets_available.select { |target| target["url"] == target_url }[0]["toolchain"]
+		end
 		target_add(target_name, target_url, target_toolchain)
 		redirect to('/targets/')
 	end
@@ -125,6 +133,18 @@ class SdkHelper < Sinatra::Base
 		#	`sdk-manage --target --name #{target} --upgrade` ????
 		#end
 
+		def targets_available_update
+			@targets_available = []
+			$server_list.each do |url|
+				begin
+					response = RestClient::Request.execute(method: :get, url: url, timeout: 10, open_timeout: 10)
+					@targets_available += JSON.parse(response)
+				rescue
+				end
+			end
+		end
+
+
 		# -------------------------------- Sdk
 
 		def sdk_version_update
@@ -178,5 +198,6 @@ class SdkHelper < Sinatra::Base
 		end
 
 	end
+
 end
 

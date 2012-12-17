@@ -11,9 +11,22 @@ def app() SdkHelper end
 
 ORIGINAL_PATH = ENV['PATH']
 
+$server_list = [ "MOCK_SERVER" ]
+
+
 describe "Sdk Webapp" do
 	
+	before do 
+		class RestClient::Request
+			def self.execute(*params)
+				params[0][:url].must_equal 'MOCK_SERVER'
+				'[{"name": "MOCK_TARGET_NAME", "url": "MOCK_TARGET_URL", "toolchain": "MOCK_TARGET_TOOLCHAIN"}]'
+			end
+		end
+	end
+
 	describe "working with not-locked sdk-manage/zypper" do 
+
 
 		before do 
 			ENV['PATH'] = "./tests/mock-bin-ok/:" + ORIGINAL_PATH
@@ -34,6 +47,7 @@ describe "Sdk Webapp" do
 			response.wont_match /.*TOOLCHAIN1.*/
 			response.must_match /.*TOOLCHAIN2.*/
 			response.wont_match /.*TOOLCHAIN3.*/
+			response.must_match /.*MOCK_TARGET_URL.*/
 		end
 
 
@@ -76,6 +90,7 @@ describe "Sdk Webapp" do
 			response.must_match /.*TOOLCHAIN2.*/
 			response.wont_match /.*TOOLCHAIN3.*/
 			response.wont_match /.*WRONG_TEXT.*/
+			response.must_match /.*MOCK_TARGET_URL.*/
 		end
 
 
@@ -120,6 +135,7 @@ describe "Sdk Webapp" do
 			response.wont_match /.*TOOLCHAIN2.*/
 			response.wont_match /.*TOOLCHAIN3.*/
 			response.wont_match /.*WRONG_TEXT.*/
+			response.must_match /.*MOCK_TARGET_URL.*/
 		end
 
 
@@ -136,7 +152,59 @@ describe "Sdk Webapp" do
 
 	end
 
+	describe "working with crappy target server" do 
 
+		before do 
+			ENV['PATH'] = "./tests/mock-bin-ok/:" + ORIGINAL_PATH
+		end
+
+		describe "returning crap" do
+
+			it "doesn't fail when asked about /targets/" do 
+				class RestClient::Request
+					def self.execute(*params)
+						"crap"
+					end
+				end
+				get "/targets/"
+				response = last_response.body
+				response.must_match /.*TARGET1.*/
+				response.must_match /.*TARGET2.*/
+				response.must_match /.*DEFAULT_TARGET.*/
+				#TODO: should show default target as default
+				response.wont_match /.*TOOLCHAIN1.*/
+				response.must_match /.*TOOLCHAIN2.*/
+				response.wont_match /.*TOOLCHAIN3.*/
+				response.wont_match /.*MOCK_TARGET_URL.*/
+				#TODO: ensure target dropdown is not generated
+			end
+
+		end
+
+		describe "returning nothing" do
+
+			it "doesn't fail when asked about /targets/" do 
+				class RestClient::Request
+					def self.execute(*params)
+						nil
+					end
+				end
+				get "/targets/"
+				response = last_response.body
+				response.must_match /.*TARGET1.*/
+				response.must_match /.*TARGET2.*/
+				response.must_match /.*DEFAULT_TARGET.*/
+				#TODO: should show default target as default
+				response.wont_match /.*TOOLCHAIN1.*/
+				response.must_match /.*TOOLCHAIN2.*/
+				response.wont_match /.*TOOLCHAIN3.*/
+				response.wont_match /.*MOCK_TARGET_URL.*/
+				#TODO: ensure target dropdown is not generated
+			end
+
+		end
+
+	end
 
 end
 

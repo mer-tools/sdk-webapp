@@ -2,10 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     haml (3.1.7)
+    json (1.5.4)
+    mime-types (1.19)
     open4 (1.3.0)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     sass (3.2.1)
     sinatra (1.3.3)
       rack (~> 1.3, >= 1.3.6)
@@ -18,6 +22,8 @@ PLATFORMS
 
 DEPENDENCIES
   haml
+  json
   open4
+  rest-client
   sass
   sinatra
