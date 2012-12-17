@@ -3,14 +3,16 @@ PREFIX = /usr
 BINDIR = $(PREFIX)/bin
 TARGET = $(PREFIX)/lib/$(NAME)-bundle
 
-SRC = config.ru sdk_helper.rb target_servers.rb public views
+APPLICATION = config.ru sdk_helper.rb shell_process.rb views/index.haml views/targets.haml views/toolchains.haml
+CUSTOMIZATION = target_servers.rb views/index.sass public/images 
 
 all:
 	@echo "No build needed"
 
-install: 
-	@echo "Installing...";
+install:
+	@echo "Installing application...";
 	mkdir -p $(DESTDIR)$(TARGET)
-	cp -r $(SRC) $(DESTDIR)$(TARGET)
+	cp -r --parents $(APPLICATION) $(DESTDIR)$(TARGET)
+	cp -r --parents $(CUSTOMIZATION) $(DESTDIR)$(TARGET)
 
 .PHONY: all install

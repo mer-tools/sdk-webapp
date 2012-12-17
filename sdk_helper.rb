@@ -20,7 +20,7 @@ class SdkHelper < Sinatra::Base
 	get '/toolchains/' do
 		process_tail_update
 		toolchain_list_update
-		haml :toolchain
+		haml :toolchains
 	end
 
 	get '/targets/' do
