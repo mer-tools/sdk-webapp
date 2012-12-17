@@ -98,7 +98,9 @@ class SdkHelper < Sinatra::Base
 		# -------------------------------- Target
 
 		def targets_list_update
-			@targets_list = out = process_complete("sdk-manage --target --list").split #TODO: cache?
+			$targets_list = @targets_list = process_complete("sdk-manage --target --list").split
+		rescue ProcessFailed
+			@targets_list = ($targets_list or [])
 		end
 
 		def target_default_update
@@ -126,7 +128,9 @@ class SdkHelper < Sinatra::Base
 		# -------------------------------- Sdk
 
 		def sdk_version_update
-			@sdk_version = process_complete("sdk-manage --sdk --version").split("\n")
+			$sdk_version = @sdk_version = process_complete("sdk-manage --sdk --version").split("\n")
+		rescue ProcessFailed
+			@sdk_version = ($sdk_version or [])
 		end
 
 		def sdk_upgrade
