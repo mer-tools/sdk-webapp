@@ -47,6 +47,8 @@ blockquote, q
 #page_bar, .page_header, #headers_wrap, #tables_wrap, #sdk_management, #progress_view, 
   width: 900px
   margin: auto
+#page_menu
+  float: right
 #line_wrap
   width: 920px
   margin: auto
@@ -77,6 +79,18 @@ body
 #page_bar
   padding-top: 10px
 
+.current_tab
+  padding-bottom: 12px
+  background-image: url("/images/line3.png")
+  background-size: 90px 6px
+  background-repeat: no-repeat
+  background-position: center bottom
+  float: left
+
+.tab
+  margin-right: 20px
+  float: left
+
 #content_wrap
   margin-top: 30px
   background-color: rgba(00, 00, 00, 0.3)
@@ -86,25 +100,27 @@ body
 
 #content
   padding-left: 20px
+  padding-bottom: 50px
 
-#manage_sdk
+.manage_header
   height: 20px
 
 #manage_t_and_t
   margin-top: -16px
 
-.page_header
+.page_header, .targets_header
   height: 35px
   padding-top: 40px
   font-size: 22px
   text-shadow: 0px 1px 2px black
+  padding-bottom: 20px
+
 
 #sdk_management
   line-height: 1.5em
   font-size: 18px
   color: #abbbd7
   text-shadow: 0px 1px 2px black
-  padding-top: 10px
 
 #sdk_version
   width: 450px
@@ -135,14 +151,15 @@ body
 #toolchains_header, #targets_header, #toolchains_table, #targets_table
   width: 450px
 
+#targets_table
+  padding-left: 40px
+
 #toolchains_header, #toolchains_table, #sdk_version
   float: left
 
-#targets_header, #targets_table
+#targets_header
   float: right
 
-#tables_wrap
-  padding-top: 2px
 
 #tables_wrap td
   padding-bottom: 2px
@@ -202,12 +219,32 @@ input[disabled], #select
 .parameter_text_field input
   background-color: #fcfcfc
 
+
+.parameter_add_button input
+  width: 100%
+  padding-top: 4px
+  padding-bottom: 6px
+
+.parameter_add_button
+  width: 160px
+  margin-left: 75px
+  padding-top: 22px
+
+#add_from_list
+  padding-top: 12px
+
+#target_add_method_separator
+  padding-top: 6px
+  text-align: center
+
 #progress_view
   margin-bottom: 50px
-  height: 340px
+
+.monospace
+  font-family: monospace
 
 #progress
-  margin-top: -13px
+  margin-top: -8px
   padding-bottom: 20px
 
 #progress_view iframe

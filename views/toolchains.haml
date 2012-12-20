@@ -3,26 +3,27 @@
   %head  
     %title SDK helper WebApp
     %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
-    - if @auto_refresh
+    - if @refresh_time
       %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
   %body
     #page_bar_wrap
       #page_bar
-        %a(href="/") SDK Control Center
-        %a(href="/target/") Targets
         %b
-          %a(href="/toolchain/") Toolchains
+          SDK Control Center
+        #page_menu
+          .tab
+            %a.menu_link(href="/") SDK
+          .tab
+            %a.menu_link(href="/targets/") Targets
+          .current_tab
+            %a(href="/toolchains/") Toolchains
+        .clear
 
 
     #content_wrap
       #content
-        .page_header#manage_sdk
-          Manage Toolchains
-        #line_wrap
-          %img(src="/images/line3.png")
-        #headers_wrap
-          #toolchains_header Available toolchains:
-        .clear
+        .page_header.manage_header
+          Manage Toolchains:
         #tables_wrap
           #toolchains_table
             %table
@@ -34,25 +35,26 @@
                     -# removing patterns wont' work so let's hide the button
                       %td.delete_button 
                       - if installed
-                        %form{:action => "/toolchain/#{toolchain}", :method => "post"}
+                        %form{:action => "/toolchains/#{toolchain}", :method => "post"}
                           %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
                       - else
                         %input{:type => "button", :value => "delete", :disabled => "true", :class => "button disabled", :name=> "_method"}
                     %td.install_button
                       - if not installed
-                        %form{:action => "/toolchain/#{toolchain}", :method => "post"}
+                        %form{:action => "/toolchains/#{toolchain}", :method => "post"}
                           %input{:type => "submit", :value => "install", :class => "button"}
                       - else
                         %input{:type => "button", :value => "install", :disabled => "true", :class => "button disabled", :name=> "_method"}
           .clear
-        #line_wrap
-          %img(src="/images/line3.png")
-        .clear            
-        #progress_view
-          .page_header#progress
-            Installation progress
-          #{@status_out}
-        .clear
-
+          - if @status_out and @status_out.size > 0
+            #line_wrap
+              %img(src="/images/line3.png")
+            .clear
+            #progress_view
+              .page_header#progress
+                Operation progress
+              .monospace
+                #{@status_out}
+            .clear
 
 / designed by: agata.blomberg@gmail.com

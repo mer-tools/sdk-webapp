@@ -3,83 +3,98 @@
   %head  
     %title SDK helper WebApp
     %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
-    - if @auto_refresh
+    - if @refresh_time
       %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
   %body
     #page_bar_wrap
       #page_bar
-        %a(href="/") SDK Control Center
         %b
-          %a(href="/target/") Targets
-        %a(href="/toolchain/") Toolchains
+          SDK Control Center
+        #page_menu
+          .tab
+            %a.menu_link(href="/") SDK
+          .current_tab.tab
+            %a.menu_link(href="/targets/") Targets
+          %a(href="/toolchains/") Toolchains
+        .clear
         
     #content_wrap
       #content
-        .page_header#manage_sdk
-          Manage Targets
-        #sdk_management
-          .clear
-        #line_wrap
-          %img(src="/images/line3.png")
-        #headers_wrap
-          #toolchain_header Targets:
-        .clear
-        #tables_wrap
-          #toolchain_table
-            %table
-              %tbody
-                - @targets.each do |target|
+
+        #add_target_wrap
+          .targets_header
+            Add New Target:
+          %form{:action => '/targets/add', :method => 'post'}
+            .parameter
+              .parameter_name
+                %label toolchain
+              %select.button#select{:name => "target_toolchain"}
+                - @toolchain_list.each do |toolchain, installed|
+                  - if installed
+                    %option{:value => @target_toolchain}=toolchain
+            .clear
+            .parameter
+              .parameter_name
+                %label target name
+              .parameter_text_field
+                %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
+            .clear
+            .parameter
+              .parameter_name
+                %label target url
+              .parameter_text_field
+                %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
+            - if @targets_available.size > 0
+              .clear
+                #target_add_method_separator
+                  %label or
+              .clear
+              .parameter#add_from_list
+                .parameter_name
+                  %label from list
+                %select.button#select{:name => "target_url_list"}
+                  %option{:value => ""}
+                  - @targets_available.each do |target|
+                    %option{:value => target["url"]}=target["name"]
+            .clear
+              .parameter_add_button
+                %input{:type => 'submit', :value => 'add', :class => 'button'}
+
+        #targets_table
+          %table
+            %tbody
+              .targets_header
+                Manage Targets:
+                - @targets_list.each do |target|
                   %tr
                     %td.element_name
                       #{target}
                     %td.delete_button
-                      %form{:action => "/target/#{target}", :method => "post"}
+                      %form{:action => "/targets/#{target}", :method => "post"}
                         %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
                     %td.set_as_default_button
-                      - if not "#{target}" == "#{@default_target}"
-                        %form{:action => "/target/#{target}", :method => "post"}
+                      - if not "#{target}" == "#{@target_default}"
+                        %form{:action => "/targets/#{target}", :method => "post"}
                           %input{:type => "submit", :value => "set as default", :class => "button fixed_width"}
                       - else
                         %input{:type => "button", :value => "default", :disabled => "true", :class => "button disabled fixed_width"}
                     -#No target upgrade for now.
                       %td.upgrade_button
-                        %form{:action => "/target/#{target}/upgrade", :method => "post"}
+                        %form{:action => "/targets/#{target}/upgrade", :method => "post"}
                           %input{:type => "submit", :value => "upgrade", :class => "button"}
                           
-              #add_target_wrap
-                #add_new_target
-                  Add new target:
-                %form{:action => '/target/add', :method => 'post'}
-                  .parameter
-                    .parameter_name
-                      %label toolchain
-                    %select.button#select{:name => "target_toolchain"}
-                      - @toolchain_list.each do |toolchain, installed|
-                        - if installed
-                          %option{:value => @target_toolchain}=toolchain
-                  .clear
-                  .parameter
-                    .parameter_name
-                      %label target name
-                    .parameter_text_field
-                      %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
-                  .clear
-                  .parameter
-                    .parameter_name
-                      %label rootfs url
-                    .parameter_text_field
-                      %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
-                    .parameter_add_button
-                      %input{:type => 'submit', :value => 'add', :class => 'button'}
+
         .clear
-        #line_wrap
-          %img(src="/images/line3.png")
-        .clears
-        #progress_view
-          .page_header#progress
-            Installation progress
-          #{@status_out}
-        .clear
+        - if @status_out and @status_out.size > 0
+          #line_wrap
+            %img(src="/images/line3.png")
+          .clear
+          #progress_view
+            .page_header#progress
+              Operation progress
+            .monospace
+              #{@status_out}
+          .clear
 
 
 / designed by: agata.blomberg@gmail.com
