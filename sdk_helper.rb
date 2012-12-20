@@ -55,7 +55,9 @@ class SdkHelper < Sinatra::Base
 		target_toolchain = params[:target_toolchain]
 		if target_url_list and target_url_list.length > 0
 			target_url = target_url_list
-			target_toolchain = @targets_available.select { |target| target["url"] == target_url }[0]["toolchain"]
+			target = @targets_available.select { |target| target["url"] == target_url }[0]
+			target_toolchain = target["toolchain"]
+			target_name = target["name"] if not target_name or target_name.size == 0
 		end
 		target_add(target_name, target_url, target_toolchain)
 		redirect to('/targets/')
