@@ -136,6 +136,9 @@ class SdkHelper < Sinatra::Base
 			$server_list.each do |url|
 				begin
 					response = RestClient::Request.execute(method: :get, url: url, timeout: 10, open_timeout: 10)
+					response = response.split(/\r?\n/).select { |line| 
+						line[0] != "#" and line[0..1] != "//"
+					}.join("\n")
 					@targets_available += JSON.parse(response)
 				rescue
 				end

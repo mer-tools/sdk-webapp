@@ -152,6 +152,37 @@ describe "Sdk Webapp" do
 
 	end
 
+	describe "working with target server sending commented json" do 
+		
+		it "doesn't fail on hash comments" do
+			class RestClient::Request
+				def self.execute(*params)
+					params[0][:url].must_equal 'MOCK_SERVER'
+					"# dupa\n"+'[{"name": "MOCK_TARGET_NAME", "url": "MOCK_TARGET_URL", "toolchain": "MOCK_TARGET_TOOLCHAIN"}]'
+				end
+			end
+
+			get '/targets/'
+			response = last_response.body
+			response.must_match /.*MOCK_TARGET_URL.*/
+		end
+
+		it "doesn't fail on slash-slash comments" do
+			class RestClient::Request
+				def self.execute(*params)
+					params[0][:url].must_equal 'MOCK_SERVER'
+					"# dupa\n"+'[{"name": "MOCK_TARGET_NAME", "url": "MOCK_TARGET_URL", "toolchain": "MOCK_TARGET_TOOLCHAIN"}]'
+				end
+			end
+
+			get '/targets/'
+			response = last_response.body
+			response.must_match /.*MOCK_TARGET_URL.*/
+		end
+
+		
+	end
+
 	describe "working with crappy target server" do 
 
 		before do 
