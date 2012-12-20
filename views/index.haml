@@ -9,13 +9,18 @@
     #page_bar_wrap
       #page_bar
         %b
-          %a(href="/") SDK Control Center
-        %a(href="/targets/") Targets
-        %a(href="/toolchains/") Toolchains
+          SDK Control Center
+        #page_menu
+          .current_tab.tab
+            %a(href="/") SDK
+          .tab
+            %a(href="/targets/") Targets
+          %a(href="/toolchains/") Toolchains
+        .clear
 
     #content_wrap
       #content
-        .page_header#manage_sdk
+        .page_header.manage_header
           Manage SDK
         #sdk_management
           #sdk_version
@@ -26,26 +31,17 @@
           #sdk_upgrade
             %form{:action => "/sdk/", :method => "post"}
               %input{:type => "submit", :value => "upgrade", :class => "button"}
+        .clear
+        - if @status_out and @status_out.size > 0
+          #line_wrap
+            %img(src="/images/line3.png")
           .clear
-        #line_wrap
-          %img(src="/images/line3.png")
-        -# 
-          #headers_wrap
-
-            #toolchains_header Available toolchains:
-            #targets_header Targets:
-        .clear
-        #tables_wrap
-        .clear
-        #line_wrap
-          %img(src="/images/line3.png")
-        .clear
-        #progress_view
-          .page_header#progress
-            Installation progress
-          .monospace
-            #{@status_out}
-        .clear
+          #progress_view
+            .page_header#progress
+              Operation progress
+            .monospace
+              #{@status_out}
+          .clear
 
 
 / designed by: agata.blomberg@gmail.com

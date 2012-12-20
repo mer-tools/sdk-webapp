@@ -8,26 +8,63 @@
   %body
     #page_bar_wrap
       #page_bar
-        %a(href="/") SDK Control Center
         %b
-          %a(href="/targets/") Targets
-        %a(href="/toolchains/") Toolchains
+          SDK Control Center
+        #page_menu
+          .tab
+            %a.menu_link(href="/") SDK
+          .current_tab.tab
+            %a.menu_link(href="/targets/") Targets
+          %a(href="/toolchains/") Toolchains
+        .clear
         
     #content_wrap
       #content
-        .page_header#manage_sdk
-          Manage Targets
-        #sdk_management
-          .clear
-        #line_wrap
-          %img(src="/images/line3.png")
-        #headers_wrap
-          #toolchain_header Targets:
-        .clear
-        #tables_wrap
-          #toolchain_table
-            %table
-              %tbody
+
+        #add_target_wrap
+          .targets_header
+            Add New Target:
+          %form{:action => '/targets/add', :method => 'post'}
+            .parameter
+              .parameter_name
+                %label toolchain
+              %select.button#select{:name => "target_toolchain"}
+                - @toolchain_list.each do |toolchain, installed|
+                  - if installed
+                    %option{:value => @target_toolchain}=toolchain
+            .clear
+            .parameter
+              .parameter_name
+                %label target name
+              .parameter_text_field
+                %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
+            .clear
+            .parameter
+              .parameter_name
+                %label target url
+              .parameter_text_field
+                %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
+            - if @targets_available.size > 0
+              .clear
+                #target_add_method_separator
+                  %label or
+              .clear
+              .parameter#add_from_list
+                .parameter_name
+                  %label from list
+                %select.button#select{:name => "target_url_list"}
+                  %option{:value => ""}
+                  - @targets_available.each do |target|
+                    %option{:value => target["url"]}=target["name"]
+            .clear
+              .parameter_add_button
+                %input{:type => 'submit', :value => 'add', :class => 'button'}
+
+        #targets_table
+          %table
+            %tbody
+              .targets_header
+                Manage Targets:
                 - @targets_list.each do |target|
                   %tr
                     %td.element_name
@@ -46,52 +83,18 @@
                         %form{:action => "/targets/#{target}/upgrade", :method => "post"}
                           %input{:type => "submit", :value => "upgrade", :class => "button"}
                           
-              #add_target_wrap
-                #add_new_target
-                  Add new target:
-                %form{:action => '/targets/add', :method => 'post'}
-                  .parameter
-                    .parameter_name
-                      %label toolchain
-                    %select.button#select{:name => "target_toolchain"}
-                      - @toolchain_list.each do |toolchain, installed|
-                        - if installed
-                          %option{:value => @target_toolchain}=toolchain
-                  .clear
-                  .parameter
-                    .parameter_name
-                      %label target name
-                    .parameter_text_field
-                      %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
-                  .clear
-                  .parameter
-                    .parameter_name
-                      %label target url
-                    .parameter_text_field
-                      %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
-                  - if @targets_available.size > 0
-                    .clear
-                      %label or
-                    .clear
-                    .parameter
-                      .parameter_name
-                        %label from list
-                      %select.button#select{:name => "target_url_list"}
-                        %option{:value => ""}
-                        - @targets_available.each do |target|
-                          %option{:value => target["url"]}=target["name"]
-                  .parameter_add_button
-                    %input{:type => 'submit', :value => 'add', :class => 'button'}
+
         .clear
-        #line_wrap
-          %img(src="/images/line3.png")
-        .clears
-        #progress_view
-          .page_header#progress
-            Installation progress
-          .monospace
-            #{@status_out}
-        .clear
+        - if @status_out and @status_out.size > 0
+          #line_wrap
+            %img(src="/images/line3.png")
+          .clear
+          #progress_view
+            .page_header#progress
+              Operation progress
+            .monospace
+              #{@status_out}
+          .clear
 
 
 / designed by: agata.blomberg@gmail.com

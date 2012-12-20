@@ -8,21 +8,22 @@
   %body
     #page_bar_wrap
       #page_bar
-        %a(href="/") SDK Control Center
-        %a(href="/targets/") Targets
         %b
-          %a(href="/toolchains/") Toolchains
+          SDK Control Center
+        #page_menu
+          .tab
+            %a.menu_link(href="/") SDK
+          .tab
+            %a.menu_link(href="/targets/") Targets
+          .current_tab
+            %a(href="/toolchains/") Toolchains
+        .clear
 
 
     #content_wrap
       #content
-        .page_header#manage_sdk
-          Manage Toolchains
-        #line_wrap
-          %img(src="/images/line3.png")
-        #headers_wrap
-          #toolchains_header Available toolchains:
-        .clear
+        .page_header.manage_header
+          Manage Toolchains:
         #tables_wrap
           #toolchains_table
             %table
@@ -45,15 +46,15 @@
                       - else
                         %input{:type => "button", :value => "install", :disabled => "true", :class => "button disabled", :name=> "_method"}
           .clear
-        #line_wrap
-          %img(src="/images/line3.png")
-        .clear            
-        #progress_view
-          .page_header#progress
-            Installation progress
-          .monospace
-            #{@status_out}
-        .clear
-
+          - if @status_out and @status_out.size > 0
+            #line_wrap
+              %img(src="/images/line3.png")
+            .clear
+            #progress_view
+              .page_header#progress
+                Operation progress
+              .monospace
+                #{@status_out}
+            .clear
 
 / designed by: agata.blomberg@gmail.com
