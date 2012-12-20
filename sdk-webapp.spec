@@ -9,17 +9,27 @@ Name:       sdk-webapp
 # << macros
 
 Summary:    Mer SDK manager
-Version:    0.2.8
+Version:    0.3.4
 Release:    1
-Group:      Development/Languages/Ruby
+Group:      Development Platform/Platform SDK
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
 Source1:    sdk-webapp.service
 Source100:  sdk-webapp.yaml
-Requires:   sdk-webapp-bundle
+Requires:   sdk-webapp-bundle >= 0.3.0
+Requires:   sdk-webapp-customization
 
 %description
 Allows web-based management of the Mer SDK. Adds toolchains, targets etc
+
+%package mer
+Summary:    Mer customization for SDK management web-application
+Group:      Development Platform/Platform SDK
+Requires:   %{name} = %{version}-%{release}
+Provides:   sdk-webapp-customization
+
+%description mer
+Gives SDK manager it's default mer-ish look
 
 
 %prep
@@ -45,27 +55,43 @@ rm -rf %{buildroot}
 %make_install
 
 # >> install post
-mkdir -p %{buildroot}/usr/lib/systemd/user/
-cp %{_sourcedir}/%{name}.service %{buildroot}/usr/lib/systemd/user/
+mkdir -p %{buildroot}%{_libdir}/systemd/user/
+cp %{_sourcedir}/%{name}.service %{buildroot}%{_libdir}/systemd/user/
 # << install post
 
 
 %post
 # >> post
-/bin/ln -sf /usr/lib/systemd/user/%{name}.service %{_sysconfdir}/systemd/system/multi-user.target.wants/
+/bin/ln -sf %{_libdir}/systemd/user/%{name}.service %{_sysconfdir}/systemd/system/multi-user.target.wants/
 systemctl --system daemon-reload
 systemctl start %{name}.service
 # << post
 
 %postun
 # >> postun
+if [ "$1" = "0" ]; then
+# Perform tasks to prepare for the uninstallation
 rm %{_sysconfdir}/systemd/system/multi-user.target.wants/%{name}.service
+fi
 systemctl --system daemon-reload
 # << postun
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/%{name}-bundle/
+%{_libdir}/%{name}-bundle/config.ru
+%{_libdir}/%{name}-bundle/sdk_helper.rb
+%{_libdir}/%{name}-bundle/shell_process.rb
+%{_libdir}/%{name}-bundle/views/index.haml
+%{_libdir}/%{name}-bundle/views/targets.haml
+%{_libdir}/%{name}-bundle/views/toolchains.haml
 %{_libdir}/systemd/user/%{name}.service
 # >> files
 # << files
+
+%files mer
+%defattr(-,root,root,-)
+%{_libdir}/%{name}-bundle/target_servers.rb
+%{_libdir}/%{name}-bundle/views/index.sass
+%{_libdir}/%{name}-bundle/public/images
+# >> files mer
+# << files mer

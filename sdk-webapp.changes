@@ -1,3 +1,15 @@
+* Mon Dec 20 2012 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.3.4-1
+- working target installation from dropdown-list
+* Mon Dec 20 2012 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.3.3-1
+- mer targets list
+* Mon Dec 20 2012 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.3.2-1
+- prettier graphics
+* Mon Dec 17 2012 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.3.1-2
+- package splitting, for easy customization
+* Mon Dec 17 2012 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.3.0-1
+- major re-factoring
+* Tue Nov 20 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.8-2
+- check in %postun if action is upgrade. If so do not delete symlink
 * Thu Nov 15 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.8-1
 - Hover effects for navication links and buttons
 * Wed Nov 14 2012 Henrik Saari <henrik.saari@jollamobile.com> - 0.2.7-1
