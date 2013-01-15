@@ -9,14 +9,14 @@ Name:       sdk-webapp
 # << macros
 
 Summary:    Mer SDK manager
-Version:    0.3.4
+Version:    0.4.0
 Release:    1
 Group:      Development Platform/Platform SDK
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
 Source1:    sdk-webapp.service
 Source100:  sdk-webapp.yaml
-Requires:   sdk-webapp-bundle >= 0.3.0
+Requires:   sdk-webapp-bundle >= 0.4.0
 Requires:   sdk-webapp-customization
 
 %description
@@ -84,6 +84,7 @@ systemctl --system daemon-reload
 %{_libdir}/%{name}-bundle/views/index.haml
 %{_libdir}/%{name}-bundle/views/targets.haml
 %{_libdir}/%{name}-bundle/views/toolchains.haml
+%{_libdir}/%{name}-bundle/i18n/en.ts
 %{_libdir}/systemd/user/%{name}.service
 # >> files
 # << files
