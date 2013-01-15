@@ -13,12 +13,12 @@
           = _ :page_name
         #page_menu
           .current_tab.tab
-            %a(href="/")
+            %a(href="/#{@language}/")
               = _ :sdk
           .tab
-            %a(href="/targets/")
+            %a(href="/#{@language}/targets/")
               = _ :targets
-          %a(href="/toolchains/")
+          %a(href="/#{@language}/toolchains/")
             = _ :toolchains
         .clear
 
@@ -33,7 +33,7 @@
                 %li
                   #{ver_line}
           #sdk_upgrade
-            %form{:action => "/sdk/", :method => "post"}
+            %form{:action => "/#{@language}/sdk/", :method => "post"}
               %input{:type => "submit", :value => (_ :upgrade), :class => "button"}
         .clear
         - if @status_out and @status_out.size > 0

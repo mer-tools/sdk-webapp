@@ -13,13 +13,13 @@
           = _ :page_name
         #page_menu
           .tab
-            %a.menu_link(href="/")
+            %a.menu_link(href="/#{@language}/")
               = _ :sdk
           .tab
-            %a.menu_link(href="/targets/")
+            %a.menu_link(href="/#{@language}/targets/")
               = _ :targets
           .current_tab
-            %a(href="/toolchains/")
+            %a(href="/#{@language}/toolchains/")
               = _ :toolchains
         .clear
 
@@ -45,7 +45,7 @@
                         %input{:type => "button", :value => "delete", :disabled => "true", :class => "button disabled", :name=> "_method"}
                     %td.install_button
                       - if not installed
-                        %form{:action => "/toolchains/#{toolchain}", :method => "post"}
+                        %form{:action => "/#{@language}/toolchains/#{toolchain}", :method => "post"}
                           %input{:type => "submit", :value => (_ :install), :class => "button"}
                       - else
                         %input{:type => "button", :value => (_ :install), :disabled => "true", :class => "button disabled", :name=> "_method"}

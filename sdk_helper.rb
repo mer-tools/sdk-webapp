@@ -18,19 +18,28 @@ class SdkHelper < Sinatra::Base
 		sass :index
 	end
 
-	get '/' do
+
+	get '/' do redirect to "/"+system_language+"/"; end
+	get '/toolchains/' do redirect to "/"+system_language+"/toolchains/"; end
+	get '/targets/' do redirect to "/"+system_language+"/targets/"; end
+
+
+	get '/:locale/' do
+		locale_set
 		process_tail_update
 		sdk_version_update
 		haml :index
 	end
 	
-	get '/toolchains/' do
+	get '/:locale/toolchains/' do
+		locale_set
 		process_tail_update
 		toolchain_list_update
 		haml :toolchains
 	end
 
-	get '/targets/' do
+	get '/:locale/targets/' do
+		locale_set
 		process_tail_update
 		toolchain_list_update
 		target_default_update
@@ -40,21 +49,21 @@ class SdkHelper < Sinatra::Base
 	end
 
 	#install toolchain
-	post '/toolchains/:toolchain' do
+	post '/:locale/toolchains/:toolchain' do
 		toolchain = params[:toolchain]
 		toolchain_install(toolchain)
-		redirect to('/toolchains/')
+		redirect to("/"+params[:locale]+'/toolchains/')
 	end
 
 	#remove toolchain - not supported at the moment by sdk
-	delete '/toolchains/:toolchain' do
+	delete '/:locale/toolchains/:toolchain' do
 		toolchain = params[:toolchain]
 		toolchain_remove(toolchain)
-		redirect to('/')
+		redirect to('/'+params[:locale]+'/')
 	end
 
 	#add target
-	post '/targets/add' do
+	post '/:locale/targets/add' do
 		targets_available_update
 		target_name = params[:target_name]
 		target_url = params[:target_url]
@@ -67,32 +76,40 @@ class SdkHelper < Sinatra::Base
 			target_name = target["name"] if not target_name or target_name.size == 0
 		end
 		target_add(target_name, target_url, target_toolchain)
-		redirect to('/targets/')
+		redirect to('/'+params[:locale]+'/targets/')
 	end
 	
 	#TODO: remove target
 
 	#set default target
-	post '/targets/:target' do
+	post '/:locale/targets/:target' do
 		default = params[:target] if params[:target]
 		ret = target_default_set(default)
-		redirect to('/targets/')
+		redirect to('/'+params[:locale]+'/targets/')
 	end
 
 	#upgrade target
-	post '/targets/:target/upgrade' do
+	post '/:locale/targets/:target/upgrade' do
 		target = params[:target] if params[:target]
 		target_upgrade(target)
-		redirect to('/targets/')
+		redirect to('/'+params[:locale]+'/targets/')
 	end
 
 	#upgrade sdk
-	post '/sdk/' do
+	post '/:locale/sdk/' do
 		sdk_upgrade()
-		redirect to('/')
+		redirect to('/'+params[:locale]+'/')
 	end
 
 	helpers do
+
+		def locale_set
+			@language = I18n.locale = params[:locale]
+		end
+		
+		def system_language
+			ENV['LANG'].split("_")[0]
+		end
 
 		# -------------------------------- Toolchain
 

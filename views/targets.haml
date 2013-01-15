@@ -13,12 +13,12 @@
           = _ :page_name
         #page_menu
           .tab
-            %a.menu_link(href="/")
+            %a.menu_link(href="/#{@language}/")
               = _ :sdk
           .current_tab.tab
-            %a.menu_link(href="/targets/")
+            %a.menu_link(href="/#{@language}/targets/")
               = _ :targets
-          %a(href="/toolchains/")
+          %a(href="/#{@language}/toolchains/")
             = _ :toolchains
         .clear
         
@@ -28,7 +28,7 @@
         #add_target_wrap
           .targets_header
             = _ :add_new_target
-          %form{:action => '/targets/add', :method => 'post'}
+          %form{:action => "/#{@language}/targets/add", :method => 'post'}
             .parameter
               .parameter_name
                 %label
@@ -79,11 +79,11 @@
                     %td.element_name
                       #{target}
                     %td.delete_button
-                      %form{:action => "/targets/#{target}", :method => "post"}
+                      %form{:action => "/#{@language}/targets/#{target}", :method => "post"}
                         %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
                     %td.set_as_default_button
                       - if not "#{target}" == "#{@target_default}"
-                        %form{:action => "/targets/#{target}", :method => "post"}
+                        %form{:action => "/#{@language}/targets/#{target}", :method => "post"}
                           %input{:type => "submit", :value => (_ :set_as_default), :class => "button fixed_width"}
                       - else
                         %input{:type => "button", :value => (_ :default), :disabled => "true", :class => "button disabled fixed_width"}
