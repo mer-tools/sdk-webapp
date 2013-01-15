@@ -1,7 +1,8 @@
 !!!
 %html  
   %head  
-    %title SDK helper WebApp
+    %title
+      = _ :page_title
     %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
     - if @refresh_time
       %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
@@ -9,13 +10,16 @@
     #page_bar_wrap
       #page_bar
         %b
-          SDK Control Center
+          = _ :page_name
         #page_menu
           .tab
-            %a.menu_link(href="/") SDK
+            %a.menu_link(href="/")
+              = _ :sdk
           .current_tab.tab
-            %a.menu_link(href="/targets/") Targets
-          %a(href="/toolchains/") Toolchains
+            %a.menu_link(href="/targets/")
+              = _ :targets
+          %a(href="/toolchains/")
+            = _ :toolchains
         .clear
         
     #content_wrap
@@ -23,11 +27,12 @@
 
         #add_target_wrap
           .targets_header
-            Add New Target:
+            = _ :add_new_target
           %form{:action => '/targets/add', :method => 'post'}
             .parameter
               .parameter_name
-                %label toolchain
+                %label
+                  = _ :toolchain
               %select.button#select{:name => "target_toolchain"}
                 - @toolchain_list.each do |toolchain, installed|
                   - if installed
@@ -35,49 +40,53 @@
             .clear
             .parameter
               .parameter_name
-                %label target name
+                %label
+                  = _ :target_name
               .parameter_text_field
                 %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
             .clear
             .parameter
               .parameter_name
-                %label target url
+                %label
+                  = _ :target_url
               .parameter_text_field
                 %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
             - if @targets_available.size > 0
               .clear
                 #target_add_method_separator
-                  %label or
+                  %label
+                    = _ :or
               .clear
               .parameter#add_from_list
                 .parameter_name
-                  %label from list
+                  %label
+                    = _ :from_list
                 %select.button#select{:name => "target_url_list"}
                   %option{:value => ""}
                   - @targets_available.each do |target|
                     %option{:value => target["url"]}=target["name"]
             .clear
               .parameter_add_button
-                %input{:type => 'submit', :value => 'add', :class => 'button'}
+                %input{:type => 'submit', :value => (_ :add), :class => 'button'}
 
         #targets_table
           %table
             %tbody
               .targets_header
-                Manage Targets:
+                = _ :manage_targets
                 - @targets_list.each do |target|
                   %tr
                     %td.element_name
                       #{target}
                     %td.delete_button
                       %form{:action => "/targets/#{target}", :method => "post"}
-                        %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
+                        %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
                     %td.set_as_default_button
                       - if not "#{target}" == "#{@target_default}"
                         %form{:action => "/targets/#{target}", :method => "post"}
-                          %input{:type => "submit", :value => "set as default", :class => "button fixed_width"}
+                          %input{:type => "submit", :value => (_ :set_as_default), :class => "button fixed_width"}
                       - else
-                        %input{:type => "button", :value => "default", :disabled => "true", :class => "button disabled fixed_width"}
+                        %input{:type => "button", :value => (_ :default), :disabled => "true", :class => "button disabled fixed_width"}
                     -#No target upgrade for now.
                       %td.upgrade_button
                         %form{:action => "/targets/#{target}/upgrade", :method => "post"}
@@ -91,7 +100,7 @@
           .clear
           #progress_view
             .page_header#progress
-              Operation progress
+              = _ :operation_progress
             .monospace
               #{@status_out}
           .clear

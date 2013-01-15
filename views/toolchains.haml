@@ -1,7 +1,8 @@
 !!!
 %html  
   %head  
-    %title SDK helper WebApp
+    %title
+      = _ :page_title
     %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
     - if @refresh_time
       %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
@@ -9,21 +10,24 @@
     #page_bar_wrap
       #page_bar
         %b
-          SDK Control Center
+          = _ :page_name
         #page_menu
           .tab
-            %a.menu_link(href="/") SDK
+            %a.menu_link(href="/")
+              = _ :sdk
           .tab
-            %a.menu_link(href="/targets/") Targets
+            %a.menu_link(href="/targets/")
+              = _ :targets
           .current_tab
-            %a(href="/toolchains/") Toolchains
+            %a(href="/toolchains/")
+              = _ :toolchains
         .clear
 
 
     #content_wrap
       #content
         .page_header.manage_header
-          Manage Toolchains:
+          = _ :manage_toolchains
         #tables_wrap
           #toolchains_table
             %table
@@ -42,9 +46,9 @@
                     %td.install_button
                       - if not installed
                         %form{:action => "/toolchains/#{toolchain}", :method => "post"}
-                          %input{:type => "submit", :value => "install", :class => "button"}
+                          %input{:type => "submit", :value => (_ :install), :class => "button"}
                       - else
-                        %input{:type => "button", :value => "install", :disabled => "true", :class => "button disabled", :name=> "_method"}
+                        %input{:type => "button", :value => (_ :install), :disabled => "true", :class => "button disabled", :name=> "_method"}
           .clear
           - if @status_out and @status_out.size > 0
             #line_wrap
@@ -52,7 +56,7 @@
             .clear
             #progress_view
               .page_header#progress
-                Operation progress
+                = _ :operation_progress
               .monospace
                 #{@status_out}
             .clear

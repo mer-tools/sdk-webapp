@@ -1,13 +1,16 @@
 require './shell_process'
 require_relative 'target_servers'
 
+I18n::Backend::Simple.send(:include, I18n::Backend::Translate)
+I18n::Backend::Simple.send(:include, I18n::Backend::TS)
+I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
+I18n.default_locale = 'en'
+I18n.load_path << Dir[ "./i18n/*.ts" ]
+I18n.locale = 'en'
+
 class ProcessFailed < Exception; end
 
 class SdkHelper < Sinatra::Base
-
-
-	register Sinatra::R18n
-#	set :root, File.dirname(__FILE__)
 
 	use Rack::MethodOverride #this is needed for delete methods
 
@@ -122,11 +125,11 @@ class SdkHelper < Sinatra::Base
 		end
 
 		def target_add(name, url, toolchain)
-			process_start("sdk-manage --target --install '#{name}' '#{toolchain}' '#{url}'", "adding target #{name}", 60*60)
+			process_start("sdk-manage --target --install '#{name}' '#{toolchain}' '#{url}'", (_ :adding_target) + " #{name}", 60*60)
 		end
 
 		def target_remove(name)
-			process_start("sdk-manage --target --remove '#{name}'", "removing target #{name}", 60*15)
+			process_start("sdk-manage --target --remove '#{name}'", (_ :removing_target) + "#{name}", 60*15)
 		end
 
 		def target_default_set(name)
@@ -160,9 +163,10 @@ class SdkHelper < Sinatra::Base
 		end
 
 		def sdk_upgrade
-			process_start("sdk-manage --sdk --upgrade", "upgrading SDK", 60*60)
+			process_start("sdk-manage --sdk --upgrade", (_ :upgrading_sdk), 60*60)
 		end
 		
+
 		# -------------------------------- Process
 
 		def process_tail_update
@@ -173,11 +177,11 @@ class SdkHelper < Sinatra::Base
 				$process_tail = (split[(-[10,split.size].min)..-1] or []).join("\n")
 				$status_out = $process_tail.split("\n").join("<br/>\n").gsub(" ","&nbsp;")
 				if $process.status[0] == "Z"
-					$process_exit = "FINISHED " + $process_description + " - exited with status " + $process.reap.exitstatus.to_s
+					$process_exit = (_ :finished) + ": " + $process_description + " - " + (_ :exited_with_status) + " " + $process.reap.exitstatus.to_s
 					@refresh_time = $process = nil
 				elsif $process.runtime > $process_timeout
 					$process.reap
-					$process_exit = "TIMEOUT " + $process_description + " - process killed"
+					$process_exit = (_ :timeout) + ": " + $process_description + " - " + (_ :process_killed)
 					@refresh_time = $process = nil
 				end
 				if $process
@@ -202,6 +206,10 @@ class SdkHelper < Sinatra::Base
 			ret = process.stdout_read(timeout: 10).strip
 			raise ProcessFailed, command if process.reap.exitstatus != 0
 			ret
+		end
+
+		def _(*args)
+			I18n.t(*args)
 		end
 
 	end
