@@ -5,6 +5,10 @@ class ProcessFailed < Exception; end
 
 class SdkHelper < Sinatra::Base
 
+
+	register Sinatra::R18n
+#	set :root, File.dirname(__FILE__)
+
 	use Rack::MethodOverride #this is needed for delete methods
 
 	get "/index.css" do
