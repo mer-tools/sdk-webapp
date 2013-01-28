@@ -10,14 +10,14 @@ Name:       sdk-webapp
 
 Summary:    Mer SDK manager
 Version:    0.4.0
-Release:    1
+Release:    2
 Group:      Development Platform/Platform SDK
 License:    GPLv2+
 Source0:    sdk-webapp.tar.bz2
 Source1:    sdk-webapp.service
 Source100:  sdk-webapp.yaml
 Requires:   sdk-webapp-bundle >= 0.4.0
-Requires:   sdk-webapp-customization
+Requires:   sdk-webapp-customization >= 0.4.0-2
 
 %description
 Allows web-based management of the Mer SDK. Adds toolchains, targets etc
@@ -81,9 +81,6 @@ systemctl --system daemon-reload
 %{_libdir}/%{name}-bundle/config.ru
 %{_libdir}/%{name}-bundle/sdk_helper.rb
 %{_libdir}/%{name}-bundle/shell_process.rb
-%{_libdir}/%{name}-bundle/views/index.haml
-%{_libdir}/%{name}-bundle/views/targets.haml
-%{_libdir}/%{name}-bundle/views/toolchains.haml
 %{_libdir}/%{name}-bundle/i18n/en.ts
 %{_libdir}/systemd/user/%{name}.service
 # >> files
@@ -91,6 +88,9 @@ systemctl --system daemon-reload
 
 %files mer
 %defattr(-,root,root,-)
+%{_libdir}/%{name}-bundle/views/index.haml
+%{_libdir}/%{name}-bundle/views/targets.haml
+%{_libdir}/%{name}-bundle/views/toolchains.haml
 %{_libdir}/%{name}-bundle/target_servers.rb
 %{_libdir}/%{name}-bundle/views/index.sass
 %{_libdir}/%{name}-bundle/public/images
