@@ -3,8 +3,8 @@ PREFIX = /usr
 BINDIR = $(PREFIX)/bin
 TARGET = $(PREFIX)/lib/$(NAME)-bundle
 
-APPLICATION = config.ru sdk_helper.rb shell_process.rb views/index.haml views/targets.haml views/toolchains.haml i18n/en.ts
-CUSTOMIZATION = target_servers.rb views/index.sass public/images 
+APPLICATION = config.ru sdk_helper.rb shell_process.rb i18n/en.ts
+CUSTOMIZATION = target_servers.rb views/index.sass public/images views/index.haml views/targets.haml views/toolchains.haml
 
 all:
 	@echo "No build needed"
