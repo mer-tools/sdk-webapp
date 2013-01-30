@@ -23,6 +23,13 @@
     </message>
 </context>
 <context>
+    <name>target</name>
+    <message>
+        <source>target</source>
+        <translation>Target</translation>
+    </message>
+</context>
+<context>
     <name>targets</name>
     <message>
         <source>targets</source>
@@ -62,6 +69,13 @@
     <message>
         <source>manage targets</source>
         <translation>Manage Targets</translation>
+    </message>
+</context>
+<context>
+    <name>manage_target</name>
+    <message>
+        <source>manage target</source>
+        <translation>Manage Target</translation>
     </message>
 </context>
 <context>
@@ -197,4 +211,13 @@
         <translation>process killed</translation>
     </message>
 </context>
+<context>
+    <name>manage</name>
+    <message>
+        <source>manage</source>
+        <translation>manage</translation>
+    </message>
+</context>
+
 </TS>
+
