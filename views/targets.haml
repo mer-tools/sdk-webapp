@@ -6,104 +6,106 @@
     %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
     - if @refresh_time
       %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
+    %link(href="http://fonts.googleapis.com/css?family=Source+Code+Pro:300|Source+Sans+Pro:300" rel="stylesheet" type="text/css")
   %body
-    #page_bar_wrap
+    .page_bar_wrap
       #page_bar
-        %b
+        %ul#page_menu
+          %li.tab
+            .li
+              %a.menu_link(href="/#{@language}/")
+                = _ :sdk
+          %li.current_tab.tab
+            .li
+              %a.menu_link(href="/#{@language}/targets/")
+                = _ :targets
+          %li.tab
+            .li
+              %a(href="/#{@language}/toolchains/")
+                = _ :toolchains
+      #name_wrap
+        #logo
+        #page_name
           = _ :page_name
-        #page_menu
-          .tab
-            %a.menu_link(href="/#{@language}/")
-              = _ :sdk
-          .current_tab.tab
-            %a.menu_link(href="/#{@language}/targets/")
-              = _ :targets
-          %a(href="/#{@language}/toolchains/")
-            = _ :toolchains
-        .clear
-        
-    #content_wrap
-      #content
-
-        #add_target_wrap
-          .targets_header
-            = _ :add_new_target
-          %form{:action => "/#{@language}/targets/add", :method => 'post'}
-            .parameter
-              .parameter_name
-                %label
-                  = _ :toolchain
-              %select.button#select{:name => "target_toolchain"}
-                - @toolchain_list.each do |toolchain, installed|
-                  - if installed
-                    %option{:value => @target_toolchain}=toolchain
-            .clear
-            .parameter
-              .parameter_name
-                %label
-                  = _ :target_name
-              .parameter_text_field
-                %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
-            .clear
-            .parameter
-              .parameter_name
-                %label
-                  = _ :target_url
-              .parameter_text_field
-                %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
-            - if @targets_available.size > 0
-              .clear
-                #target_add_method_separator
-                  %label
-                    = _ :or
-              .clear
-              .parameter#add_from_list
+    .wrapper
+      .content_wrap
+        .content
+          #add_target_wrap
+            .page_header.targets_header
+              = _ :add_new_target
+            %form{:action => "/#{@language}/targets/add", :method => 'post'}
+              .parameter
                 .parameter_name
                   %label
-                    = _ :from_list
-                %select.button#select{:name => "target_url_list"}
-                  %option{:value => ""}
-                  - @targets_available.each do |target|
-                    %option{:value => target["url"]}=target["name"]
-            .clear
-              .parameter_add_button
-                %input{:type => 'submit', :value => (_ :add), :class => 'button'}
+                    = _ :toolchain
+                .styled_select
+                  %select.button.select{:name => "target_toolchain"}
+                    - @toolchain_list.each do |toolchain, installed|
+                      - if installed
+                        %option{:value => @target_toolchain}=toolchain
+              .clear
+              .parameter
+                .parameter_name
+                  %label
+                    = _ :target_name
+                .parameter_text_field
+                  %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
+              .clear
+              .parameter
+                .parameter_name
+                  %label
+                    = _ :target_url
+                .parameter_text_field
+                  %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
+              - if @targets_available.size > 0
+                .clear
+                .parameter#add_from_list
+                  .parameter_name
+                    %label
+                      = _ :from_list
+                  .styled_select
+                    %select.button.select{:name => "target_url_list"}
+                      %option{:value => ""}
+                      - @targets_available.each do |target|
+                        %option{:value => target["url"]}=target["name"]
+              .clear
+                .parameter_add_button
+                  %input{:type => 'submit', :value => (_ :add), :class => 'button'}
 
-        #targets_table
-          %table
-            %tbody
-              .targets_header
-                = _ :manage_targets
-                - @targets_list.each do |target|
-                  %tr
-                    %td.element_name
-                      #{target}
-                    %td.delete_button
-                      %form{:action => "/#{@language}/targets/#{target}", :method => "post"}
-                        %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
-                    %td.set_as_default_button
-                      - if not "#{target}" == "#{@target_default}"
+          #targets_table
+            %table
+              %tbody
+                .page_header
+                  = _ :manage_targets
+                  - @targets_list.each do |target|
+                    %tr
+                      %td.element_name
+                        #{target}
+                      %td.element_manage
+                        %a.manage_link(href='/#{@language}/targets/#{target}')
+                          = _(:manage)
+                      %td.delete_button
                         %form{:action => "/#{@language}/targets/#{target}", :method => "post"}
-                          %input{:type => "submit", :value => (_ :set_as_default), :class => "button fixed_width"}
-                      - else
-                        %input{:type => "button", :value => (_ :default), :disabled => "true", :class => "button disabled fixed_width"}
-                    -#No target upgrade for now.
-                      %td.upgrade_button
-                        %form{:action => "/targets/#{target}/upgrade", :method => "post"}
-                          %input{:type => "submit", :value => "upgrade", :class => "button"}
+                          %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
+                      %td.set_as_default_button
+                        - if not "#{target}" == "#{@target_default}"
+                          %form{:action => "/#{@language}/targets/#{target}", :method => "post"}
+                            %input{:type => "submit", :value => (_ :set_as_default), :class => "button fixed_width"}
+                        - else
+                          %input{:type => "button", :value => (_ :default), :disabled => "true", :class => "button disabled fixed_width"}
+                      -#No target upgrade for now.
+                        %td.upgrade_button
+                          %form{:action => "/targets/#{target}/upgrade", :method => "post"}
+                            %input{:type => "submit", :value => "upgrade", :class => "button"}
                           
 
-        .clear
-        - if @status_out and @status_out.size > 0
-          #line_wrap
-            %img(src="/images/line3.png")
           .clear
-          #progress_view
-            .page_header#progress
-              = _ :operation_progress
-            .monospace
-              #{@status_out}
-          .clear
+      - if @status_out and @status_out.size > 0
+        .progress
+          .progress_background
+            #progress_view
+              .progress_header
+                = _ :operation_progress
+              .monospace
+                #{@status_out}
 
-
-/ designed by: agata.blomberg@gmail.com
