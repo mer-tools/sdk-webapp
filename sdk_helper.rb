@@ -48,6 +48,14 @@ class SdkHelper < Sinatra::Base
 		haml :targets
 	end
 
+	get '/:locale/targets/:target' do
+		target = params[:target]
+		locale_set
+		process_tail_update
+		packages_list_update
+		haml :packages
+	end
+
 	#install toolchain
 	post '/:locale/toolchains/:toolchain' do
 		toolchain = params[:toolchain]
@@ -93,6 +101,22 @@ class SdkHelper < Sinatra::Base
 		target = params[:target] if params[:target]
 		target_upgrade(target)
 		redirect to('/'+params[:locale]+'/targets/')
+	end
+
+	#install package
+	post '/:locale/targets/:target/:package' do
+		target = params[:target]
+		package = params[:package]
+		package_install(target, package)
+		redirect to("/"+params[:locale]+'/targets/' + target)
+	end
+
+	#remove package
+	delete '/:locale/targets/:target/:package' do
+		target = params[:target]
+		package = params[:package]
+		package_remove(target, package)
+		redirect to('/'+params[:locale]+'/targets/' + target)
 	end
 
 	#upgrade sdk
@@ -170,6 +194,24 @@ class SdkHelper < Sinatra::Base
 				end
 			end
 		end
+
+		# -------------------------------- Packages
+
+		def packages_list_update
+			@target = params[:target]
+      			$package_list = @package_list = process_complete("sdk-manage --devel --list #@target").split[3..-1].map {|line| line.split(',')}.map {|i,j| [i, j == 'i']}
+		rescue ProcessFailed
+			@package_list = ($package_list or []) #FIXME: nil if can't read the list!
+		end
+
+		def package_install(target, package)
+			process_start("sdk-manage --devel --install '#{target}' '#{package}'", "installing package #{package}", 60*60)
+		end
+
+		def package_remove(target, package)
+			process_start("sdk-manage --devel --remove '#{target}' '#{package}'", "removing package #{package}", 60*15)
+		end
+
 
 		# -------------------------------- Sdk
 
