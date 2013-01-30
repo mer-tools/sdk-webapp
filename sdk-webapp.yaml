@@ -4,8 +4,8 @@ Description:
  Allows web-based management of the Mer SDK.
  Adds toolchains, targets etc
 
-Version: 0.4.0
-Release: 2
+Version: 0.5.0
+Release: 1
 Group: Development Platform/Platform SDK
 License: GPLv2+
 Sources:
