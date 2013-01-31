@@ -175,7 +175,7 @@ class SdkHelper < Sinatra::Base
 		end
 
 		def target_remove(name)
-			process_start("sdk-manage --target --remove '#{name}'", (_ :removing_target) + "#{name}", 60*15)
+			process_start("sdk-manage --target --remove '#{name}'", (_ :removing_target) + " #{name}", 60*15)
 		end
 
 		def target_default_set(name)
