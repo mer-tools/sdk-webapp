@@ -94,6 +94,13 @@ class SdkHelper < Sinatra::Base
 		redirect to('/'+params[:locale]+'/targets/')
 	end
 
+        #sync target
+	post '/:locale/targets/:target/sync' do
+		target = params[:target] if params[:target]
+		target_sync(target)
+		redirect to('/' + params[:locale] + '/targets/')
+	end
+
 	#set default target
 	post '/:locale/targets/:target' do
 		default = params[:target] if params[:target]
@@ -175,7 +182,11 @@ class SdkHelper < Sinatra::Base
 		end
 
 		def target_remove(name)
-			process_start("sdk-manage --target --remove '#{name}'", (_ :removing_target) + "#{name}", 60*15)
+			process_start("sdk-manage --target --remove '#{name}'", (_ :removing_target) + " #{name}", 60*15)
+		end
+
+		def target_sync(name)
+			process_start("sdk-manage --target --sync '#{name}'", (_ :syncing_target) + " #{name}", 60*15)
 		end
 
 		def target_default_set(name)
