@@ -87,7 +87,12 @@ class SdkHelper < Sinatra::Base
 		redirect to('/'+params[:locale]+'/targets/')
 	end
 	
-	#TODO: remove target
+	#remove target
+	delete '/:locale/targets/:target' do
+		target = params[:target]
+		target_remove(target)
+		redirect to('/'+params[:locale]+'/targets/')
+	end
 
 	#set default target
 	post '/:locale/targets/:target' do
