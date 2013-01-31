@@ -79,6 +79,13 @@
     </message>
 </context>
 <context>
+    <name>sync</name>
+    <message>
+        <source>sync</source>
+        <translation>sync</translation>
+    </message>
+</context>
+<context>
     <name>delete</name>
     <message>
         <source>delete</source>
