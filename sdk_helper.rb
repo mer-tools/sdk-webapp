@@ -125,6 +125,13 @@ class SdkHelper < Sinatra::Base
 		redirect to('/'+params[:locale]+'/')
 	end
 
+	get '/:locale/info' do  
+		content_type 'text/plain'
+		["df", "rpmquery -qa", "cat /proc/version", "/sbin/ifconfig -a", "/sbin/route -n", "mount", "zypper lr", "ping -c 4 81.210.43.226", "ping -c 4 google.com", "free"].map { |command|
+			["*"*80,command,"\n", process_complete(command), "\n"] rescue Exception
+		}.flatten.map { |line| line.to_s }.join("\n")
+	end		
+
 	helpers do
 
 		def locale_set
