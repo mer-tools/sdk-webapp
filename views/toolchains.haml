@@ -48,7 +48,7 @@
                         %form{:action => "/#{@language}/toolchains/#{toolchain}", :method => "post"}
                           %input{:type => "submit", :value => (_ :install), :class => "button"}
                       - else
-                        %input{:type => "button", :value => (_ :install), :disabled => "true", :class => "button disabled", :name=> "_method"}
+                        %input{:type => "button", :value => (_ :installed), :disabled => "true", :class => "button disabled", :name=> "_method"}
           .clear
           - if @status_out and @status_out.size > 0
             #line_wrap
