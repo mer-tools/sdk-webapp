@@ -170,6 +170,13 @@
     </message>
 </context>
 <context>
+    <name>installed</name>
+    <message>
+        <source>installed</source>
+        <translation>installed</translation>
+    </message>
+</context>
+<context>
     <name>adding_target</name>
     <message>
         <source>adding target</source>
