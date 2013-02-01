@@ -1,3 +1,7 @@
+* Thu Jan 31 2013 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.5.2-1
+- Hidden debugging view
+- Hard-timeouts work for sudo-ed processes
+- Smarter buttons in toolchains management page
 * Fri Feb 01 2013 David Greaves <david@dgreaves.com> - 0.5.1-1
 - Updated package list update function to mirror sdk-manage
   script output
