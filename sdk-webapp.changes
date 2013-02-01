@@ -1,3 +1,7 @@
+* Fri Feb 01 2013 David Greaves <david@dgreaves.com> - 0.5.1-1
+- Updated package list update function to mirror sdk-manage
+  script output
+- Added button to force target synchronisation
 * Thu Jan 31 2013 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.5.0-1
 - Merged in Alterego's code for on-target package installation. No UI yet.
 * Sun Jan 27 2013 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.4.0-2
