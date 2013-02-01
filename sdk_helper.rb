@@ -87,7 +87,19 @@ class SdkHelper < Sinatra::Base
 		redirect to('/'+params[:locale]+'/targets/')
 	end
 	
-	#TODO: remove target
+	#remove target
+	delete '/:locale/targets/:target' do
+		target = params[:target]
+		target_remove(target)
+		redirect to('/'+params[:locale]+'/targets/')
+	end
+
+        #sync target
+	post '/:locale/targets/:target/sync' do
+		target = params[:target] if params[:target]
+		target_sync(target)
+		redirect to('/' + params[:locale] + '/targets/')
+	end
 
 	#set default target
 	post '/:locale/targets/:target' do
@@ -177,7 +189,11 @@ class SdkHelper < Sinatra::Base
 		end
 
 		def target_remove(name)
-			process_start("sdk-manage --target --remove '#{name}'", (_ :removing_target) + "#{name}", 60*15)
+			process_start("sdk-manage --target --remove '#{name}'", (_ :removing_target) + " #{name}", 60*15)
+		end
+
+		def target_sync(name)
+			process_start("sdk-manage --target --sync '#{name}'", (_ :syncing_target) + " #{name}", 60*15)
 		end
 
 		def target_default_set(name)
@@ -206,7 +222,7 @@ class SdkHelper < Sinatra::Base
 
 		def packages_list_update
 			@target = params[:target]
-			$package_list = @package_list = process_complete("sdk-manage --devel --list #@target").split[3..-1].map {|line| line.split(',')}.map {|i,j| [i, j == 'i']}
+			$package_list = @package_list = process_complete("sdk-manage --devel --list #@target").split.map {|line| line.split(',')}.map {|i,j| [i, j == 'i']}
 		rescue ProcessFailed
 			@package_list = ($package_list or []) #FIXME: nil if can't read the list!
 		end
