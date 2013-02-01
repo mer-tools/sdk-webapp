@@ -285,7 +285,7 @@ class SdkHelper < Sinatra::Base
 
 		def process_complete(command)
 			process = ShellProcess.new(command)
-			ret = process.stdout_read(timeout: 10).strip
+			ret = process.stdout_read(timeout: 20).strip
 			raise ProcessFailed, command if process.reap.exitstatus != 0
 			ret
 		end
