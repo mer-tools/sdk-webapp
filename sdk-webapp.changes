@@ -1,3 +1,5 @@
+* Thu Feb 14 2013 David Greaves <david@dgreaves.com> - 0.5.3-1
+- Add Tom's -devel package manager
 * Sun Feb 01 2013 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.5.2-1
 - Hidden debugging view
 - Hard-timeouts work for sudo-ed processes
