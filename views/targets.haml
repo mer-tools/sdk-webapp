@@ -78,6 +78,9 @@
                   %tr
                     %td.element_name
                       #{target}
+                    %td.element_manage
+                      %a.manage_link(href='/#{@language}/targets/#{target}')
+                        = _(:manage)
                     %td.delete_button
                       %form{:action => "/#{@language}/targets/#{target}", :method => "post"}
                         %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
