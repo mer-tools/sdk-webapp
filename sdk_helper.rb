@@ -151,7 +151,11 @@ class SdkHelper < Sinatra::Base
 		end
 		
 		def system_language
+                  if ENV['LANG']
 			ENV['LANG'].split("_")[0]
+                  else
+                    'C'
+                  end
 		end
 
 		# -------------------------------- Toolchain
