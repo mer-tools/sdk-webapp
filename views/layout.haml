@@ -1,0 +1,43 @@
+!!!
+%html  
+  %head  
+    %title
+      = _ :page_title
+    %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
+    - if @refresh_time
+      %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
+    %link(href="/css/fonts.css" rel="stylesheet" type="text/css")
+  %body
+    .page_bar_wrap
+      #page_bar
+        %ul#page_menu
+          %a(href="/#{@language}/")
+            %li.current_tab.tab
+              .li
+                = _ :sdk
+          %a(href="/#{@language}/targets/")
+            %li.tab
+              .li
+                = _ :targets
+          %a(href="/#{@language}/toolchains/")
+            %li
+              .li
+                = _ :toolchains
+      #name_wrap
+        #logo
+        #page_name
+          = _ :page_name
+    .wrapper
+      .content_wrap
+        =yield
+      - if @status_out and @status_out.size > 0
+        .progress
+          .progress_background
+            #progress_view
+              .progress_header
+                = _ :operation_progress
+              .monospace
+                #{@status_out}
+
+
+

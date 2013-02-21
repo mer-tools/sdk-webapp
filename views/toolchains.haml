@@ -1,64 +1,25 @@
-!!!
-%html  
-  %head  
-    %title
-      = _ :page_title
-    %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
-    - if @refresh_time
-      %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
-  %body
-    #page_bar_wrap
-      #page_bar
-        %b
-          = _ :page_name
-        #page_menu
-          .tab
-            %a.menu_link(href="/#{@language}/")
-              = _ :sdk
-          .tab
-            %a.menu_link(href="/#{@language}/targets/")
-              = _ :targets
-          .current_tab
-            %a(href="/#{@language}/toolchains/")
-              = _ :toolchains
-        .clear
-
-
-    #content_wrap
-      #content
-        .page_header.manage_header
-          = _ :manage_toolchains
-        #tables_wrap
-          #toolchains_table
-            %table
-              %tbody
-                - @toolchain_list.each do |toolchain, installed|
-                  %tr
-                    %td.element_name
-                      #{toolchain}
-                    -# removing patterns wont' work so let's hide the button
-                      %td.delete_button 
-                      - if installed
-                        %form{:action => "/toolchains/#{toolchain}", :method => "post"}
-                          %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
-                      - else
-                        %input{:type => "button", :value => "delete", :disabled => "true", :class => "button disabled", :name=> "_method"}
-                    %td.install_button
-                      - if not installed
-                        %form{:action => "/#{@language}/toolchains/#{toolchain}", :method => "post"}
-                          %input{:type => "submit", :value => (_ :install), :class => "button"}
-                      - else
-                        %input{:type => "button", :value => (_ :installed), :disabled => "true", :class => "button disabled", :name=> "_method"}
-          .clear
-          - if @status_out and @status_out.size > 0
-            #line_wrap
-              %img(src="/images/line3.png")
-            .clear
-            #progress_view
-              .page_header#progress
-                = _ :operation_progress
-              .monospace
-                #{@status_out}
-            .clear
-
-/ designed by: agata.blomberg@gmail.com
+.content
+  .page_header
+    = _ :manage_toolchains
+  #tables_wrap
+    #toolchains_table
+      %table
+        %tbody
+          - @toolchain_list.each do |toolchain, installed|
+            %tr
+              %td.element_name
+                #{toolchain}
+              -# removing patterns wont' work so let's hide the button
+                %td.delete_button 
+                - if installed
+                  %form{:action => "/toolchains/#{toolchain}", :method => "post"}
+                    %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
+                - else
+                  %input{:type => "button", :value => "delete", :disabled => "true", :class => "button disabled", :name=> "_method"}
+              %td.install_button
+                - if not installed
+                  %form{:action => "/#{@language}/toolchains/#{toolchain}", :method => "post"}
+                    %input{:type => "submit", :value => (_ :install), :class => "button"}
+                - else
+                  %input{:type => "button", :value => (_ :installed), :disabled => "true", :class => "button disabled", :name=> "_method"}
+  .clear

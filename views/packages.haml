@@ -1,56 +1,20 @@
-!!!
-%html  
-  %head  
-    %title
-      = _ :page_title
-    %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
-    - if @refresh_time
-      %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
-  %body
-    #page_bar_wrap
-      #page_bar
-        %b
-          = _ :page_name
-        #page_menu
-          .tab
-            %a.menu_link(href="/#{@language}/")
-              = _ :sdk
-          .current_tab.tab
-            %a.menu_link(href="/#{@language}/targets/")
-              = _ :targets
-          %a(href="/#{@language}/toolchains/")
-            = _ :toolchains
-        .clear
-        
-    #content_wrap
-      #content
-        #packages_table
-          %table
-            %tbody
-              %tr
-              - @package_list.each do |package, installed|
-                %tr
-                  %td.element_name
-                    #{package}
-                  %td.install_button
-                    - if not installed
-                      %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
-                        %input{:type => "submit", :value => (_ :install), :class => "button"}
-                    - else
-                      %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
-                        %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
-
-        .clear
-        - if @status_out and @status_out.size > 0
-          #line_wrap
-            %img(src="/images/line3.png")
-          .clear
-          #progress_view
-            .page_header#progress
-              = _ :operation_progress
-            .monospace
-              #{@status_out}
-          .clear
-
-
-/ designed by: agata.blomberg@gmail.com
+.content
+  .page_header
+    = _(:manage_target) + ': ' + @target
+  #tables_wrap
+    #packages_table
+      %table
+        %tbody
+          %tr
+          - @package_list.each do |package, installed|
+            %tr
+              %td.element_name
+                #{package}
+              %td.install_button
+                - if not installed
+                  %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
+                    %input{:type => "submit", :value => (_ :install), :class => "button"}
+                - else
+                  %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
+                    %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
+  .clear
