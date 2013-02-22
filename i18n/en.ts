@@ -184,6 +184,20 @@
     </message>
 </context>
 <context>
+    <name>refreshing_target</name>
+    <message>
+        <source>refreshing_target</source>
+        <translation>Refreshing target repos</translation>
+    </message>
+</context>
+<context>
+    <name>syncing_target</name>
+    <message>
+        <source>syncing_target</source>
+        <translation>Syncing target repos</translation>
+    </message>
+</context>
+<context>
     <name>install</name>
     <message>
         <source>install</source>
