@@ -28,14 +28,14 @@ class SdkHelper < Sinatra::Base
 		locale_set
 		process_tail_update
 		sdk_version_update
-		haml :index
+		haml :index, :locals => { :tab => :sdk }
 	end
 	
 	get '/:locale/toolchains/' do
 		locale_set
 		process_tail_update
 		toolchain_list_update
-		haml :toolchains
+		haml :toolchains, :locals => { :tab => :toolchains }
 	end
 
 	get '/:locale/targets/' do
@@ -45,7 +45,7 @@ class SdkHelper < Sinatra::Base
 		target_default_update
 		targets_list_update
 		targets_available_update
-		haml :targets
+		haml :targets, :locals => { :tab => :targets }
 	end
 
 	get '/:locale/targets/:target' do
@@ -53,7 +53,7 @@ class SdkHelper < Sinatra::Base
 		locale_set
 		process_tail_update
 		packages_list_update
-		haml :packages
+		haml :packages, :locals => { :tab => :targets }
 	end
 
 	#install toolchain

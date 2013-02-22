@@ -12,15 +12,15 @@
       #page_bar
         %ul#page_menu
           %a(href="/#{@language}/")
-            %li.current_tab.tab
+            %li.tab{:class => tab == :sdk ? "current_tab" :"" }
               .li
                 = _ :sdk
           %a(href="/#{@language}/targets/")
-            %li.tab
+            %li.tab{:class => tab == :targets ? "current_tab" :"" }
               .li
                 = _ :targets
           %a(href="/#{@language}/toolchains/")
-            %li
+            %li.tab{:class => tab == :toolchains ? "current_tab" :"" }
               .li
                 = _ :toolchains
       #name_wrap
