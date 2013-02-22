@@ -1,3 +1,6 @@
+* Fri Feb 22 2013 David Greaves <david@dgreaves.com> - 0.5.5-1
+- Add missing translation strings
+
 * Fri Feb 22 2013 David Greaves <david@dgreaves.com> - 0.5.4-1
 - Refactor webapp to be more DRY
 - Use cached fonts
