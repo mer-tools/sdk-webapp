@@ -227,7 +227,12 @@ class SdkHelper < Sinatra::Base
 					response = response.split(/\r?\n/).select { |line| 
 						line[0] != "#" and line[0..1] != "//"
 					}.join("\n")
-					@targets_available += JSON.parse(response)
+                                        targets = JSON.parse(response)
+                                        targets.each do |target|
+                                        if ! @targets_list.include? target["name"] 
+                                            @targets_available.push(target)
+                                        end
+                                  end
 				rescue
 				end
 			end
