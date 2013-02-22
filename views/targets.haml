@@ -3,43 +3,48 @@
     .page_header.targets_header
       = _ :add_new_target
     %form{:action => "/#{@language}/targets/add", :method => 'post'}
-      .parameter
-        .parameter_name
-          %label
-            = _ :toolchain
-        .styled_select
-          %select.button.select{:name => "target_toolchain"}
-            - @toolchain_list.each do |toolchain, installed|
-              - if installed
-                %option{:value => @target_toolchain}=toolchain
-      .clear
-      .parameter
-        .parameter_name
-          %label
-            = _ :target_name
-        .parameter_text_field
-          %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
-      .clear
-      .parameter
-        .parameter_name
-          %label
-            = _ :target_url
-        .parameter_text_field
-          %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
       - if @targets_available.size > 0
-        .clear
-        .parameter#add_from_list
+        #preconfig_target_wrap
+          .parameter#add_from_list
+            .parameter_name
+              %label
+                = _ :from_list
+            .styled_select
+              %select.button.select{:name => "target_url_list"}
+                %option{:value => ""}
+                  - @targets_available.each do |target|
+                    %option{:value => target["url"]}=target["name"]
+            .clear
+          .parameter_add_button
+            %input{:type => 'submit', :value => (_ :add), :class => 'button'}
+
+      #manual_target_wrap
+        .parameter
           .parameter_name
             %label
-              = _ :from_list
+              = _ :toolchain
           .styled_select
-            %select.button.select{:name => "target_url_list"}
-              %option{:value => ""}
-              - @targets_available.each do |target|
-                %option{:value => target["url"]}=target["name"]
-      .clear
-        .parameter_add_button
-          %input{:type => 'submit', :value => (_ :add), :class => 'button'}
+            %select.button.select{:name => "target_toolchain"}
+              - @toolchain_list.each do |toolchain, installed|
+                - if installed
+                  %option{:value => @target_toolchain}=toolchain
+        .clear
+        .parameter
+          .parameter_name
+            %label
+              = _ :target_name
+          .parameter_text_field
+            %input#text_field1{:type => 'text', :name => 'target_name', :value => @target_name, :class=> "button"}
+        .clear
+        .parameter
+          .parameter_name
+            %label
+              = _ :target_url
+          .parameter_text_field
+            %input#text_field2{:type => 'text', :name => 'target_url', :value => @target_url, :class=> "button"}
+        .clear
+          .parameter_add_button
+            %input{:type => 'submit', :value => (_ :add), :class => 'button'}
 
   #targets_table
     %table
@@ -51,11 +56,8 @@
               %td.element_name
                 #{target}
               %td.element_manage
-                %a.manage_link(href='/#{@language}/targets/#{target}')
+                %a.button.manage_link(href='/#{@language}/targets/#{target}')
                   = _(:manage)
-              %td.sync_button
-                %form{:action => "/#{@language}/targets/#{target}/sync", :method => :post}
-                  %input{:type => 'submit', :value => (_ :sync), :class => "button", :name => "_method"}
               %td.delete_button
                 %form{:action => "/#{@language}/targets/#{target}", :method => "post"}
                   %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}

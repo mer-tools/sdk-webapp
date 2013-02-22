@@ -1,8 +1,17 @@
 .content
   .page_header
     = _(:manage_target) + ': ' + @target
-  #tables_wrap
-    #packages_table
+  #manage
+    %div.sync_button
+      %form{:action => "/#{@language}/targets/#{@target}/sync", :method => :post}
+        %input{:type => 'submit', :value => "sync", :class => "button", :name => "_method"}
+          = _(:explain_sync)
+    %div.sync_button
+      %form{:action => "/#{@language}/targets/#{@target}/refresh", :method => :post}
+        %input{:type => 'submit', :value => "refresh", :class => "button", :name => "_method"}
+          = _(:explain_refresh)
+  #packages_table
+    %form{:action => "/#{@language}/targets/add", :method => 'post'}
       %table
         %tbody
           %tr
@@ -14,7 +23,8 @@
                 - if not installed
                   %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
                     %input{:type => "submit", :value => (_ :install), :class => "button"}
-                - else
+              %td.install_button
+                - if installed
                   %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
                     %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
   .clear

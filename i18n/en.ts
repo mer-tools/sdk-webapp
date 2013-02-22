@@ -144,8 +144,8 @@
 <context>
     <name>from_list</name>
     <message>
-        <source>from_list</source>
-        <translation>from_list</translation>
+        <source>Pre-configured targets</source>
+        <translation>Pre-configured targets</translation>
     </message>
 </context>
 <context>
@@ -156,10 +156,31 @@
     </message>
 </context>
 <context>
+    <name>target_source</name>
+    <message>
+        <source>manage toolchains</source>
+        <translation>Manage Toolchains</translation>
+    </message>
+</context>
+<context>
     <name>manage_toolchains</name>
     <message>
         <source>manage toolchains</source>
         <translation>Manage Toolchains</translation>
+    </message>
+</context>
+<context>
+    <name>explain_refresh</name>
+    <message>
+        <source>explain_refresh</source>
+        <translation>Check the repositories for newer packages</translation>
+    </message>
+</context>
+<context>
+    <name>explain_sync</name>
+    <message>
+        <source>explain_sync</source>
+        <translation>If you manually update the target in the build engine you can re-sync with QtCreator</translation>
     </message>
 </context>
 <context>
