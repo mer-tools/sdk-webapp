@@ -1,3 +1,10 @@
+* Fri Feb 22 2013 David Greaves <david@dgreaves.com> - 0.5.4-1
+- Refactor webapp to be more DRY
+- Use cached fonts
+- Merge Sailfish layout changes
+- Disable SDK upgrade for now
+- Fixes for target management
+
 * Thu Feb 14 2013 David Greaves <david@dgreaves.com> - 0.5.3-1
 - Add Tom's -devel package manager
 * Sun Feb 01 2013 Maciej Blomberg <maciej.blomberg@jollamobile.com> - 0.5.2-1

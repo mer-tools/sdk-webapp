@@ -9,7 +9,7 @@ Name:       sdk-webapp
 # << macros
 
 Summary:    Mer SDK manager
-Version:    0.5.3
+Version:    0.5.4
 Release:    1
 Group:      Development Platform/Platform SDK
 License:    GPLv2+
@@ -83,14 +83,19 @@ systemctl --system daemon-reload
 %{_libdir}/%{name}-bundle/shell_process.rb
 %{_libdir}/%{name}-bundle/i18n/en.ts
 %{_libdir}/systemd/user/%{name}.service
+%{_libdir}/%{name}-bundle/views/default.sass
+%{_libdir}/%{name}-bundle/views/index.haml
+%{_libdir}/%{name}-bundle/views/layout.haml
+%{_libdir}/%{name}-bundle/views/targets.haml
+%{_libdir}/%{name}-bundle/views/packages.haml
+%{_libdir}/%{name}-bundle/views/toolchains.haml
+%{_libdir}/%{name}-bundle/public/ttf
+%{_libdir}/%{name}-bundle/public/css
 # >> files
 # << files
 
 %files mer
 %defattr(-,root,root,-)
-%{_libdir}/%{name}-bundle/views/index.haml
-%{_libdir}/%{name}-bundle/views/targets.haml
-%{_libdir}/%{name}-bundle/views/toolchains.haml
 %{_libdir}/%{name}-bundle/target_servers.rb
 %{_libdir}/%{name}-bundle/views/index.sass
 %{_libdir}/%{name}-bundle/public/images
