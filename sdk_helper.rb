@@ -19,7 +19,7 @@ class SdkHelper < Sinatra::Base
 	end
 
 
-	get '/' do redirect to "/"+system_language+"/"; end
+	get '/' do redirect to "/"+system_language+"/targets/"; end
 	get '/toolchains/' do redirect to "/"+system_language+"/toolchains/"; end
 	get '/targets/' do redirect to "/"+system_language+"/targets/"; end
 

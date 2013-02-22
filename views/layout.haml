@@ -11,10 +11,6 @@
     .page_bar_wrap
       #page_bar
         %ul#page_menu
-          %a(href="/#{@language}/")
-            %li.tab{:class => tab == :sdk ? "current_tab" :"" }
-              .li
-                = _ :sdk
           %a(href="/#{@language}/targets/")
             %li.tab{:class => tab == :targets ? "current_tab" :"" }
               .li
@@ -23,6 +19,10 @@
             %li.tab{:class => tab == :toolchains ? "current_tab" :"" }
               .li
                 = _ :toolchains
+          -# %a(href="/#{@language}/")
+            %li.tab{:class => tab == :sdk ? "current_tab" :"" }
+              .li
+                = _ :sdk
       #name_wrap
         #logo
         #page_name
