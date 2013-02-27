@@ -72,6 +72,7 @@ class SdkHelper < Sinatra::Base
 
   #add target
   post '/:locale/targets/add' do
+    targets_list_update
     targets_available_update
     target_name = params[:target_name]
     target_url = params[:target_url]
