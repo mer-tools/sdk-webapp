@@ -2,11 +2,11 @@
   font-family: 'Source Code Pro';
   font-style: normal;
   font-weight: 300;
-  src: local('Source Code Pro Light'), local('SourceCodePro-Light'), url(/ttf/SourceCodePro-Light.ttf) format('truetype');
+  src: url(/ttf/SourceCodePro-Light.ttf) format('truetype');
 }
 @font-face {
   font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 300;
-  src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url(/ttf/SourceSansPro-Light.ttf) format('truetype');
+  src: url(/ttf/SourceSansPro-Light.ttf) format('truetype');
 }
