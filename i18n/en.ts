@@ -86,6 +86,13 @@
     </message>
 </context>
 <context>
+    <name>refresh</name>
+    <message>
+        <source>refresh</source>
+        <translation>refresh</translation>
+    </message>
+</context>
+<context>
     <name>delete</name>
     <message>
         <source>delete</source>
