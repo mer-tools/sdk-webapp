@@ -70,6 +70,13 @@ class SdkHelper < Sinatra::Base
     redirect to('/'+params[:locale]+'/')
   end
 
+  #clear the operation progress output
+  post '/actions/clear_output' do
+    $status_out.clear
+    process_tail_update  
+    redirect to(request.referer)
+  end
+
   #add target
   post '/:locale/targets/add' do
     targets_available_update
