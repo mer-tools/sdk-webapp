@@ -31,13 +31,23 @@
       .content_wrap
         =yield
       - if @status_out and @status_out.size > 0
-        .progress
-          .progress_background
-            #progress_view
-              .progress_header
-                = _ :operation_progress
-              .monospace
-                #{@status_out}
+        .progress_blocker
+          .progress
+            .progress_background
+              #progress_view
+                %table(class="progress_table #{@process_result_class}")
+                  %tbody
+                    %tr
+                      %td
+                        %form{:action => "/actions/clear_output", :method => "post"}
+                          %input{:type => "submit", :value => (_ :clear_progress), :class => "button"}
+                        .progress_header
+                          = _ :operation_progress
+                    %tr
+                      %td
+                        .monospace
+                        #{@status_out}
+
 
 
 
