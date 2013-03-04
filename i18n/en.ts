@@ -274,6 +274,13 @@
         <translation>manage</translation>
     </message>
 </context>
+<context>
+    <name>clear_progress</name>
+    <message>
+        <source>clear_progress</source>
+        <translation>clear</translation>
+    </message>
+</context>
 
 </TS>
 

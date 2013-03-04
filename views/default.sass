@@ -60,13 +60,22 @@ html, body
   margin-left: 230px
   padding-bottom: 180px
 
-.progress
-  height: 180px
-  position: absolute
-  bottom: 0
+.progress_blocker
+  position: fixed
+  top: 0
   left: 0
+  height: 100%
   width: 100%
+  z-index: 99
+  background-color: rgba(45, 91, 112, 0.6)
 
+.progress
+  position: relative
+  top: 50%
+  left: 0
+  height: 100%
+  width: 100%
+  z-index: 100
 
 /* style */ /*-------------------------------------------------------------------------------------------*/
 
@@ -140,8 +149,8 @@ body
   color: #e3ebed
 
 .progress_background
-  background-color: rgba(45, 91, 112, 0.2)
-  height: 180px
+  background-color: rgba(45, 91, 112, 0)
+  height: 100%
   margin-left: 230px
   padding-top: 30px
   padding-left: 30px
@@ -154,6 +163,20 @@ body
 .progress_header
   padding-bottom: 20px
   font-size: 18px
+
+.progress_table
+  padding: 10px 10px 10px 10px
+  border-spacing: 4px
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.2)
+  min-width: 100%
+  max-width: 100%
+
+.process_result_ok
+  background-color: #3D819B
+
+.process_result_fail
+  background-color: #FF0000
+
 
 .clear
   clear: both
