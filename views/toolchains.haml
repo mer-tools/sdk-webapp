@@ -13,9 +13,9 @@
                 %td.delete_button 
                 - if installed
                   %form{:action => "/toolchains/#{toolchain}", :method => "post"}
-                    %input{:type => "submit", :value => "delete", :class => "button", :name=> "_method"}
+                    %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
                 - else
-                  %input{:type => "button", :value => "delete", :disabled => "true", :class => "button disabled", :name=> "_method"}
+                  %input{:type => "button", :value => (_ :delete), :disabled => "true", :class => "button disabled", :name=> "_method"}
               %td.install_button
                 - if not installed
                   %form{:action => "/#{@language}/toolchains/#{toolchain}", :method => "post"}

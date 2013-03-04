@@ -4,11 +4,11 @@
   #manage
     %div.sync_button
       %form{:action => "/#{@language}/targets/#{@target}/sync", :method => :post}
-        %input{:type => 'submit', :value => "sync", :class => "button", :name => "_method"}
+        %input{:type => 'submit', :value => (_ :sync), :class => "button", :name => "_method"}
           = _(:explain_sync)
     %div.sync_button
       %form{:action => "/#{@language}/targets/#{@target}/refresh", :method => :post}
-        %input{:type => 'submit', :value => "refresh", :class => "button", :name => "_method"}
+        %input{:type => 'submit', :value => (_ :refresh), :class => "button", :name => "_method"}
           = _(:explain_refresh)
   #packages_table
     %form{:action => "/#{@language}/targets/add", :method => 'post'}
