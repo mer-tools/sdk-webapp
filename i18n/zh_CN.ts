@@ -1,0 +1,269 @@
+﻿<!DOCTYPE TS>
+<TS version="2.0" language="zh_CN">
+<context>
+    <name>page_title</name>
+    <message>
+        <source>sdk control center</source>
+        <translation>SDK 控制中心</translation>
+    </message>
+</context>
+<context>
+    <name>page_name</name>
+    <message>
+        <source>sdk conrol center</source>
+        <translation>SDK 控制中心</translation>
+    </message>
+</context>
+<context>
+    <name>sdk</name>
+    <message>
+        <source>SDK</source>
+        <translation>SDK</translation>
+    </message>
+</context>
+<context>
+    <name>target</name>
+    <message>
+        <source>target</source>
+        <translation>目标</translation>
+    </message>
+</context>
+<context>
+    <name>targets</name>
+    <message>
+        <source>targets</source>
+        <translation>目标</translation>
+    </message>
+</context>
+<context>
+    <name>toolchains</name>
+    <message>
+        <source>toolchains</source>
+        <translation>工具链</translation>
+    </message>
+</context>
+<context>
+    <name>manage_sdk</name>
+    <message>
+        <source>manage sdk</source>
+        <translation>管理 SDK</translation>
+    </message>
+</context>
+<context>
+    <name>upgrade</name>
+    <message>
+        <source>upgrade</source>
+        <translation>升级</translation>
+    </message>
+</context>
+<context>
+    <name>operation_progress</name>
+    <message>
+        <source>operation progress</source>
+        <translation>操作进度</translation>
+    </message>
+</context>
+<context>
+    <name>manage_targets</name>
+    <message>
+        <source>manage targets</source>
+        <translation>管理目标</translation>
+    </message>
+</context>
+<context>
+    <name>manage_target</name>
+    <message>
+        <source>manage target</source>
+        <translation>管理目标</translation>
+    </message>
+</context>
+<context>
+    <name>sync</name>
+    <message>
+        <source>sync</source>
+        <translation>同步</translation>
+    </message>
+</context>
+<context>
+    <name>delete</name>
+    <message>
+        <source>delete</source>
+        <translation>删除</translation>
+    </message>
+</context>
+<context>
+    <name>set_as_default</name>
+    <message>
+        <source>set as default</source>
+        <translation>设为默认</translation>
+    </message>
+</context>
+<context>
+    <name>default</name>
+    <message>
+        <source>default</source>
+        <translation>默认</translation>
+    </message>
+</context>
+<context>
+    <name>add_new_target</name>
+    <message>
+        <source>add new target</source>
+        <translation>添加新目标</translation>
+    </message>
+</context>
+<context>
+    <name>toolchain</name>
+    <message>
+        <source>toolchain</source>
+        <translation>工具链</translation>
+    </message>
+</context>
+<context>
+    <name>target_name</name>
+    <message>
+        <source>target name</source>
+        <translation>目标名称</translation>
+    </message>
+</context>
+<context>
+    <name>target_url</name>
+    <message>
+        <source>target url</source>
+        <translation>目标 URL</translation>
+    </message>
+</context>
+<context>
+    <name>or</name>
+    <message>
+        <source>or</source>
+        <translation>或</translation>
+    </message>
+</context>
+<context>
+    <name>from_list</name>
+    <message>
+        <source>Pre-configured targets</source>
+        <translation>预先配置的目标</translation>
+    </message>
+</context>
+<context>
+    <name>add</name>
+    <message>
+        <source>add</source>
+        <translation>添加</translation>
+    </message>
+</context>
+<context>
+    <name>target_source</name>
+    <message>
+        <source>manage toolchains</source>
+        <translation>管理工具链</translation>
+    </message>
+</context>
+<context>
+    <name>manage_toolchains</name>
+    <message>
+        <source>manage toolchains</source>
+        <translation>管理工具链</translation>
+    </message>
+</context>
+<context>
+    <name>explain_refresh</name>
+    <message>
+        <source>explain_refresh</source>
+        <translation>检查储存库中是否有更新的包</translation>
+    </message>
+</context>
+<context>
+    <name>explain_sync</name>
+    <message>
+        <source>explain_sync</source>
+        <translation>如果您手动更新生成引擎中的目标，您可以重新与 QtCreator 同步</translation>
+    </message>
+</context>
+<context>
+    <name>refreshing_target</name>
+    <message>
+        <source>refreshing_target</source>
+        <translation>正在更新目标储存库</translation>
+    </message>
+</context>
+<context>
+    <name>syncing_target</name>
+    <message>
+        <source>syncing_target</source>
+        <translation>正在同步目标储存库</translation>
+    </message>
+</context>
+<context>
+    <name>install</name>
+    <message>
+        <source>install</source>
+        <translation>安装</translation>
+    </message>
+</context>
+<context>
+    <name>installed</name>
+    <message>
+        <source>installed</source>
+        <translation>已安装</translation>
+    </message>
+</context>
+<context>
+    <name>adding_target</name>
+    <message>
+        <source>adding target</source>
+        <translation>正在添加目标</translation>
+    </message>
+</context>
+<context>
+    <name>removing_target</name>
+    <message>
+        <source>removing target</source>
+        <translation>正在删除目标</translation>
+    </message>
+</context>
+<context>
+    <name>upgrading_sdk</name>
+    <message>
+        <source>upgrading sdk</source>
+        <translation>正在更新 SDK</translation>
+    </message>
+</context>
+<context>
+    <name>finished</name>
+    <message>
+        <source>finished</source>
+        <translation>已完成</translation>
+    </message>
+</context>
+<context>
+    <name>exited_with_status</name>
+    <message>
+        <source>exited with status</source>
+        <translation>已退出，状态为</translation>
+    </message>
+</context>
+<context>
+    <name>timeout</name>
+    <message>
+        <source>timeout</source>
+        <translation>超时</translation>
+    </message>
+</context>
+<context>
+    <name>process_killed</name>
+    <message>
+        <source>process killed</source>
+        <translation>进程已终止</translation>
+    </message>
+</context>
+<context>
+    <name>manage</name>
+    <message>
+        <source>manage</source>
+        <translation>管理</translation>
+    </message>
+</context>
+</TS>
