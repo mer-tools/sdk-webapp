@@ -70,6 +70,13 @@ class SdkHelper < Sinatra::Base
     redirect to('/'+params[:locale]+'/')
   end
 
+  #clear the operation progress output
+  post '/actions/clear_output' do
+    $status_out.clear
+    process_tail_update  
+    redirect to(request.referer)
+  end
+
   #add target
   post '/:locale/targets/add' do
     targets_list_update
@@ -273,6 +280,9 @@ class SdkHelper < Sinatra::Base
     # -------------------------------- Process
 
     def process_tail_update
+      # progress background color
+      @process_result_class = "process_result_ok"
+
       if $process
         @refresh_time = 10
         $process_tail += $process.stdout_read(timeout: 0) + $process.stderr_read(timeout: 0)
@@ -280,12 +290,18 @@ class SdkHelper < Sinatra::Base
         $process_tail = (split[(-[10,split.size].min)..-1] or []).join("\n")
         $status_out = $process_tail.split("\n").join("<br/>\n").gsub(" ","&nbsp;")
         if $process.status[0] == "Z"
-          $process_exit = (_ :finished) + ": " + $process_description + " - " + (_ :exited_with_status) + " " + $process.reap.exitstatus.to_s
+          $process_exitstatus = $process.reap.exitstatus
+        
+          $process_exit = (_ :finished) + ": " + $process_description + " - " + (_ :exited_with_status) + " " + $process_exitstatus.to_s
           @refresh_time = $process = nil
+          if $process_exitstatus != 0
+            @process_result_class = "process_result_fail"
+          end
         elsif $process.runtime > $process_timeout
           $process.reap
           $process_exit = (_ :timeout) + ": " + $process_description + " - " + (_ :process_killed)
           @refresh_time = $process = nil
+          @process_result_class = "process_result_fail"
         end
         if $process
           $status_out = "<b>" + "-"*40 + " " + $process_description + "</b><br/>\n<br/>\n" + $status_out

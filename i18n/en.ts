@@ -86,6 +86,13 @@
     </message>
 </context>
 <context>
+    <name>refresh</name>
+    <message>
+        <source>refresh</source>
+        <translation>refresh</translation>
+    </message>
+</context>
+<context>
     <name>delete</name>
     <message>
         <source>delete</source>
@@ -265,6 +272,13 @@
     <message>
         <source>manage</source>
         <translation>manage</translation>
+    </message>
+</context>
+<context>
+    <name>clear_progress</name>
+    <message>
+        <source>clear_progress</source>
+        <translation>clear</translation>
     </message>
 </context>
 
