@@ -1,6 +1,6 @@
 .content
   .page_header
-    = _(:manage_target) + ': ' + @target
+    = _(:manage_target_packages) + ': ' + @target
   #manage
     %div.sync_button
       %form{:action => "/#{@language}/targets/#{@target}/sync", :method => :post}
@@ -12,11 +12,33 @@
           = _(:explain_refresh)
   #packages_table
     %form{:action => "/#{@language}/targets/add", :method => 'post'}
+      %input{:id => "search", :type => "text", :onkeyup => "filter(this)"}
+        :javascript
+          function filter(element) {
+            var value = $(element).val();
+            if (value == "") {
+              $("#packagelist").hide();
+            } else {  
+              $("#packagelist > tr").each(function() {
+                row=this;
+                show=true;
+                text=$(row).find("td:first").text();
+                $.each(value.split(" "), function() {
+                  if (text.search(this) < 0) {show=false;}
+                });
+                if (show) {$(row).show();} else {$(row).hide();}
+              });
+              $("#packagelist").show();
+            }
+          }
+      = _(:search_for_packages)
       %table
-        %tbody
-          %tr
-          - @package_list.each do |package, installed|
-            %tr
+        %tbody{:id => "packagelist"}
+          %script
+            // Hide the packagelist on first load
+            $("#packagelist").hide();
+          - @package_list.each_with_index do |(package, installed), count|
+            %tr{:id => count}
               %td.element_name
                 #{package}
               %td.install_button

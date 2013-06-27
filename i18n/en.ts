@@ -79,6 +79,13 @@
     </message>
 </context>
 <context>
+    <name>manage_target_packages</name>
+    <message>
+        <source>manage target packages</source>
+        <translation>Manage Target Packages</translation>
+    </message>
+</context>
+<context>
     <name>sync</name>
     <message>
         <source>sync</source>
@@ -90,6 +97,13 @@
     <message>
         <source>refresh</source>
         <translation>refresh</translation>
+    </message>
+</context>
+<context>
+    <name>manage_packages</name>
+    <message>
+        <source>manage_packages</source>
+        <translation>packages</translation>
     </message>
 </context>
 <context>
@@ -188,6 +202,20 @@
     <message>
         <source>explain_sync</source>
         <translation>If you manually update the target in the build engine you can re-sync with QtCreator</translation>
+    </message>
+</context>
+<context>
+    <name>search_for_packages</name>
+    <message>
+        <source>search_for_packages</source>
+        <translation>Type to find packages (use a space to add search terms)</translation>
+    </message>
+</context>
+<context>
+    <name>explain_refresh</name>
+    <message>
+        <source>explain_refresh</source>
+        <translation>Check the repositories for newer packages</translation>
     </message>
 </context>
 <context>

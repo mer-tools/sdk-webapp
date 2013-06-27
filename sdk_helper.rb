@@ -49,7 +49,14 @@ class SdkHelper < Sinatra::Base
   end
 
   get '/:locale/targets/:target' do
-    target = params[:target]
+    @target = params[:target]
+    locale_set
+    process_tail_update
+    haml :target, :locals => { :tab => :targets }
+  end
+
+  get '/:locale/targets/:target/packages' do
+    @target = params[:target]
     locale_set
     process_tail_update
     packages_list_update
