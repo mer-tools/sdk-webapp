@@ -212,6 +212,20 @@
     </message>
 </context>
 <context>
+    <name>search_is_active</name>
+    <message>
+        <source>search_is_active</source>
+        <translation>Searching</translation>
+    </message>
+</context>
+<context>
+    <name>search_is_done</name>
+    <message>
+        <source>search_is_done</source>
+        <translation> </translation>
+    </message>
+</context>
+<context>
     <name>explain_refresh</name>
     <message>
         <source>explain_refresh</source>

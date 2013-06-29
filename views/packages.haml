@@ -12,26 +12,11 @@
           = _(:explain_refresh)
   #packages_table
     %form{:action => "/#{@language}/targets/add", :method => 'post'}
-      %input{:id => "search", :type => "text", :onkeyup => "filter(this)"}
-        :javascript
-          function filter(element) {
-            var value = $(element).val();
-            if (value == "") {
-              $("#packagelist").hide();
-            } else {  
-              $("#packagelist > tr").each(function() {
-                row=this;
-                show=true;
-                text=$(row).find("td:first").text();
-                $.each(value.split(" "), function() {
-                  if (text.search(this) < 0) {show=false;}
-                });
-                if (show) {$(row).show();} else {$(row).hide();}
-              });
-              $("#packagelist").show();
-            }
-          }
-      = _(:search_for_packages)
+      %input{:id => "search", :type => "text", :autocomplete => "off", :onkeyup => "pkgFilter.run(this)"}
+      %div{:id => "search_done"}
+        = _(:search_for_packages)
+      %div{:id => "search_active"}
+        = _(:search_is_active)
       %table
         %tbody{:id => "packagelist"}
           %script
@@ -50,3 +35,26 @@
                   %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
                     %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
   .clear
+  :javascript
+    // Pass in a list of things to hide/show
+    var pkgFilter = new Filter($("#packagelist > tr"));
+    //pkgFilter.hide_action = false;
+    // given one 'thing' return the text to use for filtering
+    pkgFilter.gettext = function(el) {
+      return $(el).find("td:first").text();
+    }
+    pkgFilter.on_empty = function() {
+      $("#search_done").hide();
+      $("#search_active").hide();
+      //$("#packagelist").hide(); 
+    }
+    pkgFilter.on_active = function() {
+      $("#search_done").hide();
+      $("#search_active").show();
+      //$("#packagelist").hide();
+    }
+    pkgFilter.on_inactive = function() {
+      $("#search_active").hide();
+      $("#search_done").show();
+      $("#packagelist").show();
+    }
