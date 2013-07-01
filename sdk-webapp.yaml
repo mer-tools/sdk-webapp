@@ -20,7 +20,6 @@ Files:
   - "%{_libdir}/%{name}-bundle/config.ru"
   - "%{_libdir}/%{name}-bundle/sdk_helper.rb"
   - "%{_libdir}/%{name}-bundle/shell_process.rb"
-  - "%{_libdir}/%{name}-bundle/i18n/en.ts"
   - "%{_libdir}/systemd/user/%{name}.service"
   - "%{_libdir}/%{name}-bundle/views/default.sass"
   - "%{_libdir}/%{name}-bundle/views/index.haml"
@@ -42,4 +41,19 @@ SubPackages:
       - "%{_libdir}/%{name}-bundle/target_servers.rb"
       - "%{_libdir}/%{name}-bundle/views/index.sass"
       - "%{_libdir}/%{name}-bundle/public/images"
+
+  - Name: ts-manual
+    Summary: Translation source
+    Description: Translations until pootle is done
+    Group: Development Platform/Platform SDK
+    Files:
+      - "%{_libdir}/%{name}-bundle/i18n/en.ts"
+      - "%{_libdir}/%{name}-bundle/i18n/zh_CN.ts"
+
+  - Name: ts-devel
+    Summary: Translation source
+    Description: Translations for pootle
+    Group: Development Platform/Platform SDK
+    Files:
+      - "%{_libdir}/%{name}-bundle/i18n/en.ts"
 

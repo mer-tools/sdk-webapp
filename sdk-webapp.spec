@@ -31,6 +31,21 @@ Provides:   sdk-webapp-customization
 %description mer
 Gives SDK manager it's default mer-ish look
 
+%package ts-manual
+Summary:    Translation source
+Group:      Development Platform/Platform SDK
+Requires:   %{name} = %{version}-%{release}
+
+%description ts-manual
+Translations until pootle is done
+
+%package ts-devel
+Summary:    Translation source
+Group:      Development Platform/Platform SDK
+Requires:   %{name} = %{version}-%{release}
+
+%description ts-devel
+Translations for pootle
 
 %prep
 %setup -q -n src
@@ -81,7 +96,6 @@ systemctl --system daemon-reload
 %{_libdir}/%{name}-bundle/config.ru
 %{_libdir}/%{name}-bundle/sdk_helper.rb
 %{_libdir}/%{name}-bundle/shell_process.rb
-%{_libdir}/%{name}-bundle/i18n/en.ts
 %{_libdir}/systemd/user/%{name}.service
 %{_libdir}/%{name}-bundle/views/default.sass
 %{_libdir}/%{name}-bundle/views/index.haml
@@ -101,3 +115,16 @@ systemctl --system daemon-reload
 %{_libdir}/%{name}-bundle/public/images
 # >> files mer
 # << files mer
+
+%files ts-manual
+%defattr(-,root,root,-)
+%{_libdir}/%{name}-bundle/i18n/en.ts
+%{_libdir}/%{name}-bundle/i18n/zh_CN.ts
+# >> files ts-manual
+# << files ts-manual
+
+%files ts-devel
+%defattr(-,root,root,-)
+%{_libdir}/%{name}-bundle/i18n/en.ts
+# >> files ts-devel
+# << files ts-devel
