@@ -11,6 +11,8 @@ License: GPLv2+
 Sources:
     - sdk-webapp.tar.bz2
     - sdk-webapp.service
+BuildRequires:
+  - systemd
 Requires:
     - sdk-webapp-bundle >= 0.4.0
     - sdk-webapp-customization >= 0.4.0-2
