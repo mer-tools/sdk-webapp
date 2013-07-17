@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.0" language="en_US" sourcelanguage="en">
+
+<!-- views/index.haml -->
+<context>
+    <name>manage_sdk</name>
+    <message>
+        <source>manage sdk</source>
+        <translation>Manage SDK</translation>
+    </message>
+</context>
+<context>
+    <name>upgrade</name>
+    <message>
+        <source>upgrade</source>
+        <translation>upgrade</translation>
+    </message>
+</context>
+
+<!-- views/layout.haml -->
 <context>
     <name>page_title</name>
     <message>
         <source>sdk control center</source>
         <translation>SDK Control Center</translation>
-    </message>
-</context>
-<context>
-    <name>page_name</name>
-    <message>
-        <source>sdk conrol center</source>
-        <translation>SDK Control Center</translation>
-    </message>
-</context>
-<context>
-    <name>sdk</name>
-    <message>
-        <source>SDK</source>
-        <translation>SDK</translation>
-    </message>
-</context>
-<context>
-    <name>target</name>
-    <message>
-        <source>target</source>
-        <translation>Target</translation>
     </message>
 </context>
 <context>
@@ -44,17 +41,31 @@
     </message>
 </context>
 <context>
-    <name>manage_sdk</name>
+    <name>updates</name>
     <message>
-        <source>manage sdk</source>
-        <translation>Manage SDK</translation>
+        <source>updates</source>
+        <translation>Updates</translation>
     </message>
 </context>
 <context>
-    <name>upgrade</name>
+    <name>sdk</name>
     <message>
-        <source>upgrade</source>
-        <translation>upgrade</translation>
+        <source>SDK</source>
+        <translation>SDK</translation>
+    </message>
+</context>
+<context>
+    <name>page_name</name>
+    <message>
+        <source>sdk control center</source>
+        <translation>SDK Control Center</translation>
+    </message>
+</context>
+<context>
+    <name>clear_progress</name>
+    <message>
+        <source>clear_progress</source>
+        <translation>clear</translation>
     </message>
 </context>
 <context>
@@ -64,20 +75,8 @@
         <translation>Operation Progress</translation>
     </message>
 </context>
-<context>
-    <name>manage_targets</name>
-    <message>
-        <source>manage targets</source>
-        <translation>Manage Targets</translation>
-    </message>
-</context>
-<context>
-    <name>manage_target</name>
-    <message>
-        <source>manage target</source>
-        <translation>Manage Target</translation>
-    </message>
-</context>
+
+<!-- views/packages.haml -->
 <context>
     <name>manage_target_packages</name>
     <message>
@@ -93,6 +92,13 @@
     </message>
 </context>
 <context>
+    <name>explain_sync</name>
+    <message>
+        <source>explain_sync</source>
+        <translation>If you manually update the target in the build engine you can re-sync with QtCreator</translation>
+    </message>
+</context>
+<context>
     <name>refresh</name>
     <message>
         <source>refresh</source>
@@ -100,108 +106,10 @@
     </message>
 </context>
 <context>
-    <name>manage_packages</name>
-    <message>
-        <source>manage_packages</source>
-        <translation>packages</translation>
-    </message>
-</context>
-<context>
-    <name>delete</name>
-    <message>
-        <source>delete</source>
-        <translation>delete</translation>
-    </message>
-</context>
-<context>
-    <name>set_as_default</name>
-    <message>
-        <source>set as default</source>
-        <translation>set as default</translation>
-    </message>
-</context>
-<context>
-    <name>default</name>
-    <message>
-        <source>default</source>
-        <translation>default</translation>
-    </message>
-</context>
-<context>
-    <name>add_new_target</name>
-    <message>
-        <source>add new target</source>
-        <translation>Add New Target</translation>
-    </message>
-</context>
-<context>
-    <name>toolchain</name>
-    <message>
-        <source>toolchain</source>
-        <translation>Toolchain</translation>
-    </message>
-</context>
-<context>
-    <name>target_name</name>
-    <message>
-        <source>target name</source>
-        <translation>target name</translation>
-    </message>
-</context>
-<context>
-    <name>target_url</name>
-    <message>
-        <source>target url</source>
-        <translation>target url</translation>
-    </message>
-</context>
-<context>
-    <name>or</name>
-    <message>
-        <source>or</source>
-        <translation>or</translation>
-    </message>
-</context>
-<context>
-    <name>from_list</name>
-    <message>
-        <source>Pre-configured targets</source>
-        <translation>Pre-configured targets</translation>
-    </message>
-</context>
-<context>
-    <name>add</name>
-    <message>
-        <source>add</source>
-        <translation>add</translation>
-    </message>
-</context>
-<context>
-    <name>target_source</name>
-    <message>
-        <source>manage toolchains</source>
-        <translation>Manage Toolchains</translation>
-    </message>
-</context>
-<context>
-    <name>manage_toolchains</name>
-    <message>
-        <source>manage toolchains</source>
-        <translation>Manage Toolchains</translation>
-    </message>
-</context>
-<context>
     <name>explain_refresh</name>
     <message>
         <source>explain_refresh</source>
         <translation>Check the repositories for newer packages</translation>
-    </message>
-</context>
-<context>
-    <name>explain_sync</name>
-    <message>
-        <source>explain_sync</source>
-        <translation>If you manually update the target in the build engine you can re-sync with QtCreator</translation>
     </message>
 </context>
 <context>
@@ -226,10 +134,244 @@
     </message>
 </context>
 <context>
-    <name>explain_refresh</name>
+    <name>install</name>
     <message>
-        <source>explain_refresh</source>
-        <translation>Check the repositories for newer packages</translation>
+        <source>install</source>
+        <translation>install</translation>
+    </message>
+</context>
+<context>
+    <name>delete</name>
+    <message>
+        <source>delete</source>
+        <translation>delete</translation>
+    </message>
+</context>
+
+
+<!-- views/target.haml -->
+<context>
+    <name>manage_packages</name>
+    <message>
+        <source>manage_packages</source>
+        <translation>packages</translation>
+    </message>
+</context>
+<context>
+    <name>manage_target</name>
+    <message>
+        <source>manage target</source>
+        <translation>Manage Target</translation>
+    </message>
+</context>
+<context>
+    <name>explain_packages</name>
+    <message>
+        <source>explain_packages</source>
+        <translation>NEED TEXT for explain_packages</translation>
+    </message>
+</context>
+
+<!-- views/targets.haml -->
+<context>
+    <name>add_new_target</name>
+    <message>
+        <source>add new target</source>
+        <translation>Add New Target</translation>
+    </message>
+</context>
+<context>
+    <name>from_list</name>
+    <message>
+        <source>Pre-configured targets</source>
+        <translation>Pre-configured targets</translation>
+    </message>
+</context>
+<context>
+    <name>add</name>
+    <message>
+        <source>add</source>
+        <translation>add</translation>
+    </message>
+</context>
+<context>
+    <name>toolchain</name>
+    <message>
+        <source>toolchain</source>
+        <translation>Toolchain</translation>
+    </message>
+</context>
+<context>
+    <name>target_name</name>
+    <message>
+        <source>target name</source>
+        <translation>target name</translation>
+    </message>
+</context>
+<context>
+    <name>target_url</name>
+    <message>
+        <source>target url</source>
+        <translation>target url</translation>
+    </message>
+</context>
+<context>
+    <name>target_summary</name>
+    <message>
+        <source>Target summary</source>
+        <translation>Each "Target" lets you build apps for specific hardware running a specific OS version.</translation>
+    </message>
+</context>
+<context>
+    <name>manage_targets</name>
+    <message>
+        <source>manage targets</source>
+        <translation>Manage Targets</translation>
+    </message>
+</context>
+<context>
+    <name>manage</name>
+    <message>
+        <source>manage</source>
+        <translation>manage</translation>
+    </message>
+</context>
+
+
+<!-- views/toolchains.haml -->
+<context>
+    <name>manage_toolchains</name>
+    <message>
+        <source>manage toolchains</source>
+        <translation>Manage Toolchains</translation>
+    </message>
+</context>
+<context>
+    <name>installed</name>
+    <message>
+        <source>installed</source>
+        <translation>installed</translation>
+    </message>
+</context>
+
+<!-- views/updates.haml -->
+<context>
+    <name>Version and update status</name>
+    <message>
+        <source>Version and update status</source>
+        <translation>Version and update status</translation>
+    </message>
+</context>
+<context>
+  <name>Version_summary</name>
+  <message>
+    <source>Version_summary</source>
+    <translation>This is a summary of the versions of the SDK components.</translation>
+  </message>
+</context>
+<context>
+  <name>Engine</name>
+  <message>
+    <source>Engine</source>
+    <translation>Engine</translation>
+  </message>
+</context>
+<context>
+  <name>Engine_at_version</name>
+  <message>
+    <source>Engine_at_version</source>
+    <translation>The SDK engine is at version</translation>
+  </message>
+</context>
+<context>
+  <name>Engine_version_avail</name>
+  <message>
+    <source>Engine_version_avail</source>
+    <translation>Available version</translation>
+  </message>
+</context>
+<context>
+  <name>Targets</name>
+  <message>
+    <source>Targets</source>
+    <translation>Targets</translation>
+  </message>
+</context>
+<context>
+  <name>Targets_body</name>
+  <message>
+    <source>Targets_body</source>
+    <translation>The following targets have updates available which should be applied.
+  The following targets are available.</translation>
+  </message>
+</context>
+<context>
+  <name>Emulators</name>
+  <message>
+    <source>Emulators</source>
+    <translation>Emulators</translation>
+  </message>
+</context>
+<context>
+  <name>Emulators_body</name>
+  <message>
+    <source>Emulators_body</source>
+    <translation>The following emulators have updates available which should be applied.
+
+  The following emulators are available:</translation>
+  </message>
+</context>
+<context>
+  <name>Providers</name>
+  <message>
+    <source>Providers</source>
+    <translation>Providers</translation>
+  </message>
+</context>
+<context>
+  <name>Providers_body</name>
+  <message>
+    <source>Providers_body</source>
+    <translation>The following providers are configured:</translation>
+  </message>
+</context>
+<!-- views/.haml -->
+<!-- views/.haml -->
+
+<context>
+    <name>target</name>
+    <message>
+        <source>target</source>
+        <translation>Target</translation>
+    </message>
+</context>
+
+<context>
+    <name>set_as_default</name>
+    <message>
+        <source>set as default</source>
+        <translation>set as default</translation>
+    </message>
+</context>
+<context>
+    <name>default</name>
+    <message>
+        <source>default</source>
+        <translation>default</translation>
+    </message>
+</context>
+<context>
+    <name>or</name>
+    <message>
+        <source>or</source>
+        <translation>or</translation>
+    </message>
+</context>
+<context>
+    <name>target_source</name>
+    <message>
+        <source>manage toolchains</source>
+        <translation>Manage Toolchains</translation>
     </message>
 </context>
 <context>
@@ -244,20 +386,6 @@
     <message>
         <source>syncing_target</source>
         <translation>Syncing target repos</translation>
-    </message>
-</context>
-<context>
-    <name>install</name>
-    <message>
-        <source>install</source>
-        <translation>install</translation>
-    </message>
-</context>
-<context>
-    <name>installed</name>
-    <message>
-        <source>installed</source>
-        <translation>installed</translation>
     </message>
 </context>
 <context>
@@ -307,20 +435,6 @@
     <message>
         <source>process killed</source>
         <translation>process killed</translation>
-    </message>
-</context>
-<context>
-    <name>manage</name>
-    <message>
-        <source>manage</source>
-        <translation>manage</translation>
-    </message>
-</context>
-<context>
-    <name>clear_progress</name>
-    <message>
-        <source>clear_progress</source>
-        <translation>clear</translation>
     </message>
 </context>
 
