@@ -10,8 +10,57 @@
       %form{:action => "/#{@language}/targets/#{@target}/refresh", :method => :post}
         %input{:type => 'submit', :value => (_ :refresh), :class => "button", :name => "_method"}
           = _(:explain_refresh)
-    %div.packages_button
+    -# %div.packages_button
       %a{:href => "/#{@language}/targets/#{@target}/packages", :class => "button button_link"}
         = _(:manage_packages)
       = _(:explain_packages)
   .clear
+
+  #packages_table
+    %form{:action => "/#{@language}/targets/add", :method => 'post'}
+      %input{:id => "search", :type => "text", :autocomplete => "off", :onkeyup => "pkgFilter.run(this)"}
+      %div{:id => "search_done"}
+        = _(:search_for_packages)
+      %div{:id => "search_active"}
+        = _(:search_is_active)
+      %table
+        %tbody{:id => "packagelist"}
+          %script
+            // Hide the packagelist on first load
+            $("#packagelist").hide();
+          - @package_list.each_with_index do |(package, installed), count|
+            %tr{:id => count}
+              %td.element_name
+                #{package}
+              %td.install_button
+                - if not installed
+                  %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
+                    %input{:type => "submit", :value => (_ :install), :class => "button"}
+              %td.install_button
+                - if installed
+                  %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
+                    %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
+  .clear
+  :javascript
+    // Pass in a list of things to hide/show
+    var pkgFilter = new Filter($("#packagelist > tr"));
+    //pkgFilter.hide_action = false;
+    // given one 'thing' return the text to use for filtering
+    pkgFilter.gettext = function(el) {
+      return $(el).find("td:first").text();
+    }
+    pkgFilter.on_empty = function() {
+      $("#search_done").hide();
+      $("#search_active").hide();
+      //$("#packagelist").hide(); 
+    }
+    pkgFilter.on_active = function() {
+      $("#search_done").hide();
+      $("#search_active").show();
+      //$("#packagelist").hide();
+    }
+    pkgFilter.on_inactive = function() {
+      $("#search_active").hide();
+      $("#search_done").show();
+      $("#packagelist").show();
+    }

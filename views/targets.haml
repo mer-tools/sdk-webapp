@@ -47,6 +47,7 @@
             %input{:type => 'submit', :value => (_ :add), :class => 'button'}
 
   #targets_table
+    =_(:target_summary)
     %table
       %tbody
         .page_header
@@ -61,7 +62,7 @@
               %td.delete_button
                 %form{:action => "/#{@language}/targets/#{target}", :method => "post"}
                   %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
-              -#No target upgrade for now.
+              -# if target.has_update
                 %td.upgrade_button
                   %form{:action => "/targets/#{target}/upgrade", :method => "post"}
                     %input{:type => "submit", :value => "upgrade", :class => "button"}
