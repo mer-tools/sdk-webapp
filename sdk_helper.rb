@@ -22,6 +22,7 @@ class SdkHelper < Sinatra::Base
   get '/' do redirect to "/"+system_language+"/targets/"; end
   get '/toolchains/' do redirect to "/"+system_language+"/toolchains/"; end
   get '/targets/' do redirect to "/"+system_language+"/targets/"; end
+  get '/updates/' do redirect to "/"+system_language+"/updates/"; end
 
 
   get '/:locale/' do
@@ -29,6 +30,14 @@ class SdkHelper < Sinatra::Base
     process_tail_update
     sdk_version_update
     haml :index, :locals => { :tab => :sdk }
+  end
+  
+  get '/:locale/updates/' do
+    locale_set
+    process_tail_update
+    sdk_updates
+    targets_list_update
+    haml :updates, :locals => { :tab => :updates }
   end
   
   get '/:locale/toolchains/' do
@@ -52,6 +61,7 @@ class SdkHelper < Sinatra::Base
     @target = params[:target]
     locale_set
     process_tail_update
+    packages_list_update
     haml :target, :locals => { :tab => :targets }
   end
 
@@ -161,7 +171,7 @@ class SdkHelper < Sinatra::Base
 
   get '/:locale/info' do  
     content_type 'text/plain'
-    ["df", "rpmquery -qa", "cat /proc/version", "/sbin/ifconfig -a", "/sbin/route -n", "mount", "zypper lr", "ping -c 4 81.210.43.226", "ping -c 4 google.com", "free"].map { |command|
+    ["df", "rpmquery -qa", "cat /proc/version", "/sbin/ifconfig -a", "/sbin/route -n", "mount", "zypper lr", "ping -c 4 google.com", "free"].map { |command|
       ["*"*80,command,"\n", process_complete(command), "\n"] rescue Exception
     }.flatten.map { |line| line.to_s }.join("\n")
   end		
@@ -270,10 +280,9 @@ class SdkHelper < Sinatra::Base
       process_start("sdk-manage --devel --remove '#{target}' '#{package}'", "removing package #{package}", 60*15)
     end
 
-
     # -------------------------------- Sdk
 
-    def sdk_version_update
+    def sdk_updates
       $sdk_version = @sdk_version = process_complete("sdk-manage --sdk --version").split("\n")
     rescue ProcessFailed
       @sdk_version = ($sdk_version or [])
@@ -341,4 +350,3 @@ class SdkHelper < Sinatra::Base
   end
 
 end
-

@@ -21,6 +21,10 @@
             %li.tab{:class => tab == :toolchains ? "current_tab" :"" }
               .li
                 = _ :toolchains
+          %a(href="/#{@language}/updates/")
+            %li.tab{:class => tab == :updates ? "current_tab" :"" }
+              .li
+                = _ :updates
           -# %a(href="/#{@language}/")
             %li.tab{:class => tab == :sdk ? "current_tab" :"" }
               .li
