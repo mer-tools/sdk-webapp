@@ -22,6 +22,44 @@
   %h1= _ "Providers"
  
   = _"Providers_body"
-  
 
+  #provider_list
+    %table
+      - Provider.each do |provider|
+        %tr
+          %td
+            #{provider.name}
+          %td
+            (#{provider.url})
+          %td
+            %form{:action => "/#{@language}/provider/#{provider.id}", :method => "post"}
+              %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
+
+  #provider_control
+    New Provider
+  #provider_wrap
+    %form{:action => "/#{@language}/provider/add", :method => 'post'}
+      %label
+        = _ :provider
+      .parameter
+        .parameter_name
+          %label
+            = _ :provider_name
+        .parameter_text_field
+          %input#text_field1{:type => 'text', :name => 'provider_name', :value => @provider_name, :class=> "button"}
+      .clear
+      .parameter
+        .parameter_name
+          %label
+            = _ :provider_url
+        .parameter_text_field
+          %input#text_field2{:type => 'text', :name => 'provider_url', :value => @provider_url, :class=> "button"}
+      .clear
+      .parameter_add_button
+        %input{:type => 'submit', :value => (_ :add), :class => 'button'}
+  :javascript
+    $("#provider_wrap").hide()
+    $("#provider_control").click(function () {
+      $("#provider_wrap").toggle()
+    });
   .clear

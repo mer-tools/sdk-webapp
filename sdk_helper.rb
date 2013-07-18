@@ -1,4 +1,5 @@
 require './shell_process'
+require './providers.rb'
 require_relative 'target_servers'
 
 I18n::Backend::Simple.send(:include, I18n::Backend::Translate)
@@ -37,9 +38,26 @@ class SdkHelper < Sinatra::Base
     process_tail_update
     sdk_updates
     targets_list_update
+    Provider.load
     haml :updates, :locals => { :tab => :updates }
   end
-  
+
+  post '/:locale/provider/add' do
+    locale_set
+    Provider.load
+    Provider.new(params[:provider_name], params[:provider_url])
+    Provider.save
+    redirect to("/"+params[:locale]+'/updates/')
+  end
+
+  delete '/:locale/provider/:provider_id' do
+    locale_set
+    Provider.load
+    Provider.delete(params[:provider_id])
+    Provider.save
+    redirect to('/'+params[:locale]+'/updates/')
+  end
+
   get '/:locale/toolchains/' do
     locale_set
     process_tail_update
