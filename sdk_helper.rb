@@ -14,6 +14,15 @@ class ProcessFailed < Exception; end
 class SdkHelper < Sinatra::Base
 
   use Rack::MethodOverride #this is needed for delete methods
+  
+  configure do
+    # logging is enabled by default in classic style applications,
+    # so `enable :logging` is not needed
+    #  file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+    #  file.sync = true
+    #  use Rack::CommonLogger, file
+    use Rack::CommonLogger
+  end
 
   get "/index.css" do
     sass :index
