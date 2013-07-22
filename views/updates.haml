@@ -9,15 +9,41 @@
 
   %h1= _ "Engine"
 
+  %p
+    Enables engine updates
+
   = _ "Engine_at_version" #{ENGINE_VERSION} _ "Engine_version_avail" #{ENGINE_VERSION_AVAILABLE}
+
+  - if Engine.update_available?
+    %form{:action => "/#{@language}/engine/update", :method => "post"}
+      %input{:type => "submit", :value => (_ "Update Engine"), :class => "button", :name=> "_method"}
+
+  %hr
 
   %h1= _ "Targets"
 
   = _"Targets_body"
+  %p
+    Check each target for updates available
+
+  - Target.each do |target|
+    %tr
+      %td
+        #{target.name}
+        %td
+          - if target.update_available?
+            %form{:action => "/#{@language}/provider/#{provider.id}", :method => "post"}
+            %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
+          - else
+            = _ "Uptodate"
+
+  %hr
 
   %h1= _ "Emulators"
 
   = _"Emulators_body"
+
+  %hr
 
   %h1= _ "Providers"
  

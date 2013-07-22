@@ -1,5 +1,7 @@
 require './shell_process'
 require './providers.rb'
+require './targets.rb'
+require './engine.rb'
 require_relative 'target_servers'
 
 I18n::Backend::Simple.send(:include, I18n::Backend::Translate)
@@ -22,6 +24,12 @@ class SdkHelper < Sinatra::Base
     #  file.sync = true
     #  use Rack::CommonLogger, file
     use Rack::CommonLogger
+  end
+
+  before do
+    Provider.load
+    Engine.load
+    Target.load
   end
 
   get "/index.css" do
@@ -47,13 +55,11 @@ class SdkHelper < Sinatra::Base
     process_tail_update
     sdk_updates
     targets_list_update
-    Provider.load
     haml :updates, :locals => { :tab => :updates }
   end
 
   post '/:locale/provider/add' do
     locale_set
-    Provider.load
     Provider.new(params[:provider_name], params[:provider_url])
     Provider.save
     redirect to("/"+params[:locale]+'/updates/')
@@ -61,7 +67,6 @@ class SdkHelper < Sinatra::Base
 
   delete '/:locale/provider/:provider_id' do
     locale_set
-    Provider.load
     Provider.delete(params[:provider_id])
     Provider.save
     redirect to('/'+params[:locale]+'/updates/')
