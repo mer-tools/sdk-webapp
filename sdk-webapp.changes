@@ -1,3 +1,6 @@
+* Wed Jul 24 2013 David Greaves <david@dgreaves.com> - 0.6.0-1
+- Refactor code; add Providers and handle updates
+
 * Fri Feb 22 2013 David Greaves <david@dgreaves.com> - 0.5.5-1
 - Add missing translation strings
 

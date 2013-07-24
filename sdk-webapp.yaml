@@ -1,36 +1,32 @@
 Name: sdk-webapp
 Summary: Mer SDK manager
-Description:
- Allows web-based management of the Mer SDK.
- Adds toolchains, targets etc
-
-Version: 0.5.5
+Description: Allows web-based management of the Mer SDK. Adds toolchains, targets
+  etc
+Version: 0.6.0
 Release: 1
 URL: https://github.com/mer-tools/sdk-webapp
 Group: Development Platform/Platform SDK
 License: GPLv2+
 Sources:
-    - sdk-webapp.tar.bz2
-    - sdk-webapp.service
+  - sdk-webapp-%{version}.tar.gz
+  - sdk-webapp.service
 PkgBR:
   - systemd
 Requires:
-    - sdk-webapp-bundle >= 0.4.0
-    - sdk-webapp-customization >= 0.4.0-2
+  - sdk-webapp-bundle >= 0.4.0
+  - sdk-webapp-customization >= 0.4.0-2
 Configure: none
 SetupOptions: -q -n src
 Files:
-  - "%{_libdir}/%{name}-bundle/config.ru"
-  - "%{_libdir}/%{name}-bundle/*.rb"
-  - "%{_libdir}/systemd/user/%{name}.service"
-  - "%{_libdir}/%{name}-bundle/views/default.sass"
-  - "%{_libdir}/%{name}-bundle/views/*.haml"
-  - "%{_libdir}/%{name}-bundle/public/*.js"
-  - "%{_libdir}/%{name}-bundle/public/ttf"
-  - "%{_libdir}/%{name}-bundle/public/css"
-  - "%attr(-,mersdk,mersdk) %{_libdir}/%{name}-bundle/.sass-cache/"
-
-
+  - '%{_libdir}/%{name}-bundle/config.ru'
+  - '%{_libdir}/%{name}-bundle/*.rb'
+  - '%{_libdir}/systemd/user/%{name}.service'
+  - '%{_libdir}/%{name}-bundle/views/default.sass'
+  - '%{_libdir}/%{name}-bundle/views/*.haml'
+  - '%{_libdir}/%{name}-bundle/public/*.js'
+  - '%{_libdir}/%{name}-bundle/public/ttf'
+  - '%{_libdir}/%{name}-bundle/public/css'
+  - '%attr(-,mersdk,mersdk) %{_libdir}/%{name}-bundle/.sass-cache/'
 SubPackages:
   - Name: mer
     Summary: Mer customization for SDK management web-application
@@ -39,22 +35,20 @@ SubPackages:
     Provides:
       - sdk-webapp-customization
     Files:
-      - "%attr(-,mersdk,mersdk) %{_sysconfdir}/mersdk/providers.json"
-      - "%{_libdir}/%{name}-bundle/views/index.sass"
-      - "%{_libdir}/%{name}-bundle/public/images"
-
+      - '%attr(-,mersdk,mersdk) %{_sysconfdir}/mersdk/providers.json'
+      - '%{_libdir}/%{name}-bundle/views/index.sass'
+      - '%{_libdir}/%{name}-bundle/public/images'
   - Name: ts-manual
     Summary: Translation source
     Description: Translations until pootle is done
     Group: Development Platform/Platform SDK
     Files:
-      - "%{_libdir}/%{name}-bundle/i18n/en.ts"
-      - "%{_libdir}/%{name}-bundle/i18n/zh_CN.ts"
-
+      - '%{_libdir}/%{name}-bundle/i18n/en.ts'
+      - '%{_libdir}/%{name}-bundle/i18n/zh_CN.ts'
   - Name: ts-devel
     Summary: Translation source
     Description: Translations for pootle
     Group: Development Platform/Platform SDK
     Files:
-      - "%{_libdir}/%{name}-bundle/i18n/en.ts"
-
+      - '%{_libdir}/%{name}-bundle/i18n/en.ts'
+Patches: []
