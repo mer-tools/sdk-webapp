@@ -4,11 +4,12 @@
     %title
       = _ :page_title
     %link(href="/index.css" media="all" rel="stylesheet" type="text/css")
-    - if @refresh_time
-      %meta{'http-equiv' =>'refresh', 'content' => "#{@refresh_time}" }
+    - if CCProcess.refresh_time
+      %meta{'http-equiv' =>'refresh', 'content' => "#{CCProcess.refresh_time}" }
     %link(href="/css/fonts.css" rel="stylesheet" type="text/css")
-    %script{src: "/filter.js"}
     %script{src: "http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"}
+    %script{src: "/filter.js"}
+    %script{src: "/count.js"}
   %body
     .page_bar_wrap
       #page_bar
@@ -36,23 +37,29 @@
     .wrapper
       .content_wrap
         =yield
-      - if @status_out and @status_out.size > 0
+      - if CCProcess.exists
         .progress_blocker
           .progress
             .progress_background
               #progress_view
-                %table(class="progress_table #{@process_result_class}")
+                %table(class="progress_table #{CCProcess.result_class}")
                   %tbody
                     %tr
                       %td
-                        %form{:action => "/actions/clear_output", :method => "post"}
-                          %input{:type => "submit", :value => (_ :clear_progress), :class => "button"}
+                        - if ! CCProcess.is_running
+                          %form{:action => "/actions/clear_output", :method => "post"}
+                            %input{:type => "submit", :value => (_ :clear_progress), :class => "button"}
+                        - if CCProcess.refresh_time
+                          Update log in
+                          %b#countdown
+                          :javascript
+                            $("#countdown").countdown(#{CCProcess.refresh_time}, "s");
                         .progress_header
                           = _ :operation_progress
                     %tr
                       %td
                         .monospace
-                        #{@status_out}
+                        #{CCProcess.status_out}
 
 
 

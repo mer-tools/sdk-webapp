@@ -1,12 +1,14 @@
 require 'json'
+require './process.rb'
 
 # A Target is simply a name to allow target operations
 # All data is stored in the target install in sb2
-#
+# Refreshing is carried out by a systemd timer
 class Target
   include Enumerable
   attr_accessor :name, :url, :toolchain
-  @@targets=nil
+  @@targets=[]
+  UPDATE_VALID_PERIOD=7200
 
   def id
     return @id
@@ -14,49 +16,88 @@ class Target
 
   def initialize(name)
     @name = name
+    @last_update_check=Time.at(0)
   end
 
   # Installs a target to the filesystem and sb2 using a url/toolchain pair
   def create(url, toolchain)
-    process_start("sdk-manage --target --install '#{@name}' '#{toolchain}' '#{url}'", (_ :adding_target) + " #{@name}", 60*60)
+    CCProcess.start("sdk-manage --target --install '#{@name}' '#{toolchain}' '#{url}'", (_ :adding_target) + " #{@name}", 60*60)
   end
 
   # Removes a target from the fs and sb2
   def remove()
-    process_start("sdk-manage --target --remove '#{@name}'", (_ :removing_target) + " #{@name}", 60*15)
+    CCProcess.start("sdk-manage --target --remove '#{@name}'", (_ :removing_target) + " #{@name}", 60*15)
     @@targets.delete(@name)
   end
 
-  # What updates are available
-  def update_available()
-    process_complete("sdk-manage --target --status '#{@name}'")
+  # Is the target in targets.xml and known to the SDK?
+  def is_known
+    TargetsXML.has_target(@name)
+  end
+
+  # Is the cache out of date?
+  def _update_check_needed
+    puts "#{@name} #{@last_update_check}\n"
+    (Time.now - @last_update_check) > UPDATE_VALID_PERIOD
+  end
+
+  # Force check what updates are available
+  def _check_for_updates
+    puts "Checking #{@name} for update\n"
+    @update_info = CCProcess.complete("sdk-manage --target --status '#{@name}'")
+    @last_update_check = Time.now
+    puts "#{@name} #{@last_update_check}\n"
+  rescue CCProcess::Failed
+    ""
+  end
+
+  def update_info
+    if _update_check_needed then
+      _check_for_updates
+    end
+    return @update_info
   end
 
   # Are any updates available
   def update_available?()
-    process_complete("sdk-manage --target --status '#{@name}'")
+    update_info != ""
   end
 
   def update(target)
-    process_start("sdk-manage --target --update '#{@name}'", (_ :syncing_target) + " #{@name}", 60*15)
+    CCProcess.start("sdk-manage --target --update '#{@name}'", (_ :syncing_target) + " #{@name}", 60*15)
+  end
+
+  def version
+    _ :version_not_available
   end
 
   def sync()
-    process_start("sdk-manage --target --sync '#{@name}'", (_ :syncing_target) + " #{@name}", 60*15)
+    CCProcess.start("sdk-manage --target --sync '#{@name}'", (_ :syncing_target) + " #{@name}", 60*15)
   end
 
   def refresh()
-    process_start("sdk-manage --target --refresh '#{@name}'", (_ :refreshing_target) + " #{@name}", 60*15)
+    CCProcess.start("sdk-manage --target --refresh '#{@name}'", (_ :refreshing_target) + " #{@name}", 60*15)
     end
   
-  # -------------------------------- Target
+  # Some class methods to handle iteration and save/load
 
   def self.load
-    @@targets = process_complete("sdk-manage --target --list").split.map{ |n| Target.new(n) }
-  rescue ProcessFailed
+    @@targets = CCProcess.complete("sdk-manage --target --list").split.map{ |n| self.get(n) }
+    @@targets = @@targets.keep_if {|t| t.is_known }
+  rescue CCProcess::Failed
     @@targets = []
   end
 
+  def self.get(name)
+    i = @@targets.index {|t| t.name == name }
+    if i == nil then
+      new(name)
+    else
+      t=@@targets[i]
+      puts "found #{name} #{t._update_check_needed}\n"
+      @@targets[i]
+    end
+  end
 
   def targets_available_update
     @targets_available = []
@@ -77,12 +118,26 @@ class Target
     end
   end
     
+  def self.update_check_needed
+    needed=false
+    Target.each { |t| needed &&= t._update_check_needed }
+    return needed
+  end
 
-  # Some class methods to handle iteration and save/load
+  def self.check_for_updates
+    Target.each do |t|
+      t.check_for_updates
+    end
+  end
+
   def self.each
     for t in @@targets do
       yield t
     end
+  end
+
+  def self.all
+    @@targets
   end
 
   def self.delete(id)
@@ -90,4 +145,35 @@ class Target
   end
 
 end
-  
+
+require 'rexml/document'
+class TargetsXML
+  TARGETS_XML="/host_targets/targets.xml"
+  @@xml_mtime = Time.at(0)
+
+  def self.targets
+    if ! File.exists?(TARGETS_XML) then
+      puts "Targets.xml doesn't exist\n"
+      return @@targets=[]
+    end
+    if File.mtime(TARGETS_XML) > @@xml_mtime then
+      puts "Targets.xml changed\n"
+      @@targets = @@doc = nil
+    end
+
+    if ! @@targets then
+      doc = REXML::Document.new File.new TARGETS_XML
+      @@xml_mtime = File.mtime(TARGETS_XML)
+      @@targets = []
+      puts "Reading Targets.xml\n"
+      doc.elements.each('targets/target') { |ele|
+        @@targets << ele.attributes["name"]
+      }
+    end
+    @@targets
+  end
+
+  def self.has_target(name)    
+    return targets.include? name 
+  end
+end

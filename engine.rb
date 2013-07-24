@@ -4,18 +4,41 @@ require 'json'
 # All data is stored in the engine install
 #
 class Engine
-  # What updates are available
-  def self.update_available
-    process_complete("sdk-manage --engine --status '#{@name}'")
+
+  UPDATE_VALID_PERIOD=7200
+  @@last_update_check=Time.at(0)
+
+  # Is the cache out of date?
+  def self._update_check_needed
+    (Time.now - @@last_update_check) > UPDATE_VALID_PERIOD
+  end
+
+  # Force check what updates are available
+  def self._check_for_updates
+    @@update_info = CCProcess.complete("sdk-manage --engine --list_updates")
+    @@last_update_check = Time.now
+  rescue CCProcess::Failed
+    @@update_info=""
+  end
+
+  def self.update_info
+    if _update_check_needed then
+      _check_for_updates
+    end
+    return @@update_info
   end
 
   # Are any updates available
   def self.update_available?
-    true
+    update_info != ""
+  end
+
+  def self.version
+    _ :version_not_available
   end
 
   def self.update
-    process_start("sdk-manage --sdk --update", (_ :updating_engine) + " #{@name}", 60*15)
+    CCProcess.start("sdk-manage --sdk --update", (_ :updating_engine) + " #{@name}", 60*15)
   end
 
   def self.load

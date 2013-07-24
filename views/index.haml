@@ -1,13 +1,5 @@
 .content
   .page_header
     = _ :manage_sdk
-  #sdk_management
-    #sdk_version
-      %ul
-        - @sdk_version.each do |ver_line|
-          %li
-            #{ver_line}
-    #sdk_upgrade
-      %form{:action => "/#{@language}/sdk/", :method => "post"}
-        %input{:type => "submit", :value => (_ :upgrade), :class => "button"}
-  .clear
+    %p
+      = _ :sdk_overview

@@ -12,11 +12,14 @@
   %p
     Enables engine updates
 
-  = _ "Engine_at_version" #{ENGINE_VERSION} _ "Engine_version_avail" #{ENGINE_VERSION_AVAILABLE}
+  %p
+    = _ (:engine_version ) #{Engine.version}
 
   - if Engine.update_available?
     %form{:action => "/#{@language}/engine/update", :method => "post"}
       %input{:type => "submit", :value => (_ "Update Engine"), :class => "button", :name=> "_method"}
+
+  .clear
 
   %hr
 
@@ -26,16 +29,21 @@
   %p
     Check each target for updates available
 
-  - Target.each do |target|
-    %tr
-      %td
-        #{target.name}
-        %td
-          - if target.update_available?
-            %form{:action => "/#{@language}/provider/#{provider.id}", :method => "post"}
-            %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
-          - else
-            = _ "Uptodate"
+  - if Target.update_check_needed
+    %form{:action => "/#{@language}/target/check_for_updates", :method => "post"}
+      %input{:type => "submit", :value => (_ :check_for_updates), :class => "button", :name=> "_method"}
+  - else
+    %table
+      - Target.each do |target|
+        %tr
+          %td
+            #{target.name}
+            %td
+              - if target.update_available?
+                %form{:action => "/#{@language}/target/#{target.id}", :method => "post"}
+                %input{:type => "submit", :value => (_ :update), :class => "button", :name=> "_method"}
+              - else
+                = _ "Uptodate"
 
   %hr
 
@@ -60,6 +68,11 @@
           %td
             %form{:action => "/#{@language}/provider/#{provider.id}", :method => "post"}
               %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
+          %td
+            - if provider.success
+              OK
+            - else
+              Not OK
 
   #provider_control
     New Provider
