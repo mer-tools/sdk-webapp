@@ -18,7 +18,7 @@
 
   #packages_table
     %form{:action => "/#{@language}/targets/add", :method => 'post'}
-      %input{:id => "search", :type => "text", :autocomplete => "off", :onkeyup => "pkgFilter.run(this)"}
+      %input{:id => "search", :type => "text", :autocomplete => "off", :onkeyup => "pkgFilter.run(this)", :class => "button parameter_text_field"}
       %div{:id => "search_done"}
         = _(:search_for_packages)
       %div{:id => "search_active"}
