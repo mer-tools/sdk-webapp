@@ -3,7 +3,6 @@ require './providers.rb'
 require './targets.rb'
 require './engine.rb'
 require './process.rb'
-require_relative 'target_servers'
 
 I18n::Backend::Simple.send(:include, I18n::Backend::Translate)
 I18n::Backend::Simple.send(:include, I18n::Backend::TS)

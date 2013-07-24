@@ -1,0 +1,9 @@
+[
+  {
+    "json_class": "Provider",
+    "data": {
+      "name": "mer",
+      "url": "http://releases.merproject.org/sdk/targets.json"
+    }
+  }
+]
