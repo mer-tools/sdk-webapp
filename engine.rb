@@ -15,7 +15,7 @@ class Engine
 
   # Force check what updates are available
   def self._check_for_updates
-    @@update_info = CCProcess.complete("sdk-manage --engine --list_updates")
+    @@update_info = CCProcess.complete("sdk-manage --sdk --upgradable")
     @@last_update_check = Time.now
   rescue CCProcess::Failed
     @@update_info=""
