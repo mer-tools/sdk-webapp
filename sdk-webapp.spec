@@ -13,11 +13,13 @@ Version:    0.5.5
 Release:    1
 Group:      Development Platform/Platform SDK
 License:    GPLv2+
+URL:        https://github.com/mer-tools/sdk-webapp
 Source0:    sdk-webapp.tar.bz2
 Source1:    sdk-webapp.service
 Source100:  sdk-webapp.yaml
 Requires:   sdk-webapp-bundle >= 0.4.0
 Requires:   sdk-webapp-customization >= 0.4.0-2
+BuildRequires:  systemd
 
 %description
 Allows web-based management of the Mer SDK. Adds toolchains, targets etc
@@ -92,24 +94,20 @@ cp %{_sourcedir}/%{name}.service %{buildroot}%{_libdir}/systemd/user/
 %files
 %defattr(-,root,root,-)
 %{_libdir}/%{name}-bundle/config.ru
-%{_libdir}/%{name}-bundle/sdk_helper.rb
-%{_libdir}/%{name}-bundle/shell_process.rb
+%{_libdir}/%{name}-bundle/*.rb
 %{_libdir}/systemd/user/%{name}.service
 %{_libdir}/%{name}-bundle/views/default.sass
-%{_libdir}/%{name}-bundle/views/index.haml
-%{_libdir}/%{name}-bundle/views/layout.haml
-%{_libdir}/%{name}-bundle/views/targets.haml
-%{_libdir}/%{name}-bundle/views/packages.haml
-%{_libdir}/%{name}-bundle/views/toolchains.haml
-%{_libdir}/%{name}-bundle/public/*js
+%{_libdir}/%{name}-bundle/views/*.haml
+%{_libdir}/%{name}-bundle/public/*.js
 %{_libdir}/%{name}-bundle/public/ttf
 %{_libdir}/%{name}-bundle/public/css
+%attr(-,mersdk,mersdk) %{_libdir}/%{name}-bundle/.sass-cache/
 # >> files
 # << files
 
 %files mer
 %defattr(-,root,root,-)
-%{_libdir}/%{name}-bundle/target_servers.rb
+%attr(-,mersdk,mersdk) %{_sysconfdir}/mersdk/providers.json
 %{_libdir}/%{name}-bundle/views/index.sass
 %{_libdir}/%{name}-bundle/public/images
 # >> files mer

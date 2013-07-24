@@ -6,12 +6,13 @@ Description:
 
 Version: 0.5.5
 Release: 1
+URL: https://github.com/mer-tools/sdk-webapp
 Group: Development Platform/Platform SDK
 License: GPLv2+
 Sources:
     - sdk-webapp.tar.bz2
     - sdk-webapp.service
-BuildRequires:
+PkgBR:
   - systemd
 Requires:
     - sdk-webapp-bundle >= 0.4.0
@@ -20,18 +21,15 @@ Configure: none
 SetupOptions: -q -n src
 Files:
   - "%{_libdir}/%{name}-bundle/config.ru"
-  - "%{_libdir}/%{name}-bundle/sdk_helper.rb"
-  - "%{_libdir}/%{name}-bundle/shell_process.rb"
+  - "%{_libdir}/%{name}-bundle/*.rb"
   - "%{_libdir}/systemd/user/%{name}.service"
   - "%{_libdir}/%{name}-bundle/views/default.sass"
-  - "%{_libdir}/%{name}-bundle/views/index.haml"
-  - "%{_libdir}/%{name}-bundle/views/layout.haml"
-  - "%{_libdir}/%{name}-bundle/views/targets.haml"
-  - "%{_libdir}/%{name}-bundle/views/packages.haml"
-  - "%{_libdir}/%{name}-bundle/views/toolchains.haml"
-  - "%{_libdir}/%{name}-bundle/public/*js"
+  - "%{_libdir}/%{name}-bundle/views/*.haml"
+  - "%{_libdir}/%{name}-bundle/public/*.js"
   - "%{_libdir}/%{name}-bundle/public/ttf"
   - "%{_libdir}/%{name}-bundle/public/css"
+  - "%attr(-,mersdk,mersdk) %{_libdir}/%{name}-bundle/.sass-cache/"
+
 
 SubPackages:
   - Name: mer
@@ -41,7 +39,7 @@ SubPackages:
     Provides:
       - sdk-webapp-customization
     Files:
-      - "%{_libdir}/%{name}-bundle/target_servers.rb"
+      - "%attr(-,mersdk,mersdk) %{_sysconfdir}/mersdk/providers.json"
       - "%{_libdir}/%{name}-bundle/views/index.sass"
       - "%{_libdir}/%{name}-bundle/public/images"
 
