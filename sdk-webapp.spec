@@ -101,6 +101,7 @@ cp %{_sourcedir}/%{name}.service %{buildroot}%{_libdir}/systemd/user/
 %{_libdir}/%{name}-bundle/views/targets.haml
 %{_libdir}/%{name}-bundle/views/packages.haml
 %{_libdir}/%{name}-bundle/views/toolchains.haml
+%{_libdir}/%{name}-bundle/public/*js
 %{_libdir}/%{name}-bundle/public/ttf
 %{_libdir}/%{name}-bundle/public/css
 # >> files
