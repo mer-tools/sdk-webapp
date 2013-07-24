@@ -17,6 +17,8 @@ class Target
   def initialize(name)
     @name = name
     @last_update_check=Time.at(0)
+    @@targets << self
+    @id = @@targets.size - 1
   end
 
   # Installs a target to the filesystem and sb2 using a url/toolchain pair
@@ -37,16 +39,13 @@ class Target
 
   # Is the cache out of date?
   def _update_check_needed
-    puts "#{@name} #{@last_update_check}\n"
     (Time.now - @last_update_check) > UPDATE_VALID_PERIOD
   end
 
   # Force check what updates are available
   def _check_for_updates
-    puts "Checking #{@name} for update\n"
-    @update_info = CCProcess.complete("sdk-manage --target --status '#{@name}'")
+    @update_info = CCProcess.complete("sdk-manage --target --upgradable '#{@name}'")
     @last_update_check = Time.now
-    puts "#{@name} #{@last_update_check}\n"
   rescue CCProcess::Failed
     ""
   end
@@ -94,7 +93,6 @@ class Target
       new(name)
     else
       t=@@targets[i]
-      puts "found #{name} #{t._update_check_needed}\n"
       @@targets[i]
     end
   end
@@ -153,11 +151,9 @@ class TargetsXML
 
   def self.targets
     if ! File.exists?(TARGETS_XML) then
-      puts "Targets.xml doesn't exist\n"
       return @@targets=[]
     end
     if File.mtime(TARGETS_XML) > @@xml_mtime then
-      puts "Targets.xml changed\n"
       @@targets = @@doc = nil
     end
 
@@ -165,7 +161,6 @@ class TargetsXML
       doc = REXML::Document.new File.new TARGETS_XML
       @@xml_mtime = File.mtime(TARGETS_XML)
       @@targets = []
-      puts "Reading Targets.xml\n"
       doc.elements.each('targets/target') { |ele|
         @@targets << ele.attributes["name"]
       }
