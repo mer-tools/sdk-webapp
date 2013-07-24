@@ -17,6 +17,11 @@ dl, dt, dd, ol, ul, li
   font-family: inherit
   vertical-align: baseline
 
+h1
+  font-size: 120%
+  font-weight: bold
+  padding-bottom: 5px
+
 \:focus
   outline: 0
 
@@ -138,6 +143,7 @@ body
 
 .content
   padding-left: 50px
+  padding-right: 50px
   padding-top: 30px
 
 .page_header
@@ -181,20 +187,10 @@ body
 .clear
   clear: both
 
-
-
-
-
-
 #sdk_version
   line-height: 1.5em
   width: 350px
   float: left
-
-
-
-
-
 
 #sdk_upgrade
   padding-top: 8px
@@ -300,10 +296,49 @@ input[disabled]
   background-repeat: no-repeat
   background-position: right
 
-#text_field1, #text_field2
+.parameter_text_field
   background-color: rgba(188, 207, 207, 0.5)
   color: #e3ebed
   width: 260px
 
 .fixed_width
   width: 110px
+
+.update_section
+  padding-top: 20px
+  padding-bottom: 20px
+  border-style: none
+  border-bottom: 1px solid 
+
+.update_details
+  display: none
+  position: absolute
+  background-color: rgba(50, 50, 100, 1)
+  padding: 10px
+  border: 1px solid  #e3ebed
+
+#provider_add
+  display: none
+  padding-top: 20px
+  padding-bottom: 20px
+
+#provider_list
+  padding-top: 10px
+  padding-bottom: 10px
+  table
+    border-collapse: collapse
+    border: none 
+
+  table td
+    border-left: 1px solid
+    border-right: 1px solid
+    padding: 4px
+
+  table tr:first-child td
+    border-bottom: 1px solid
+
+  table td:first-child
+    border-left: none
+
+  table td:last-child
+    border-right: none
