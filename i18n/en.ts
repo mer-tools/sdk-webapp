@@ -188,6 +188,13 @@
     </message>
 </context>
 <context>
+    <name>local_template_name</name>
+    <message>
+        <source>local_template_name</source>
+        <translation>Local target name</translation>
+    </message>
+</context>
+<context>
     <name>add</name>
     <message>
         <source>add</source>
@@ -277,17 +284,17 @@
   </message>
 </context>
 <context>
-  <name>Engine_at_version</name>
+  <name>engine_version</name>
   <message>
-    <source>Engine_at_version</source>
+    <source>engine_version</source>
     <translation>The SDK engine is at version</translation>
   </message>
 </context>
 <context>
-  <name>Engine_version_avail</name>
+  <name>Update Engine</name>
   <message>
-    <source>Engine_version_avail</source>
-    <translation>Available version</translation>
+    <source>Update Engine</source>
+    <translation>Update Engine</translation>
   </message>
 </context>
 <context>
@@ -301,8 +308,14 @@
   <name>Targets_body</name>
   <message>
     <source>Targets_body</source>
-    <translation>The following targets have updates available which should be applied.
-  The following targets are available.</translation>
+    <translation>The following targets have updates available which should be applied.</translation>
+  </message>
+</context>
+<context>
+  <name>update</name>
+  <message>
+    <source>update</source>
+    <translation>Update</translation>
   </message>
 </context>
 <context>
@@ -333,6 +346,41 @@
   <message>
     <source>Providers_body</source>
     <translation>The following providers are configured:</translation>
+  </message>
+</context>
+<context>
+  <name>New Provider</name>
+  <message>
+    <source>New Provider</source>
+    <translation>New Provider</translation>
+  </message>
+</context>
+<context>
+  <name>provider</name>
+  <message>
+    <source>provider</source>
+    <translation>Provider</translation>
+  </message>
+</context>
+<context>
+  <name>provider_name</name>
+  <message>
+    <source>provider_name</source>
+    <translation>Provider Name</translation>
+  </message>
+</context>
+<context>
+  <name>provider_url</name>
+  <message>
+    <source>provider_url</source>
+    <translation>Provider JSON Url</translation>
+  </message>
+</context>
+<context>
+  <name>provider_status</name>
+  <message>
+    <source>provider_status</source>
+    <translation>JSON Url status</translation>
   </message>
 </context>
 <!-- views/.haml -->
