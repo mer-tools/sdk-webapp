@@ -291,6 +291,13 @@
   </message>
 </context>
 <context>
+  <name>updating_engine</name>
+  <message>
+    <source>updating_engine</source>
+    <translation>Updating SDK Engine</translation>
+  </message>
+</context>
+<context>
   <name>Update Engine</name>
   <message>
     <source>Update Engine</source>

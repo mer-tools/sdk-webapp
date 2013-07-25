@@ -70,6 +70,12 @@ class SdkHelper < Sinatra::Base
     redirect to('/'+params[:locale]+'/updates/')
   end
 
+  #update sdk
+  post '/:locale/updates/engine' do
+    Engine.update()
+    redirect to('/'+params[:locale]+'/updates/')
+  end
+
   get '/:locale/toolchains/' do
     locale_set
     CCProcess.tail_update
@@ -149,7 +155,7 @@ class SdkHelper < Sinatra::Base
     redirect to('/' + params[:locale] + '/targets/')
   end
 
-  #upgrade target
+  #update target
   post '/:locale/targets/:target/update' do
     Target.get(params[:target]).update
     redirect to('/'+params[:locale]+'/targets/')
@@ -171,12 +177,8 @@ class SdkHelper < Sinatra::Base
     redirect to('/'+params[:locale]+'/targets/' + target)
   end
 
-  #upgrade sdk
-  post '/:locale/sdk/' do
-    sdk_upgrade()
-    redirect to('/'+params[:locale]+'/')
-  end
 
+  # info
   get '/:locale/info' do  
     content_type 'text/plain'
     ["df", "rpmquery -qa", "cat /proc/version", "/sbin/ifconfig -a", "/sbin/route -n", "mount", "zypper lr", "ping -c 4 google.com", "free"].map { |command|

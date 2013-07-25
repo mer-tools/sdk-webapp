@@ -11,7 +11,7 @@
     %h1= _ "Engine"
 
     - if Engine.update_available?
-      %form{:action => "/#{@language}/engine/update", :method => "post"}
+      %form{:action => "/#{@language}/updates/engine", :method => "post"}
         %input{:type => "submit", :value => (_ "Update Engine"), :class => "button", :name=> "_method", :id => "engine_update"}
       #engine_update_details.update_details
         Update Details
@@ -22,6 +22,8 @@
         :javascript
           $("#engine_update").show_info($("#engine_update_details"));
           $("#engine_update_details").show_info($("#engine_update_details"));
+    - else
+      = _ "Uptodate"
     .clear
 
 

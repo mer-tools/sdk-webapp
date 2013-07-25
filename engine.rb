@@ -38,7 +38,8 @@ class Engine
   end
 
   def self.update
-    CCProcess.start("sdk-manage --sdk --update", (_ :updating_engine) + " #{@name}", 60*15)
+    CCProcess.start("sdk-manage --sdk --upgrade", (_ :updating_engine) + " #{@name}", 60*15)
+    @@last_update_check=Time.at(0)
   end
 
   def self.load
