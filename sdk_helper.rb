@@ -150,8 +150,8 @@ class SdkHelper < Sinatra::Base
   end
 
   #upgrade target
-  post '/:locale/targets/:target/upgrade' do
-    Target.get(params[:target]).upgrade
+  post '/:locale/targets/:target/update' do
+    Target.get(params[:target]).update
     redirect to('/'+params[:locale]+'/targets/')
   end
 

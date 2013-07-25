@@ -62,7 +62,7 @@ class Target
     update_info != ""
   end
 
-  def update(target)
+  def update()
     CCProcess.start("sdk-manage --target --update '#{@name}'", (_ :syncing_target) + " #{@name}", 60*15)
   end
 

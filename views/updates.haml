@@ -36,8 +36,8 @@
             #{target.name}
             %td
               - if target.update_available?
-                %form{:action => "/#{@language}/target/#{target.id}", :method => "post"}
-                %input{:type => "submit", :value => (_ :update), :class => "button", :name=> "_method", :id => "t#{target.id}_update"}
+                %form{:action => "/#{@language}/targets/#{target.name}/update", :method => "post"}
+                  %input{:type => "submit", :value => (_ :update), :class => "button", :name=> "_method", :id => "t#{target.id}_update"}
                 %div.update_details{:id => "t#{target.id}_update_details"}
                   Update Details
                   %pre
