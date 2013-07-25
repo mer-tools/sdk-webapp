@@ -2,7 +2,7 @@ Name: sdk-webapp
 Summary: Mer SDK manager
 Description: Allows web-based management of the Mer SDK. Adds toolchains, targets
   etc
-Version: 0.6.1
+Version: 0.6.2
 Release: 1
 URL: https://github.com/mer-tools/sdk-webapp
 Group: Development Platform/Platform SDK
