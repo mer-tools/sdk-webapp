@@ -7,6 +7,7 @@ require './process.rb'
 class Target
   include Enumerable
   attr_accessor :name, :url, :toolchain
+  @@all_targets=[]
   @@targets=[]
   UPDATE_VALID_PERIOD=7200
 
@@ -35,6 +36,11 @@ class Target
   # Is the target in targets.xml and known to the SDK?
   def is_known
     TargetsXML.has_target(@name)
+  end
+
+  # Is there an sb2 target setup already?
+  def exists
+    self.class.exists(@name)
   end
 
   # Is the cache out of date?
@@ -81,8 +87,8 @@ class Target
   # Some class methods to handle iteration and save/load
 
   def self.load
-    @@targets = CCProcess.complete("sdk-manage --target --list").split.map{ |n| self.get(n) }
-    @@targets = @@targets.keep_if {|t| t.is_known }
+    @@all_targets = CCProcess.complete("sdk-manage --target --list").split.map{ |n| self.get(n) }
+    @@targets = @@all_targets.keep_if {|t| t.is_known }
   rescue CCProcess::Failed
     @@targets = []
   end
@@ -95,6 +101,10 @@ class Target
       t=@@targets[i]
       @@targets[i]
     end
+  end
+
+  def self.exists(name)
+    @@all_targets.index {|t| t.name == name } != nil
   end
 
   def targets_available_update
