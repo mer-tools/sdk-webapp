@@ -9,7 +9,7 @@ Name:       sdk-webapp
 # << macros
 
 Summary:    Mer SDK manager
-Version:    0.6.0
+Version:    0.6.1
 Release:    1
 Group:      Development Platform/Platform SDK
 License:    GPLv2+
@@ -19,6 +19,7 @@ Source1:    sdk-webapp.service
 Source100:  sdk-webapp.yaml
 Requires:   sdk-webapp-bundle >= 0.4.0
 Requires:   sdk-webapp-customization >= 0.4.0-2
+Requires:   sdk-utils >= 0.57
 BuildRequires:  systemd
 
 %description
