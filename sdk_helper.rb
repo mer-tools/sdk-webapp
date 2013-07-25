@@ -113,8 +113,8 @@ class SdkHelper < Sinatra::Base
 
   #add target
   post '/:locale/targets/add' do
-    if params.include? :template_id then
-      t = Provider.targetTemplates[params[:template_id]]
+    if params.has_key?("template_id") then
+      t = Provider.targetTemplates[params[:template_id].to_i]
       url = t['url']
       name = params[:local_template_name] || t['name']
       toolchain = t['toolchain']
@@ -123,8 +123,15 @@ class SdkHelper < Sinatra::Base
       url = params[:target_url]
       toolchain = params[:target_toolchain]
     end
-    target = Target.new(name)
-    target.create(url, toolchain)
+    
+    if ! toolchain_exists(toolchain) then
+      # Error - no such toolchain
+    elsif ! Target.exists(name) then
+      target = Target.get(name)
+      target.create(url, toolchain)
+    else
+      # Error - Target name exists
+    end
     redirect to('/'+params[:locale]+'/targets/')
   end
   
@@ -197,6 +204,10 @@ class SdkHelper < Sinatra::Base
       $toolchain_list = @toolchain_list = CCProcess.complete("sdk-manage --toolchain --list").split.map {|line| line.split(',')  }.map { |tc, i| [tc, i == 'i'] }
     rescue CCProcess::Failed
       @toolchain_list = ($toolchain_list or []) #FIXME: nil if can't read the list!
+    end
+
+    def toolchain_exists(name)
+      $toolchain_list.include?(name)
     end
 
     def toolchain_install(name)
