@@ -312,6 +312,13 @@
   </message>
 </context>
 <context>
+  <name>Uptodate</name>
+  <message>
+    <source>Uptodate</source>
+    <translation>Up-to-date</translation>
+  </message>
+</context>
+<context>
   <name>update</name>
   <message>
     <source>update</source>
@@ -329,9 +336,7 @@
   <name>Emulators_body</name>
   <message>
     <source>Emulators_body</source>
-    <translation>The following emulators have updates available which should be applied.
-
-  The following emulators are available:</translation>
+    <translation>The following emulators have updates available which should be applied</translation>
   </message>
 </context>
 <context>
