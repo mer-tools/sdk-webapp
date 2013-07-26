@@ -9,7 +9,7 @@ Name:       sdk-webapp
 # << macros
 
 Summary:    Mer SDK manager
-Version:    0.6.3
+Version:    0.6.4
 Release:    1
 Group:      Development Platform/Platform SDK
 License:    GPLv2+
