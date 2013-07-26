@@ -73,8 +73,8 @@ rm -rf %{buildroot}
 %make_install
 
 # >> install post
-mkdir -p %{buildroot}%{_libdir}/systemd/user/
-cp %{_sourcedir}/%{name}.service %{buildroot}%{_libdir}/systemd/user/
+mkdir -p %{buildroot}%{_unitdir}
+cp %{_sourcedir}/%{name}.service %{buildroot}%{_unitdir}/
 # << install post
 
 %preun
@@ -96,7 +96,7 @@ cp %{_sourcedir}/%{name}.service %{buildroot}%{_libdir}/systemd/user/
 %defattr(-,root,root,-)
 %{_libdir}/%{name}-bundle/config.ru
 %{_libdir}/%{name}-bundle/*.rb
-%{_libdir}/systemd/user/%{name}.service
+%{_unitdir}/%{name}.service
 %{_libdir}/%{name}-bundle/views/default.sass
 %{_libdir}/%{name}-bundle/views/*.haml
 %{_libdir}/%{name}-bundle/public/*.js

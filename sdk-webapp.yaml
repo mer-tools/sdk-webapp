@@ -21,7 +21,7 @@ SetupOptions: -q -n src
 Files:
   - '%{_libdir}/%{name}-bundle/config.ru'
   - '%{_libdir}/%{name}-bundle/*.rb'
-  - '%{_libdir}/systemd/user/%{name}.service'
+  - '%{_unitdir}/%{name}.service'
   - '%{_libdir}/%{name}-bundle/views/default.sass'
   - '%{_libdir}/%{name}-bundle/views/*.haml'
   - '%{_libdir}/%{name}-bundle/public/*.js'

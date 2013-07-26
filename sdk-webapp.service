@@ -7,3 +7,6 @@ Type=simple
 WorkingDirectory=/usr/lib/sdk-webapp-bundle/
 User=mersdk
 KillSignal=SIGKILL
+
+[Install]
+WantedBy=multi-user.target
