@@ -29,9 +29,9 @@
             = _ :toolchain
           .styled_select
             %select.button.select{:name => "target_toolchain"}
-              - @toolchain_list.each do |toolchain, installed|
-                - if installed
-                  %option{:value => @target_toolchain}=toolchain
+              - Toolchain.each do |toolchain|
+                - if toolchain.installed
+                  %option{:value => @target_toolchain}=toolchain.name
         .clear
         .parameter.parameter_name
           %label
