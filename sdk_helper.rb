@@ -116,20 +116,25 @@ class SdkHelper < Sinatra::Base
       t = Provider.targetTemplates[params[:template_id].to_i]
       url = t['url']
       name = params[:local_template_name] || t['name']
-      toolchain = t['toolchain']
+      target_toolchain = t['toolchain']
     else
       name = params[:target_name]
       url = params[:target_url]
-      toolchain = params[:target_toolchain]
+      target_toolchain = params[:target_toolchain]
     end
     
-    if ! toolchain_exists(toolchain) then
+    if ! Toolchain.exists(target_toolchain) then
       # Error - no such toolchain
-    elsif ! Target.exists(name) then
-      target = Target.get(name)
-      target.create(url, toolchain)
     else
-      # Error - Target name exists
+      tc = Toolchain.get(target_toolchain)
+      if ! tc.installed
+        # Error - toolchain not installed
+      elsif ! Target.exists(name) then
+        target = Target.get(name)
+        target.create(url, target_toolchain)
+      else
+        # Error - Target name exists
+      end
     end
     redirect to('/'+params[:locale]+'/targets/')
   end
