@@ -5,10 +5,10 @@
     #toolchains_table
       %table
         %tbody
-          - @toolchain_list.each do |toolchain, installed|
+          - Toolchain.each do |toolchain|
             %tr
               %td.element_name
-                #{toolchain}
+                #{toolchain.name}
               -# removing patterns wont' work so let's hide the button
                 %td.delete_button 
                 - if installed
@@ -17,10 +17,10 @@
                 - else
                   %input{:type => "button", :value => (_ :delete), :disabled => "true", :class => "button disabled", :name=> "_method"}
               %td.install_button
-                - if not installed
-                  %form{:action => "/#{@language}/toolchains/#{toolchain}", :method => "post"}
+                - if not toolchain.installed
+                  %form{:action => "/#{@language}/toolchains/#{toolchain.name}", :method => "post"}
                     %input{:type => "submit", :value => (_ :install), :class => "button"}
               %td
-                - if installed
+                - if toolchain.installed
                   = _( :installed)
   .clear

@@ -1,6 +1,7 @@
 require './shell_process'
 require './providers.rb'
 require './targets.rb'
+require './toolchains.rb'
 require './engine.rb'
 require './process.rb'
 
@@ -70,21 +71,20 @@ class SdkHelper < Sinatra::Base
   get '/:locale/toolchains/' do
     locale_set
     CCProcess.tail_update
-    toolchain_list_update
     haml :toolchains, :locals => { :tab => :toolchains }
   end
 
 # toolchains
   post '/:locale/toolchains/:toolchain' do
-    toolchain = params[:toolchain]
-    toolchain_install(toolchain)
+    toolchain = Toolchain.get(params[:toolchain])
+    toolchain.install
     redirect to("/"+params[:locale]+'/toolchains/')
   end
 
   #remove toolchain - not supported at the moment by sdk
   delete '/:locale/toolchains/:toolchain' do
-    toolchain = params[:toolchain]
-    toolchain_remove(toolchain)
+    toolchain = Toolchain.get(params[:toolchain])
+    toolchain.remove
     redirect to('/'+params[:locale]+'/')
   end
 
@@ -99,7 +99,6 @@ class SdkHelper < Sinatra::Base
   get '/:locale/targets/' do
     locale_set
     CCProcess.tail_update
-    toolchain_list_update
     haml :targets, :locals => { :tab => :targets }
   end
 
@@ -198,24 +197,9 @@ class SdkHelper < Sinatra::Base
       end
     end
 
-    # -------------------------------- Toolchain
-
-    def toolchain_list_update
-      $toolchain_list = @toolchain_list = CCProcess.complete("sdk-manage --toolchain --list").split.map {|line| line.split(',')  }.map { |tc, i| [tc, i == 'i'] }
-    rescue CCProcess::Failed
-      @toolchain_list = ($toolchain_list or []) #FIXME: nil if can't read the list!
-    end
-
-    def toolchain_exists(name)
-      $toolchain_list.include?(name)
-    end
-
-    def toolchain_install(name)
-      CCProcess.start("sdk-manage --toolchain --install '#{name}'", "installing toolchain #{name}", 60*60)
-    end
-
-    def toolchain_remove(name)
-      CCProcess.start("sdk-manage --toolchain --remove '#{name}'", "removing toolchain #{name}", 60*15)
+    # Pass to the layout to alert user
+    def tell_user(msg, importance)
+      puts msg
     end
 
     # -------------------------------- Packages
