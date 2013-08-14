@@ -257,6 +257,28 @@
         <translation>manage</translation>
     </message>
 </context>
+<context>
+    <name>toolchain_not_available</name>
+    <message>
+        <source>toolchain_not_available</source>
+        <translation>Toolchain '%{toolchain}' is not available in any repository. That target cannot be installed.</translation>
+    </message>
+</context>
+<context>
+    <name>toolchain_not_installed</name>
+    <message>
+        <source>toolchain_not_installed</source>
+        <translation>Toolchain '%{toolchain}' is not installed. Please install it before installing this target.</translation>
+    </message>
+</context>
+<context>
+    <name>target_already_present</name>
+    <message>
+        <source>target_already_present</source>
+        <translation>Target '%{name}' is already present - please give this copy a different name.</translation>
+    </message>
+</context>
+
 
 
 <!-- views/toolchains.haml -->

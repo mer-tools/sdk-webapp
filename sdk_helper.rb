@@ -4,6 +4,7 @@ require './targets.rb'
 require './toolchains.rb'
 require './engine.rb'
 require './process.rb'
+require './flash.rb'
 
 I18n::Backend::Simple.send(:include, I18n::Backend::Translate)
 I18n::Backend::Simple.send(:include, I18n::Backend::TS)
@@ -78,6 +79,14 @@ class SdkHelper < Sinatra::Base
   post '/:locale/toolchains/:toolchain' do
     toolchain = Toolchain.get(params[:toolchain])
     toolchain.install
+    if toolchain
+      if toolchain.installed
+        Flash.to_user _("Toolchain %{toolchain} is already installed", toolchain: toolchain), :Flash.warning
+      else
+      end
+    else
+      Flash.to_user _("No toolchain called %{toolchain} is available", toolchain: toolchain)
+    end
     redirect to("/"+params[:locale]+'/toolchains/')
   end
 
@@ -124,16 +133,16 @@ class SdkHelper < Sinatra::Base
     end
     
     if ! Toolchain.exists(target_toolchain) then
-      # Error - no such toolchain
+      Flash.to_user _(:toolchain_not_available, toolchain: target_toolchain)      
     else
       tc = Toolchain.get(target_toolchain)
       if ! tc.installed
-        # Error - toolchain not installed
+        Flash.to_user _(:toolchain_not_installed, toolchain: target_toolchain)      
       elsif ! Target.exists(name) then
         target = Target.get(name)
         target.create(url, target_toolchain)
       else
-        # Error - Target name exists
+        Flash.to_user _(:target_already_present, name: name)      
       end
     end
     redirect to('/'+params[:locale]+'/targets/')
