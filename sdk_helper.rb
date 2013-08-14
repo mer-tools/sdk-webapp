@@ -22,6 +22,7 @@ class SdkHelper < Sinatra::Base
   use Rack::MethodOverride #this is needed for delete methods
   
   before do
+    pass if request.path_info =~ /\.css$/
     Engine.load
     Target.load
   end
