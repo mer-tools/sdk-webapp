@@ -110,7 +110,6 @@ class Provider
   def self.targetTemplates
     t=[]
     providers.each { |p| t += p.targetTemplates }
-    puts "Provider.targetTemplates is #{t}\n"
     t
   end
 
