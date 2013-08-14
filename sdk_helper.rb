@@ -202,11 +202,6 @@ class SdkHelper < Sinatra::Base
       end
     end
 
-    # Pass to the layout to alert user
-    def tell_user(msg, importance)
-      puts msg
-    end
-
     # -------------------------------- Packages
 
     def packages_list_update

@@ -62,6 +62,20 @@
     </message>
 </context>
 <context>
+    <name>flash_heading</name>
+    <message>
+        <source>flash_heading</source>
+        <translation>A problem occurred during that task</translation>
+    </message>
+</context>
+<context>
+    <name>click_to_acknowledge_flash</name>
+    <message>
+        <source>click_to_acknowledge_flash</source>
+        <translation>Click to remove this warning</translation>
+    </message>
+</context>
+<context>
     <name>clear_progress</name>
     <message>
         <source>clear_progress</source>

@@ -2,6 +2,8 @@
 // index.sass
 // Eventually more variables may be useful
 
+$menu_width: 230px
+
 html, body, div, span, 
 h1, h2, h3, h4, h5, h6,
 p, blockquote, img,
@@ -48,7 +50,7 @@ html, body
 
 .page_bar_wrap
   float: left
-  width: 230px
+  width: $menu_width
   left: 0px
   position: fixed
   height: 100%
@@ -62,7 +64,7 @@ html, body
   position: relative
 
 .content_wrap
-  margin-left: 230px
+  margin-left: $menu_width
   padding-bottom: 180px
 
 .progress_blocker
@@ -76,11 +78,29 @@ html, body
 
 .progress
   position: relative
-  top: 50%
+  top: 30%
+  left: $menu_width
+  height: 70%
+  width: 100%
+  z-index: 100
+
+.flash_blocker
+  position: fixed
+  top: 0
   left: 0
   height: 100%
   width: 100%
+  z-index: 99
+  background-color: rgba(45, 91, 112, 0.6)
+
+.flash
+  position: relative
+  top: 0%
+  left: $menu_width
+  height: 50%
+  width: 100%
   z-index: 100
+  background-color: rgba(100, 40, 40, 0.8)
 
 /* style */ /*-------------------------------------------------------------------------------------------*/
 
@@ -116,7 +136,7 @@ body
 
 .current_tab
   background-image: url("/images/site-vertical-focus.png")
-  background-size: 230px 80px
+  background-size: $menu_width 80px
   background-repeat: no-repeat
   background-position: right
 
@@ -157,7 +177,22 @@ body
 .progress_background
   background-color: rgba(45, 91, 112, 0)
   height: 100%
-  margin-left: 230px
+  padding-top: 30px
+  padding-left: 30px
+  padding-right: 30px
+  padding-bottom: 30px
+
+.flash
+  color: #e3ebed
+  padding-top: 30px
+  padding-left: 30px
+  padding-right: 30px
+  padding-bottom: 30px
+
+.flash_background
+  background-color: rgba(45, 91, 112, 0)
+  height: 100%
+  margin-left: $menu_width
   padding-top: 30px
   padding-left: 30px
   padding-right: 30px
@@ -176,6 +211,10 @@ body
   box-shadow: 3px 3px 5px rgba(0,0,0,0.2)
   min-width: 100%
   max-width: 100%
+
+.flash_header
+  padding-bottom: 20px
+  font-size: 18px
 
 .process_result_ok
   background-color: #3D819B

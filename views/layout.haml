@@ -61,7 +61,20 @@
                       %td
                         .monospace
                         #{CCProcess.status_out}
-
+      - if Flash.active
+        .flash_blocker#flash_display
+          .flash#flash_view
+            .flash_header
+              = _ :flash_heading
+            - Flash.each do |message, importance|
+              .monospace
+                #{message}
+              %hr
+            = _ :click_to_acknowledge_flash
+          :javascript
+            $("#flash_view").click(function () {
+            $("#flash_display").hide()
+            });
 
 
 
