@@ -205,7 +205,7 @@
     <name>local_template_name</name>
     <message>
         <source>local_template_name</source>
-        <translation>Local target name</translation>
+        <translation>Local target name (optional)</translation>
     </message>
 </context>
 <context>

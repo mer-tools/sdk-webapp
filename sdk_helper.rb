@@ -125,7 +125,8 @@ class SdkHelper < Sinatra::Base
     if params.has_key?("template_id") then
       t = Provider.targetTemplates[params[:template_id].to_i]
       url = t['url']
-      name = params[:local_template_name] || t['name']
+      name = params[:local_template_name]
+      name = t['name'] if name == ''
       target_toolchain = t['toolchain']
     else
       name = params[:target_name]
