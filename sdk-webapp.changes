@@ -1,3 +1,12 @@
+* Fri Aug 16 2013 David Greaves <david@dgreaves.com> - 0.6.5-1
+- Correctly allow use of default target name from Provider (and include in translation)
+- Don't preload stuff when just doing css handling
+- Report various errors when adding a target
+- Message presentation via simple 'Flash'
+- Use new Toolchain class
+- Ensure the correct toolchain is installed
+- Use a Toolchain class caching current set
+
 * Fri Jul 26 2013 David Greaves <david@dgreaves.com> - 0.6.4-1
 - Fix provider driven target installation
 - Provide a check to see if a named target already exists
