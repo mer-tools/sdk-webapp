@@ -6,7 +6,8 @@ class Provider
 
   attr_accessor :name, :url, :success
   UPDATE_VALID_PERIOD=7200
-  PROVIDERS_JSON="/etc/mersdk/providers.json"
+  # By default we're running in /usr/lib/sdk-webapp-bundle
+  PROVIDERS_JSON="config/providers.json"
   @@json_mtime = Time.at(0)
 
   def id
@@ -101,7 +102,7 @@ class Provider
   end
 
   def self.save
-    File.open("/etc/mersdk/providers.json","w") do |f|
+    File.open(PROVIDERS_JSON,"w") do |f|
       f.write(JSON.pretty_generate(@@providers))
     end
     @@json_mtime = File.mtime(PROVIDERS_JSON)

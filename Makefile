@@ -14,7 +14,7 @@ install:
 	cp -r --parents $(APPLICATION) $(DESTDIR)$(TARGET)
 	cp -r --parents $(CUSTOMIZATION) $(DESTDIR)$(TARGET)
 	mkdir -p $(DESTDIR)$(TARGET)/.sass-cache/
-	mkdir -p $(DESTDIR)/etc/mersdk
-	cp providers.json $(DESTDIR)/etc/mersdk/providers.json
+	mkdir -p $(DESTDIR)$(TARGET)/config/
+	cp providers.json $(DESTDIR)$(TARGET)/config/
 
 .PHONY: all install
