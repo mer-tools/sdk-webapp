@@ -94,6 +94,7 @@ cp %{_sourcedir}/%{name}.service %{buildroot}%{_unitdir}/
 
 %files
 %defattr(-,root,root,-)
+%defattr(-,mersdk,mersdk)
 %{_libdir}/%{name}-bundle/config.ru
 %{_libdir}/%{name}-bundle/*.rb
 %{_unitdir}/%{name}.service
@@ -102,13 +103,15 @@ cp %{_sourcedir}/%{name}.service %{buildroot}%{_unitdir}/
 %{_libdir}/%{name}-bundle/public/*.js
 %{_libdir}/%{name}-bundle/public/ttf
 %{_libdir}/%{name}-bundle/public/css
-%attr(-,mersdk,mersdk) %{_libdir}/%{name}-bundle/.sass-cache/
+%{_libdir}/%{name}-bundle/.sass-cache/
+%dir %{_libdir}/%{name}-bundle/config
 # >> files
 # << files
 
 %files mer
 %defattr(-,root,root,-)
-%attr(-,mersdk,mersdk) %{_sysconfdir}/mersdk/providers.json
+%defattr(-,mersdk,mersdk)
+%config %{_libdir}/%{name}-bundle/config/providers.json
 %{_libdir}/%{name}-bundle/views/index.sass
 %{_libdir}/%{name}-bundle/public/images
 # >> files mer
@@ -116,6 +119,7 @@ cp %{_sourcedir}/%{name}.service %{buildroot}%{_unitdir}/
 
 %files ts-manual
 %defattr(-,root,root,-)
+%defattr(-,mersdk,mersdk)
 %{_libdir}/%{name}-bundle/i18n/en.ts
 %{_libdir}/%{name}-bundle/i18n/zh_CN.ts
 # >> files ts-manual
@@ -123,6 +127,7 @@ cp %{_sourcedir}/%{name}.service %{buildroot}%{_unitdir}/
 
 %files ts-devel
 %defattr(-,root,root,-)
+%defattr(-,mersdk,mersdk)
 %{_libdir}/%{name}-bundle/i18n/en.ts
 # >> files ts-devel
 # << files ts-devel

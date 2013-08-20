@@ -19,6 +19,7 @@ Requires:
 Configure: none
 SetupOptions: -q -n src
 Files:
+  - '%defattr(-,mersdk,mersdk)'
   - '%{_libdir}/%{name}-bundle/config.ru'
   - '%{_libdir}/%{name}-bundle/*.rb'
   - '%{_unitdir}/%{name}.service'
@@ -27,7 +28,8 @@ Files:
   - '%{_libdir}/%{name}-bundle/public/*.js'
   - '%{_libdir}/%{name}-bundle/public/ttf'
   - '%{_libdir}/%{name}-bundle/public/css'
-  - '%attr(-,mersdk,mersdk) %{_libdir}/%{name}-bundle/.sass-cache/'
+  - '%{_libdir}/%{name}-bundle/.sass-cache/'
+  - '%dir %{_libdir}/%{name}-bundle/config'
 SubPackages:
   - Name: mer
     Summary: Mer customization for SDK management web-application
@@ -36,7 +38,8 @@ SubPackages:
     Provides:
       - sdk-webapp-customization
     Files:
-      - '%attr(-,mersdk,mersdk) %{_sysconfdir}/mersdk/providers.json'
+      - '%defattr(-,mersdk,mersdk)'
+      - '%config %{_libdir}/%{name}-bundle/config/providers.json'
       - '%{_libdir}/%{name}-bundle/views/index.sass'
       - '%{_libdir}/%{name}-bundle/public/images'
   - Name: ts-manual
@@ -44,6 +47,7 @@ SubPackages:
     Description: Translations until pootle is done
     Group: Development Platform/Platform SDK
     Files:
+      - '%defattr(-,mersdk,mersdk)'
       - '%{_libdir}/%{name}-bundle/i18n/en.ts'
       - '%{_libdir}/%{name}-bundle/i18n/zh_CN.ts'
   - Name: ts-devel
@@ -51,5 +55,6 @@ SubPackages:
     Description: Translations for pootle
     Group: Development Platform/Platform SDK
     Files:
+      - '%defattr(-,mersdk,mersdk)'
       - '%{_libdir}/%{name}-bundle/i18n/en.ts'
 Patches: []
