@@ -1,3 +1,6 @@
+* Tue Aug 20 2013 David Greaves <david@dgreaves.com> - 0.6.6-1
+- Move provider json from /etc/mersdk/providers.json to /usr/lib/sdk-webapp-bundle/config
+
 * Fri Aug 16 2013 David Greaves <david@dgreaves.com> - 0.6.5-1
 - Correctly allow use of default target name from Provider (and include in translation)
 - Don't preload stuff when just doing css handling
