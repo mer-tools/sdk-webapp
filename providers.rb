@@ -77,7 +77,7 @@ class Provider
   end
 
   def self.delete(id)
-    @@providers.delete_at(id.to_i)
+    @@providers.delete_at(id.to_i-1)
   end
 
   def self.providers
