@@ -16,6 +16,26 @@
       = _(:explain_packages)
   .clear
 
+  #repos
+    %form{:action => "/#{@language}/targets/#{@target}/repo", :method => 'post'}
+      %table
+        %tbody{:id => "repolist"}
+          -# %script
+            // Hide the packagelist on first load
+            $("#repolist").hide();
+          - Target.get(@target).repos.each_with_index do |repo, count|
+            %tr{:id => count}
+              %td.element_name
+                #{repo.name}
+              %td.install_button
+                - if not installed
+                  %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
+                    %input{:type => "submit", :value => (_ :install), :class => "button"}
+              %td.install_button
+                - if installed
+                  %form{:action => "/#{@language}/targets/#@target/#{package}", :method => "post"}
+                    %input{:type => "submit", :value => (_ :delete), :class => "button", :name=> "_method"}
+  .clear
   #packages_table
     %form{:action => "/#{@language}/targets/add", :method => 'post'}
       %input{:id => "search", :type => "text", :autocomplete => "off", :onkeyup => "pkgFilter.run(this)", :class => "button parameter_text_field"}

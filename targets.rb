@@ -19,6 +19,7 @@ class Target
     @name = name
     @last_update_check=Time.at(0)
     @@targets << self
+    @_repos = nil
     @id = @@targets.size - 1
   end
 
@@ -83,7 +84,14 @@ class Target
   def refresh()
     CCProcess.start("sdk-manage --target --refresh '#{@name}'", (_ :refreshing_target) + " #{@name}", 60*15)
     end
-  
+  # Repositories
+
+  def repos()
+    @_repos if @_repos
+    @_repos = CCProcess.complete("sdk-manage --target --repo #{@name} --list").split(",").map{ |n| Repo.new(n) }
+  rescue CCProcess::Failed
+    @_repos = []
+  end
   # Some class methods to handle iteration and save/load
 
   def self.load
